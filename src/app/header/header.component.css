@@ -1,0 +1,32 @@
+.header-container {
+    width: 100%;
+    height: 40px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 2px 5px 0px #cfcfcf;
+    -moz-box-shadow: 0px 2px 5px 0px #cfcfcf;
+    box-shadow: 0px 2px 5px 0px #cfcfcf;;
+}
+
+.header-container .logo {
+    width: 192px;
+    margin-top: 10px;
+}
+
+.header-container .customer-name, .header-container .username {
+    font-weight: bold;
+    margin-top: 10px
+}
+
+.header-container .customer-name {
+    text-align: center;
+}
+
+.header-container .username {
+    margin-right: 30px;
+    float: right;
+}
+
+.header-container .logo img {
+    margin: auto;
+    display: block;
+}

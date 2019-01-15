@@ -1,0 +1,5 @@
+<app-header [newTitle]="newTitle"></app-header>
+<div class="main">
+    <app-sidebar (getUpdatedCustomerTitle)="displayCustomerTitle($event)"></app-sidebar>
+    <router-outlet></router-outlet>
+</div>

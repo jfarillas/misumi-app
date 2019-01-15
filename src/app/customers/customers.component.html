@@ -1,0 +1,132 @@
+<div class="customer-container">
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="success" class="alert alert-success">{{success}}</div>
+  <div id="theForm">
+    <form #f="ngForm" name="theForm" (submit)="addCustomer(f)">
+        <div class="form-group">
+          <label>Customer Key</label>
+          <input type="text"
+                class="form-control"
+                name="model"
+                [(ngModel)]="customer.customerKey"
+                #accountModel="ngModel"
+                required
+                pattern="^[a-zA-Z0-9]+$">
+          
+        </div>
+
+      <div class="form-group">
+        <label>Customer name</label>
+        <input type="text"
+              class="form-control"
+              name="model"
+              [(ngModel)]="customer.name"
+              #accountModel="ngModel"
+              required
+              pattern="^[a-zA-Z]+$">
+        
+      </div>
+
+      <div class="form-group">
+        <label>Business Registration No</label>
+        <input type="text"
+              class="form-control"
+              name="model"
+              [(ngModel)]="customer.businessRegNo"
+              #accountModel="ngModel"
+              required
+              pattern="^[a-zA-Z0-9-]+$">
+        
+      </div>
+
+      <div class="form-group">
+        <label>Date of Registration</label>
+        <input type="text"
+              class="form-control"
+              name="model"
+              [(ngModel)]="customer.registrationDate"
+              #accountModel="ngModel"
+              required>
+        
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <textarea
+              class="form-control"
+              name="model"
+              [(ngModel)]="customer.address"
+              #accountModel="ngModel"
+              required
+              pattern="^[a-zA-Z]+$" col=10 rows=10></textarea>
+        
+      </div>
+
+      <div class="form-group">
+        <label>Country</label>
+        <ng-select [items]="country$ | async"
+          name="country"
+          bindLabel="name"
+          autofocus
+          bindValue="code"
+          [(ngModel)]="selectedCountryCode" 
+          [ngModelOptions]="{standalone: true}" 
+          ngDefaultControl>
+        </ng-select>
+      </div>
+
+      <div class="form-group">
+        <label>Bank Account No</label>
+        <input type="text"
+              class="form-control"
+              name="model"
+              [(ngModel)]="customer.bankAccountNo"
+              #accountModel="ngModel"
+              required
+              pattern="^[0-9-]+$">
+        
+      </div>
+
+      <div class="form-group">
+        <label>Contact No</label>
+        <input type="text"
+              class="form-control"
+              name="model"
+              [(ngModel)]="customer.contactNo"
+              #accountModel="ngModel"
+              required
+              pattern="^(\+)[0-9]+$">
+        
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <ng-select [items]="status$ | async"
+          name="status"
+          bindLabel="description"
+          autofocus
+          bindValue="code"
+          [(ngModel)]="selectedStatusCode" 
+          [ngModelOptions]="{standalone: true}" 
+          ngDefaultControl>
+        </ng-select>
+      </div>
+
+      <div class="form-group">
+        <label>Remarks</label>
+        <input type="text"
+              class="form-control"
+              name="model"
+              [(ngModel)]="customer.remarks"
+              #accountModel="ngModel"
+              required>
+        
+      </div>
+
+      
+
+      <button class="btn btn-primary btn-sm">Add</button>
+      
+    </form>
+  </div>
+</div>

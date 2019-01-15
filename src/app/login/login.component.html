@@ -1,0 +1,43 @@
+<div class="login-container">
+  <form [formGroup]="rForm" (ngSubmit)="addPost(post)">
+    <div class="form-container">
+      <div class="columns">
+        <div class="logo-login"><img src="assets/img/placeholder-logo-login.png" /></div>
+        <div class="login-sub-text"><h2>Login Panel</h2></div>
+        <div class="form-group username">
+          <input type="text"
+                class="form-control"
+                name="model"
+                [(ngModel)]="login.name"
+                [ngModelOptions]="{standalone: true}"
+                #loginModel="ngModel"
+                placeholder="Username"
+                required
+                pattern="^[a-zA-Z]+$">
+          <div class="container-fa-user">
+            <i class="fas fa-user fa-lg"></i>
+          </div>
+          
+        </div>  
+        <div class="form-group password">
+          <input type="password"
+                class="form-control"
+                name="model"
+                [(ngModel)]="login.password"
+                [ngModelOptions]="{standalone: true}"
+                #loginModel="ngModel"
+                placeholder="Password"
+                required>
+          <div class="container-fa-key">
+            <i class="fas fa-key fa-lg"></i>
+          </div>
+        </div>
+        <input type="submit" class="btn-expanded btn btn-primary btn-sm" value="Log in"> 
+        <div class="forgot-password"><a routerLink="/accounts" routerLinkActive="active">Create an account</a></div>
+        <div class="callout-error" *ngIf="loginError"><span>Invalid username or password</span></div>
+          
+        <!-- <input type="submit" class="button expanded" value="Login" [disabled]="!rForm.valid"> -->
+      </div>
+    </div>
+  </form>
+</div>

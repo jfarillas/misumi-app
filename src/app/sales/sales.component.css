@@ -1,0 +1,7 @@
+.list-group-item.row, #theForm {
+    clear: both;
+}
+
+#theForm {
+    margin-top: 50px;
+}

@@ -1,0 +1,8 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+body {
+    background-color: #e6e6e6 !important;
+}
+
+.modal-content {
+    padding: 10px !important;
+}

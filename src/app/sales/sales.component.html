@@ -1,0 +1,171 @@
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<div *ngIf="success" class="alert alert-success">{{success}}</div>
+<div id="theForm">
+  <h2>Add sales</h2>
+  <form #f="ngForm" name="theForm" (submit)="addSales(f)">
+    <div class="form-group">
+      <label>PIC name</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.picName"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>PIC contact</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.picContact"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <!-- select -->
+      <label>Gender</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.gender"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <!-- select -->
+      <label>Status</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.status"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Customer</label>
+      <!-- Select -->
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.customersId"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Payment terms</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.paymentTerms"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Remarks</label>
+      <!-- textarea -->
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.remarks"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Invoices ref</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.invoicesRef"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Invoices</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.invoices"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Payments</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.payments"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Cost</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.cost"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Profit</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.profit"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+
+    <div class="form-group">
+      <label>Lost</label>
+      <input type="text"
+            class="form-control"
+            name="model"
+            [(ngModel)]="sale.lost"
+            #accountModel="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      
+    </div>
+    
+
+    <button class="btn btn-primary btn-sm">Add</button>
+    
+  </form>
+</div>
+

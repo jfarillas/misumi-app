@@ -1,0 +1,29 @@
+.sidebar-a {
+    width: 192px;
+    float: left;
+    padding-top: 8px;
+    background-color: #124366;
+}
+
+.sidebar-a ul, .sidebar-a ul.menu > li a {
+    padding: 0;
+}
+
+.sidebar-a ul.menu > li a div {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.sidebar-a ul.menu > li a div .fa-user-friends, .sidebar-a ul.menu > li a div .fa-plus, .sidebar-a ul.menu > li a div .fa-sign-out-alt {
+    margin-right: 6px;
+}
+
+.sidebar-a ul.menu > li a.active {
+    display: block;
+    background-color: #2b8bd9;
+}
+
+ul.menu > li {
+    list-style-type: none;
+}

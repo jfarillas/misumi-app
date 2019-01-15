@@ -1,0 +1,106 @@
+.login-container {
+    width: 387px;
+    position: fixed;
+    padding: 42px 49px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 2px 5px 0px #cfcfcf;;
+    -moz-box-shadow: 0px 2px 5px 0px #cfcfcf;;
+    box-shadow: 0px 2px 5px 0px #cfcfcf;;
+}
+
+.logo-login {
+    width: 100%;
+    margin-bottom: 38px;
+}
+
+.logo-login img {
+    margin: auto;
+    display: block;
+}
+
+.login-container .login-sub-text {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.login-container .login-sub-text h2 {
+    font-size: 16px;
+    text-align: center;
+}
+
+.login-container .form-group {
+    margin-bottom: 0;
+}
+
+.login-container .form-group.username {
+    margin-bottom: 10px;
+}
+
+.login-container .form-group.username, .login-container .form-group.password {
+    position: relative;
+}
+
+.login-container .form-group.username input, .login-container .form-group.password input {
+    padding-left: 60px;
+    background-color: #e6e6e6;
+    color: #6e6e6e;
+}
+
+.login-container .form-group.username input:focus, .login-container .form-group.password input:focus, .login-container .form-group.username input:hover, .login-container .form-group.password input:hover {
+    background-color: #e6e6e6;
+    color: #6e6e6e;
+}
+
+.login-container .form-group.username .container-fa-user, .login-container .form-group.password .container-fa-key {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #dbdbdb;
+}
+
+.login-container .form-group.password {
+    margin-bottom: 15px;
+}
+
+.login-container .fa-user, .login-container .fa-key {
+    position: absolute;
+    top: 11px;
+    left: 10px;
+    color: #b0b0b0;
+}
+
+.login-container form .btn-expanded {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #2b8bd9;
+    margin-bottom: 25px;
+}
+
+.login-container .forgot-password {
+    margin-bottom: 25px;
+}
+
+.login-container .forgot-password a {
+    float: right;
+    font-size: 14px;
+    color: #89898c;
+}
+
+.login-container .callout-error {
+    text-align: center;
+}
+
+.login-container .callout-error span {
+    color: #ff0000;
+    font-size: 14px;
+}
