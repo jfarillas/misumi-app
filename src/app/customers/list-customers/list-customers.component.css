@@ -1,6 +1,5 @@
 .list-customers {
-    margin: 10px;
+    margin: 20px 25px;
     float: left;
-    width: 100%;
-    max-width: 60%;
+    width: 60%;
 }
