@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './home/profile/profile.component';
+import { ProfileComponent } from './customers/list-customers/profile/profile.component';
 import { CustomersComponent } from './customers/customers.component';
 import { SalesComponent } from './sales/sales.component';
 import { SidebarComponent } from './sidebar/sidebar.component';

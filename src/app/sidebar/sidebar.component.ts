@@ -46,14 +46,9 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeTitleCustomers() {
+  changeTitleCustomers(headerTitle: string) {
     this.getUpdatedCustomerTitle.subscribe((title: string) => this.changeTitle(title));
-    this.getUpdatedCustomerTitle.emit('Customers');
-  }
-
-  changeTitleNewCustomer() {
-    this.getUpdatedCustomerTitle.subscribe((title: string) => this.changeTitle(title));
-    this.getUpdatedCustomerTitle.emit('Create New Customer');
+    this.getUpdatedCustomerTitle.emit(headerTitle);
   }
 
   changeTitle(title: string) {
