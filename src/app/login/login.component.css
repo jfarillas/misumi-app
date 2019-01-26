@@ -50,9 +50,10 @@
     color: #6e6e6e;
 }
 
-.login-container .form-group.username input:focus, .login-container .form-group.password input:focus, .login-container .form-group.username input:hover, .login-container .form-group.password input:hover {
-    background-color: #e6e6e6;
-    color: #6e6e6e;
+.login-container .form-group.username input:-webkit-autofill, .login-container .form-group.username input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #6e6e6e;
+    box-shadow: 0 0 0px 1000px #e6e6e6 inset;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .login-container .form-group.username .container-fa-user, .login-container .form-group.password .container-fa-key {

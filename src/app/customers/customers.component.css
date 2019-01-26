@@ -1,7 +1,129 @@
-.list-group-item.row, #theForm {
-    clear: both;
+.customer-container #theForm {
+    margin: 20px 25px;
+    float: left;
+    width: 60%;
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 2px 5px 0px #cfcfcf;;
+    -moz-box-shadow: 0px 2px 5px 0px #cfcfcf;;
+    box-shadow: 0px 2px 5px 0px #cfcfcf;;
 }
 
-#theForm {
-    margin-top: 50px;
+.customer-container .form-group {
+    margin: 15px 0;
+}
+
+.customer-container .form-group label {
+    margin-right: -15px;
+    font-size: 12px;
+    float: left;
+    line-height: 30px;
+    padding: 0;
+}
+
+.customer-container .form-group .company-name {
+    line-height: 15px;
+}
+
+.customer-container .form-group .address, .customer-container .form-group .contact-no {
+    line-height: 18px;
+}
+
+.customer-container .form-group .postal-code, .customer-container .form-group .misc-details {
+    line-height: 35px;
+}
+
+.customer-container .form-group .sales-payment-details {
+    line-height: 13px;
+    margin-bottom: 0;
+}
+
+.customer-container .form-group input, .customer-container .form-group textarea, .customer-container .form-group ng-select {
+    margin-left: -15px;
+    float: left;
+    height: 25px;
+    width: 225px;
+    color: #6e6e6e;
+    font-size: 12px;
+}
+
+.customer-container .form-group input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #6e6e6e;
+    box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.customer-container .form-group input::placeholder {
+    color: #ced4da;
+    font-size: 12px;
+}
+
+.customer-container .form-group .datepicker-custom {
+    position: absolute;
+    right: 15px;
+}
+
+.customer-container .form-group .datepicker-custom button {
+    padding: 0 5px;
+    border: none;
+}
+
+.customer-container .form-group .datepicker-custom button:hover {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.customer-container .form-group.gender {
+    width: 100%;
+}
+
+.customer-container .form-group.gender .lbl_gender {
+    width: 225px;
+    overflow: auto;
+}
+
+.customer-container .form-group.gender label.lbl_g_1 {
+    width: 133px;
+    margin-left: 8px;
+}
+
+.customer-container .form-group.gender input {
+    width: 40px;
+}
+
+.customer-container .form-group .expanded {
+    width: 97.5% !important;
+    margin-left: 0;
+}
+
+.customer-container .form-group .remarks-container {
+    margin: 0 -15px;
+    overflow: auto;
+}
+
+.alert.alert-danger.custom, .alert.alert-success.custom {
+    width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.customer-container .submit-container {
+    width: 60%;
+    overflow: auto;
+    position: absolute;
+    margin: 15px 0;
+    font-size: 12px;
+}
+
+.customer-container .submit-container span {
+    margin-left: 15px;
+    color: #ff0000;
+}
+
+.customer-container .submit-container button {
+    float: right;
+    padding: 5px 42px;
+    background-color: #2b8bd9;
+    font-weight: bold;
+    font-size: 12px;
 }

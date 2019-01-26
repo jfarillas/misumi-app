@@ -7,6 +7,10 @@
     box-shadow: 0px 2px 5px 0px #cfcfcf;;
 }
 
+.header-container .section {
+    margin-right: 0;
+}
+
 .header-container .logo {
     width: 192px;
     margin-top: 10px;

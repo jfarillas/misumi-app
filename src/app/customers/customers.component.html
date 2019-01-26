@@ -1,131 +1,385 @@
 <div class="customer-container">
-  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-  <div *ngIf="success" class="alert alert-success">{{success}}</div>
   <div id="theForm">
+    <div *ngIf="error" class="alert alert-danger custom">{{error}}</div>
+    <div *ngIf="success" class="alert alert-success custom">{{success}}</div>
     <form #f="ngForm" name="theForm" (submit)="addCustomer(f)">
-        <div class="form-group">
-          <label>Customer Key</label>
-          <input type="text"
+      <div class="row">
+        <div class="col">
+          <div class="row form-group">
+            <div class="col">
+              <label>Customer Key*</label>
+            </div>
+            <div class="col">
+                <input type="text"
                 class="form-control"
                 name="model"
                 [(ngModel)]="customer.customerKey"
                 #accountModel="ngModel"
+                placeholder="Eg. LOREM-SG"
                 required
                 pattern="^[a-zA-Z0-9]+$">
-          
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col">
+              <label>Business Reg No*</label>
+            </div>
+            <div class="col">
+              <input type="text"
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.businessRegNo"
+                    #accountModel="ngModel"
+                    placeholder="Eg. 201812345G"
+                    required
+                    pattern="^[a-zA-Z0-9-]+$">
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col">
+              <label class="company-name">Company Name / Individual Buyer*</label>
+            </div>
+            <div class="col">
+              <input type="text"
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.name"
+                    #accountModel="ngModel"
+                    placeholder="Eg. Company Name Pte. Ltd."
+                    required
+                    pattern="^[a-zA-Z]+$">
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col">
+              <label>Date of Registration*</label>
+            </div>
+            <div class="col">
+              <input type="text"
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.registrationDate"
+                    #accountModel="ngModel" 
+                    placeholder="dd-mm-yyyy" 
+                    name="d2" 
+                    ngbDatepicker #d2="ngbDatepicker"
+                    required>
+              <div class="input-group-append datepicker-custom">
+                <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"><i class="far fa-calendar-alt fa-sm"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col">
+              <label class="address">Address*</label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.streetName"
+                    #accountModel="ngModel"
+                    placeholder="Street Name"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label></label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.buildingName"
+                    #accountModel="ngModel"
+                    placeholder="Building Name"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label></label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.unitNo"
+                    #accountModel="ngModel"
+                    placeholder="Unit No."
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label class="postal-code">&nbsp;</label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.postalCode"
+                    #accountModel="ngModel"
+                    placeholder="Postal Code"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col">
+              <label>Country*</label>
+            </div>
+            <div class="col">
+              <ng-select [items]="country$ | async"
+                name="country"
+                bindLabel="name"
+                bindValue="code"
+                [(ngModel)]="selectedCountryCode" 
+                [ngModelOptions]="{standalone: true}" 
+                ngDefaultControl 
+                class="custom">
+              </ng-select>
+            </div>
+          </div>
+
+          <div class="row form-group">
+              <div class="col">
+                <label>Bank Account No*</label>
+              </div>
+              <div class="col">
+                <input type="text"
+                      class="form-control"
+                      name="model"
+                      [(ngModel)]="customer.bankAccountNo"
+                      #accountModel="ngModel"
+                      placeholder="123-12345-1"
+                      required
+                      pattern="^[0-9-]+$">
+              </div>
+            </div>
         </div>
+        <div class="col">
+          <div class="row form-group">
+            <div class="col">
+              <label class="contact-no">Contact*</label>
+            </div>
+            <div class="col">
+              <input type="text"
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.contactNo"
+                    #accountModel="ngModel"
+                    placeholder="Main Contact No."
+                    required
+                    pattern="^(\+)[0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label></label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.contactName"
+                    #accountModel="ngModel"
+                    placeholder="Name of Main Contact"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label></label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.email"
+                    #accountModel="ngModel"
+                    placeholder="E-mail Address"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label></label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.faxNo"
+                    placeholder="Fax No."
+                    #accountModel="ngModel"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label></label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.contactMisc"
+                    #accountModel="ngModel"
+                    placeholder="Misc."
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
 
-      <div class="form-group">
-        <label>Customer name</label>
-        <input type="text"
-              class="form-control"
-              name="model"
-              [(ngModel)]="customer.name"
-              #accountModel="ngModel"
-              required
-              pattern="^[a-zA-Z]+$">
-        
+          <div class="row form-group gender">
+            <div class="col">
+              <label>Gender*</label>
+            </div>
+            <div class="col">
+              <div class="lbl_gender">
+                <!-- Male & Female-->
+                <div *ngFor="let gender of genders; let i = index">
+                  <label class="lbl_g_{{i + 1}}">
+                    <input type="radio" 
+                    value="{{gender.value}}" 
+                    name="gender" 
+                    [(ngModel)]="selectedGender" 
+                    class="gender"> {{gender.label}}
+                  </label>
+                </div>
+                <!-- end -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col">
+              <label>Origin*</label>
+            </div>
+            <div class="col">
+              <input type="text"
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.origin"
+                    #accountModel="ngModel"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+
+          <!-- Sales/payment details-->
+          <div class="row form-group">
+            <div class="col">
+              <label class="sales-payment-details">Sales / Payment / Banking Details</label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.salesDetails"
+                    #accountModel="ngModel"
+                    placeholder="Sales Details"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label></label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.paymentDetails"
+                    #accountModel="ngModel"
+                    placeholder="Payment Details"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label></label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.bankingDetails"
+                    #accountModel="ngModel"
+                    placeholder="Banking Details"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label class="misc-details">&nbsp;</label>
+            </div>
+            <div class="col">
+              <input
+                    class="form-control"
+                    name="model"
+                    [(ngModel)]="customer.miscDetails"
+                    #accountModel="ngModel"
+                    placeholder="Misc. Details"
+                    required
+                    pattern="^[a-zA-Z0-9]+$">
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col">
+              <label>Status*</label>
+            </div>
+            <div class="col">
+              <ng-select [items]="status$ | async"
+                name="status"
+                bindLabel="description"
+                bindValue="code"
+                [(ngModel)]="selectedStatusCode" 
+                [ngModelOptions]="{standalone: true}" 
+                ngDefaultControl 
+                class="custom">
+              </ng-select>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="form-group">
-        <label>Business Registration No</label>
-        <input type="text"
-              class="form-control"
-              name="model"
-              [(ngModel)]="customer.businessRegNo"
-              #accountModel="ngModel"
-              required
-              pattern="^[a-zA-Z0-9-]+$">
-        
+      <div class="row form-group">
+        <div class="col-2">
+          <label class="extended">Remarks</label>
+        </div>
+        <div class="col-10">
+          <div class="remarks-container">
+            <input type="text"
+                  class="form-control expanded"
+                  name="model"
+                  [(ngModel)]="customer.remarks"
+                  #accountModel="ngModel"
+                  required>
+          </div>
+        </div>   
       </div>
-
-      <div class="form-group">
-        <label>Date of Registration</label>
-        <input type="text"
-              class="form-control"
-              name="model"
-              [(ngModel)]="customer.registrationDate"
-              #accountModel="ngModel"
-              required>
-        
+       
+      <div class="submit-container">
+        <span>*required</span>
+        <button class="btn btn-primary btn-sm">Confirm & Save</button>
       </div>
-
-      <div class="form-group">
-        <label>Address</label>
-        <textarea
-              class="form-control"
-              name="model"
-              [(ngModel)]="customer.address"
-              #accountModel="ngModel"
-              required
-              pattern="^[a-zA-Z]+$" col=10 rows=10></textarea>
-        
-      </div>
-
-      <div class="form-group">
-        <label>Country</label>
-        <ng-select [items]="country$ | async"
-          name="country"
-          bindLabel="name"
-          autofocus
-          bindValue="code"
-          [(ngModel)]="selectedCountryCode" 
-          [ngModelOptions]="{standalone: true}" 
-          ngDefaultControl>
-        </ng-select>
-      </div>
-
-      <div class="form-group">
-        <label>Bank Account No</label>
-        <input type="text"
-              class="form-control"
-              name="model"
-              [(ngModel)]="customer.bankAccountNo"
-              #accountModel="ngModel"
-              required
-              pattern="^[0-9-]+$">
-        
-      </div>
-
-      <div class="form-group">
-        <label>Contact No</label>
-        <input type="text"
-              class="form-control"
-              name="model"
-              [(ngModel)]="customer.contactNo"
-              #accountModel="ngModel"
-              required
-              pattern="^(\+)[0-9]+$">
-        
-      </div>
-
-      <div class="form-group">
-        <label>Status</label>
-        <ng-select [items]="status$ | async"
-          name="status"
-          bindLabel="description"
-          autofocus
-          bindValue="code"
-          [(ngModel)]="selectedStatusCode" 
-          [ngModelOptions]="{standalone: true}" 
-          ngDefaultControl>
-        </ng-select>
-      </div>
-
-      <div class="form-group">
-        <label>Remarks</label>
-        <input type="text"
-              class="form-control"
-              name="model"
-              [(ngModel)]="customer.remarks"
-              #accountModel="ngModel"
-              required>
-        
-      </div>
-
-      
-
-      <button class="btn btn-primary btn-sm">Add</button>
       
     </form>
   </div>

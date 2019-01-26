@@ -20,7 +20,7 @@ export class CustomersService {
   store(customer: Customers): Observable<Customers[]> {
     console.log("Customer to be added:");
     console.log(customer);
-    return this.http.post(`${this.baseUrl}/store.php`, { data: customer })
+    return this.http.post(`${this.baseUrl}/store`, { data: customer })
       .pipe(map((res) => {
         //this.customers.push(res['data']);
         return this.customers;

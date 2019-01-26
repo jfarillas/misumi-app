@@ -1,17 +1,14 @@
-export class Customers {
+export class ListCustomers {
     constructor(
       public customerKey:       string,
       public name:              string,
-      public businessRegNo:     string,
-      public registrationDate:  string,
-      public regDateYear:       string,
-      public regDateMonth:      string,
-      public regDateDay:        string,
       public streetName:        string,
       public buildingName:      string,
       public unitNo:            string,
       public postalCode:        string,
       public country:           string,
+      public businessRegNo:     string,
+      public registrationDate:  string,
       public bankAccountNo:     string,
       public contactNo:         string,
       public contactName:       string,

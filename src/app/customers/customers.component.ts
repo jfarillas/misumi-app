@@ -1,25 +1,46 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Customers } from './customers';
 import { CustomersService } from './_services/customers.service';
 
 import { DataService, Country, CustomerStatus } from '../shared/data.service';
+// import { NgbDateCustomParserFormatter } from '../shared/dateformat';
 
 import { FormControl, NgForm, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+import { NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateCustomParserFormatter } from "../shared/dateformat";
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-customer',
   templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.css']
+  styleUrls: ['./customers.component.css'],
+  providers: [
+    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+   ]
 })
 export class CustomersComponent implements OnInit {
+
   customers: Customers[];
   error = '';
   success = '';
-  customer = new Customers('', '', '', '', '', '', '', '', '', '');
+  customer = new Customers('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+
+  // Gender
+  genders: any[] = [
+    {
+      "value": "male",
+      "label": "Male"
+    },
+    {
+      "value": "female",
+      "label": "Female"
+    }
+  ];
+  selectedGender: string = 'male';
 
   constructor(
     private customerService: CustomersService,
@@ -41,6 +62,7 @@ export class CustomersComponent implements OnInit {
       console.log(this.selectedCountryCode);
       this.customer.country = this.selectedCountryCode;
       console.log('Country prop value :: '+this.customer.country);
+      
     });
 
     // Status filters
@@ -70,6 +92,17 @@ export class CustomersComponent implements OnInit {
     console.log('Country new prop value :: '+this.selectedCountryCode+' Status new prop value :: '+this.selectedStatusCode);
     this.customer.country = this.selectedCountryCode;
     this.customer.status = this.selectedStatusCode;
+    this.customer.gender = this.selectedGender;
+
+    // Date format for DB
+    let registrationDateFormat: object = Object.values(this.customer.registrationDate);
+    let regYearDateFormat: string = registrationDateFormat[0];
+    let regMonthDateFormat: string = (registrationDateFormat[1] < 10) ? '0'+registrationDateFormat[1] : registrationDateFormat[1];
+    let regDayDateFormat: string = (registrationDateFormat[2] < 10) ? '0'+registrationDateFormat[2] : registrationDateFormat[2];
+    console.log(regYearDateFormat+'-'+regMonthDateFormat+'-'+regDayDateFormat);
+    this.customer.regDateYear = regYearDateFormat;
+    this.customer.regDateMonth = regMonthDateFormat;
+    this.customer.regDateDay = regDayDateFormat
 
     this.customerService.store(this.customer)
       .subscribe((res: Customers[]) => {

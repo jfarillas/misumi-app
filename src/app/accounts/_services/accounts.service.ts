@@ -20,7 +20,7 @@ export class AccountsService {
   store(account: Accounts): Observable<Accounts[]> {
     console.log("Account to be added:");
     console.log(account);
-    return this.http.post(`${this.baseUrl}/store.php`, { data: account })
+    return this.http.post(`${this.baseUrl}/store`, { data: account })
       .pipe(map((res) => {
         //this.accounts.push(res['data']);
         return this.accounts;

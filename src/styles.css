@@ -6,3 +6,16 @@ body {
 .modal-content {
     padding: 10px !important;
 }
+
+ng-select.custom, ng-select.custom .ng-select-container {
+    height: 25px !important;
+    min-height: 25px !important;
+}
+
+ng-select.custom .ng-value-container {
+    font-size: 12px;
+}
+
+.list-customers table th .mat-sort-header-container .mat-sort-header-arrow{
+    display: none !important;
+}
