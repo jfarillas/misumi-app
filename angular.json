@@ -33,8 +33,7 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "node_modules/country-select-js/build/js/countrySelect.js",
-              "node_modules/chart.js/src/chart.js"
+              "node_modules/country-select-js/build/js/countrySelect.js"
             ]
           },
           "configurations": {
