@@ -35,8 +35,8 @@
         </span></th>
       </tr>
     </thead>
-    <tbody *ngIf=!isSorted>
-      <tr *ngFor="let customer of listCustomers | async | listCustomers:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
+    <tbody *ngIf="!isSorted">
+      <tr (click)="openProfile.emit(customer)" *ngFor="let customer of listCustomers | async | listCustomers:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
         <td>{{customer.customerKey}}</td>
         <td>{{customer.businessRegNo}}</td>
         <td>{{customer.name}}</td>
@@ -44,14 +44,16 @@
         <td>{{customer.status}}</td>
       </tr>
     </tbody>
-    <tbody *ngIf=isSorted>
-        <tr *ngFor="let customer of listCustomersSorted | listCustomers:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
-          <td>{{customer.customerKey}}</td>
-          <td>{{customer.businessRegNo}}</td>
-          <td>{{customer.name}}</td>
-          <td>{{customer.contactNo}}</td>
-          <td>{{customer.status}}</td>
-        </tr>
-      </tbody>
+    <tbody *ngIf="isSorted">
+      <tr (click)="openProfile.emit(customer)" *ngFor="let customer of listCustomersSorted | listCustomers:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
+        <td>{{customer.customerKey}}</td>
+        <td>{{customer.businessRegNo}}</td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.contactNo}}</td>
+        <td>{{customer.status}}</td>
+      </tr>
+    </tbody>
   </table>
+  <template #profilecontainer>
+  </template>
 </div>

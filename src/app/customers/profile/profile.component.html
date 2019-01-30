@@ -1,0 +1,138 @@
+<div class="profile-container">
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="col label">Customer Key</div>
+        <div class="col details">{{customer.customerKey}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Business Reg No</div>
+        <div class="col details">{{customer.businessRegNo}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Company Name/<br>Individual Buyer</div>
+        <div class="col details">{{customer.name}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Date of Registration</div>
+        <div class="col details">{{customer.registrationDate | date:'dd MMMM yyyy'}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Address</div>
+        <div class="col details">{{customer.streetName}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details">{{customer.buildingName}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details">{{customer.unitNo}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details">{{customer.postalCode}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Country</div>
+        <div class="col details">{{country}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Contact</div>
+        <div class="col details">{{customer.contactNo}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details">{{customer.contactName}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details">{{customer.email}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details">{{customer.faxNo}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details">{{customer.contactMisc}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Gender</div>
+        <div class="col details">{{customer.gender | titlecase}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Origin</div>
+        <div class="col details">{{customer.origin}}</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col label">Financial Status</div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          [colors]="chartColors"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Sales/Payment/<br>Banking Details</div>
+        <div class="col details">{{customer.salesDetails}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details spb-details">{{customer.paymentDetails}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details spb-details">{{customer.bankingDetails}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+        <div class="col details spb-details">{{customer.miscDetails}}</div>
+      </div>
+      <div class="row">
+        <div class="col">&nbsp;</div>
+      </div>
+      <div class="row">
+        <div class="col label">Remarks</div>
+        <div class="col details">{{customer.remarks}}</div>
+      </div>
+    </div>
+  </div>
+</div>

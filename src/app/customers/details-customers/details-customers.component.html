@@ -1,0 +1,10 @@
+<app-tabs>
+  <app-tab [tabTitle]="''">
+    <app-list-customers
+      (openProfile)="openCustomerProfile($event)">
+    </app-list-customers>
+  </app-tab>
+</app-tabs>
+<ng-template let-customer="customer" #profileContainer>
+  <app-profile [getCustomer]="customer"></app-profile>
+</ng-template>

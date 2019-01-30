@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './customers/list-customers/profile/profile.component';
+import { ProfileComponent } from './customers/profile/profile.component';
 import { CustomersComponent } from './customers/customers.component';
 import { SalesComponent } from './sales/sales.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -25,6 +25,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSortModule, MatTableModule } from '@angular/material';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ListCustomersPipe } from './customers/list-customers/list-customers.pipe';
+import { DetailsCustomersComponent } from './customers/details-customers/details-customers.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { TabComponent } from './tab/tab.component';
+import { DynamicTabsDirective } from './tabs/dynamic-tabs.directive';
+import { ChartsModule } from 'ng2-charts';
 
 const routes: Routes = [
 
@@ -33,7 +38,7 @@ const routes: Routes = [
     { path: '', component: HomeComponent,canActivate: [AuthguardService],
     children: [
         // { path: '', redirectTo: 'login', pathMatch: 'full' },
-        { path: 'customers', component: ListCustomersComponent,canActivate: [AuthguardService] },
+        { path: 'customers', component: DetailsCustomersComponent,canActivate: [AuthguardService] },
         { path: 'new-customer', component: CustomersComponent,canActivate: [AuthguardService] },
         { path: 'sales', component: SalesComponent,canActivate: [AuthguardService] },
       ] },
@@ -56,6 +61,10 @@ const routes: Routes = [
     HeaderComponent,
     ListCustomersComponent,
     ListCustomersPipe,
+    DetailsCustomersComponent,
+    TabsComponent,
+    TabComponent,
+    DynamicTabsDirective,
   ],
   imports: [
     BrowserModule,
@@ -70,14 +79,20 @@ const routes: Routes = [
     NgSelectModule,
     MatTableModule,
     MatSortModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [
     AuthenticationService,
     AuthguardService,
-    HeaderComponent
+    HeaderComponent,
+    ListCustomersComponent
   ],
   bootstrap: [AppComponent],
+  entryComponents: [
+    TabComponent,
+    ProfileComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

@@ -1,4 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Pipe, PipeTransform } from '@angular/core';
+import { 
+  Component, 
+  OnInit, 
+  ChangeDetectionStrategy, 
+  ViewChild, 
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ComponentFactory,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { ListCustomers } from './list-customers';
 import { ListCustomersService } from './_services/list-customers.service';
 
@@ -23,8 +35,10 @@ import { Sort } from '@angular/material';
 export class ListCustomersComponent implements OnInit {
 
   //listCustomers: Promise<ListCustomers[]>;
-  listCustomers: any = [];
-  listCustomersSorted: any = [];
+  @Input() listCustomers: any = [];
+  @Input() listCustomersSorted: any = [];
+  @Input() getCustomer: any;
+  @Output() openProfile = new EventEmitter<any>();
   error = '';
   success = '';
 
@@ -48,7 +62,13 @@ export class ListCustomersComponent implements OnInit {
   sortActiveFourth: boolean = false;
   sortActiveFifth: boolean = false;
 
-  constructor(private listCustomersService: ListCustomersService) { }
+  // Load profile component when a specific record has been selected
+  @ViewChild('profilecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
+
+  constructor(
+    private listCustomersService: ListCustomersService,
+    private resolver: ComponentFactoryResolver
+  ) { }
 
   ngOnInit() {
     this.getCustomers();
@@ -67,12 +87,6 @@ export class ListCustomersComponent implements OnInit {
   }
 
   sortData(sort: Sort, sortedData: any) {
-    console.log(sort);
-    console.log(this.sortActiveFirst);
-    console.log(this.sortActiveSecond);
-    console.log(this.sortActiveThird);
-    console.log(this.sortActiveFourth);
-    console.log(this.sortActiveFifth);
     switch (sort.active) {
       case 'customerKey': 
         this.sortDirectionFirst = sort.direction != '' ? true : false; 
@@ -136,6 +150,18 @@ export class ListCustomersComponent implements OnInit {
 
   toggleHeaderListFifth() {
     this.isHeaderFifthClicked = !this.isHeaderFifthClicked;
+  }
+
+  // Get the customer data to carry over on profile tab
+  showCustomerProfile(customer: any) {
+    this.openProfile.subscribe((data: any) => this.customerProfile(data));
+    this.openProfile.emit(customer);
+  }
+
+  customerProfile(data: any) {
+    this.getCustomer = data;
+    console.log('from list customer...');
+    console.log(this.getCustomer);
   }
 
 }

@@ -76,13 +76,6 @@ export class CustomersComponent implements OnInit {
     });
   }
 
-  /* getAccounts(): void {
-    this.customerService.getAll().subscribe((res: Account[]) => {
-      this.customers = res;
-    }, (err) => {
-      this.error = err;
-    });
-  } */
   addCustomer(f: {
     reset: () => void;
   }) {

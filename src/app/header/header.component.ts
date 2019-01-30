@@ -1,4 +1,12 @@
-import { Component, OnInit, OnChanges, ChangeDetectionStrategy, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
+import { 
+  Component, 
+  OnInit, 
+  OnChanges, 
+  ChangeDetectionStrategy, 
+  Output, 
+  Input, 
+  EventEmitter, 
+  SimpleChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
