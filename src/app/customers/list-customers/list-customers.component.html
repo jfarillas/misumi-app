@@ -8,28 +8,27 @@
     <div class="container-fa-search">
       <i class="fas fa-search fa-lg"></i>
     </div>
-    
   </div> 
   <table class="table" matSort (matSortChange)="sortData($event, sortedData)">
     <thead>
       <tr>
-        <th scope="col" mat-sort-header="customerKey">Customer Key<span class="sort">
+        <th scope="col" mat-sort-header="customerKey" class="d-inline-block col-2">Customer Key<span class="sort">
           <i *ngIf="sortDirectionFirst" (click)="toggleHeaderListFirst()" [ngClass]="isHeaderFirstClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
           <i *ngIf="sortActiveFirst && !sortDirectionFirst" (click)="toggleHeaderListFirst()" class="fas fa-sort"></i>
         </span></th>
-        <th scope="col" mat-sort-header="businessRegNo">Business Reg No.<span class="sort">
+        <th scope="col" mat-sort-header="businessRegNo" class="d-inline-block col-2">Business Reg No.<span class="sort">
           <i *ngIf="sortDirectionSecond" (click)="toggleHeaderListSecond()" [ngClass]="isHeaderSecondClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
           <i *ngIf="sortActiveSecond && !sortDirectionSecond" (click)="toggleHeaderListSecond()" class="fas fa-sort"></i>
         </span></th>
-        <th scope="col" mat-sort-header="name">Company Name / Individual Buyer<span class="sort">
+        <th scope="col" mat-sort-header="name" class="d-inline-block col-4">Company Name / Individual Buyer<span class="sort">
           <i *ngIf="sortDirectionThird" (click)="toggleHeaderListThird()" [ngClass]="isHeaderThirdClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
           <i *ngIf="sortActiveThird && !sortDirectionThird" (click)="toggleHeaderListThird()" class="fas fa-sort"></i>
         </span></th>
-        <th scope="col" mat-sort-header="contactNo">Contact No.<span class="sort">
+        <th scope="col" mat-sort-header="contactNo" class="d-inline-block col-2">Contact No.<span class="sort">
           <i *ngIf="sortDirectionFourth" (click)="toggleHeaderListFourth()" [ngClass]="isHeaderFourthClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
           <i *ngIf="sortActiveFourth && !sortDirectionFourth" (click)="toggleHeaderListFourth()" class="fas fa-sort"></i>
         </span></th>
-        <th scope="col" mat-sort-header="status">Status<span class="sort">
+        <th scope="col" mat-sort-header="status" class="d-inline-block col-2">Status<span class="sort">
           <i *ngIf="sortDirectionFifth" (click)="toggleHeaderListFifth()" [ngClass]="isHeaderFifthClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
           <i *ngIf="sortActiveFifth && !sortDirectionFifth" (click)="toggleHeaderListFifth()" class="fas fa-sort"></i>
         </span></th>
@@ -37,20 +36,20 @@
     </thead>
     <tbody *ngIf="!isSorted">
       <tr (click)="openProfile.emit(customer)" *ngFor="let customer of listCustomers | async | listCustomers:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
-        <td>{{customer.customerKey}}</td>
-        <td>{{customer.businessRegNo}}</td>
-        <td>{{customer.name}}</td>
-        <td>{{customer.contactNo}}</td>
-        <td>{{customer.status}}</td>
+        <td class="d-inline-block col-2">{{customer.customerKey}}</td>
+        <td class="d-inline-block col-2">{{customer.businessRegNo}}</td>
+        <td class="d-inline-block col-4">{{customer.name}}</td>
+        <td class="d-inline-block col-2">{{customer.contactNo}}</td>
+        <td class="d-inline-block col-2">{{customer.status}}</td>
       </tr>
     </tbody>
     <tbody *ngIf="isSorted">
       <tr (click)="openProfile.emit(customer)" *ngFor="let customer of listCustomersSorted | listCustomers:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
-        <td>{{customer.customerKey}}</td>
-        <td>{{customer.businessRegNo}}</td>
-        <td>{{customer.name}}</td>
-        <td>{{customer.contactNo}}</td>
-        <td>{{customer.status}}</td>
+          <td class="d-inline-block col-2">{{customer.customerKey}}</td>
+          <td class="d-inline-block col-2">{{customer.businessRegNo}}</td>
+          <td class="d-inline-block col-4">{{customer.name}}</td>
+          <td class="d-inline-block col-2">{{customer.contactNo}}</td>
+          <td class="d-inline-block col-2">{{customer.status}}</td>
       </tr>
     </tbody>
   </table>

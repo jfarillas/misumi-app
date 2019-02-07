@@ -18,7 +18,7 @@ export class SalesService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Sales[]> {
-    return this.http.get(`${this.baseUrl}/list`).pipe(
+    return this.http.get(`${this.baseUrl}/list.php`).pipe(
       map((res) => {
         this.sales = res['data'];
         console.log("Sales listed:");
@@ -31,7 +31,7 @@ export class SalesService {
   store(sale: Sales): Observable<Sales[]> {
     console.log("Sales to be added:");
     console.log(sale);
-    return this.http.post(`${this.baseUrl}/store`, { data: sale })
+    return this.http.post(`${this.baseUrl}/store.php`, { data: sale })
       .pipe(map((res) => {
         this.sales.push(res['data']);
         return this.sales;

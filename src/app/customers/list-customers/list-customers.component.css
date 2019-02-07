@@ -1,7 +1,12 @@
+table {
+    table-layout: fixed;
+}
+
 .list-customers {
     margin: 20px 15px;
     float: left;
     width: 60%;
+    min-width: 870px;
     font-size: 12px;
 }
 
@@ -10,24 +15,14 @@
     background-color: #fff;
 }
 
-.list-customers table thead tr {
-    display: block;
-}
-
 .list-customers table th .sort {
     margin-left: 10px;
-}
-
-.list-customers table th:nth-child(5) {
-    width: 100px;
-    padding-left: 23px !important;
 }
 
 .list-customers table thead th {
     border-right: 2px solid #dee2e6;
     border-bottom: 2px solid #b5b5b5;
     vertical-align: middle;
-    padding: .20rem .90rem;
 }
 
 .list-customers table thead th:hover, .list-customers table tbody tr:hover {
@@ -36,9 +31,8 @@
 }
 
 .list-customers table tbody {
-    display: block;
     overflow: auto;
-    height: 100vh;
+    height: 75vh;
     border-right: 2px solid #e6e6e6;
 }
 
@@ -46,40 +40,12 @@
     cursor: pointer;
 }
 
-.list-customers table tbody td:nth-child(2) {
-    padding-left: 10px !important
-}
-
-.list-customers table tbody td:nth-child(3) {
-    padding-left: 0 !important;
-}
-
-.list-customers table tbody td:nth-child(2) {
-    width: 200px;
-    max-width: 200px;
-}
-
-.list-customers table tbody td:nth-child(3) {
-    width: 300px;
-    max-width: 300px;
-}
-
-.list-customers table tbody td:nth-child(4) {
-    padding-left: 38px;
-}
-
 .list-customers table td {
-    padding: .25rem 1rem;
-    max-width: 150px;
     overflow-wrap: break-word;
 }
 
 .list-customers table tbody .odd {
     background-color: #e6e6e6;
-}
-
-.list-customers table tbody .even {
-    background-color: rgb(139, 128, 128)139, 128, 128);
 }
 
 .list-customers .form-group.search {
