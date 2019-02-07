@@ -8,6 +8,7 @@ import {
   ComponentFactoryResolver,
   ViewContainerRef
 } from '@angular/core';
+import { Router,  NavigationExtras,ActivatedRoute } from '@angular/router';
 import { TabComponent } from '../tab/tab.component';
 import { DynamicTabsDirective } from './dynamic-tabs.directive';
 
@@ -23,7 +24,10 @@ export class TabsComponent implements AfterContentInit {
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
   @ViewChild(DynamicTabsDirective) dynamicTabPlaceholder: DynamicTabsDirective;
 
-  constructor(private _componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(
+    private _componentFactoryResolver: ComponentFactoryResolver,
+    private router: Router
+  ) { }
 
   // contentChildren are set
   ngAfterContentInit() {
@@ -65,7 +69,8 @@ export class TabsComponent implements AfterContentInit {
     this.dynamicTabs.push(componentRef.instance as TabComponent);
 
     // set it active
-    this.selectTab(this.dynamicTabs[this.dynamicTabs.length - 1]);
+    // first to load profile tab
+    this.selectTab(this.dynamicTabs.find(dt => dt.title === 'Profile'));
   }
 
   selectTab(tab: TabComponent) {
@@ -85,18 +90,28 @@ export class TabsComponent implements AfterContentInit {
   closeTab(tab: TabComponent) {
     for (let i = 0; i < this.dynamicTabs.length; i++) {
       if (this.dynamicTabs[i] === tab) {
-        // remove the tab from our array
-        this.dynamicTabs.splice(i, 1);
-
+        console.log(this.dynamicTabs);
         // destroy our dynamically created component again
         let viewContainerRef = this.dynamicTabPlaceholder.viewContainer;
-        // let viewContainerRef = this.dynamicTabPlaceholder;
-        viewContainerRef.remove(i);
-
-        // set tab index to 1st one
-        this.selectTab(this.tabs.first);
-        // hide the first tab styles
-        this.showTab = '';
+        // close other tabs when closing profile page
+        if (i === 0) {
+          // remove the tab from our array
+          this.dynamicTabs.splice(i, 1);
+          this.dynamicTabs.splice(0, 1);
+          this.dynamicTabs.splice(0, 1);
+          viewContainerRef.remove(i);
+          viewContainerRef.remove(0);
+          viewContainerRef.remove(0);
+          console.log(this.dynamicTabs);
+          // set tab index to 1st one
+          this.selectTab(this.tabs.first);
+          // hide the first tab styles
+          this.showTab = '';
+        } else {
+          // remove the tab from our array
+          this.dynamicTabs.splice(i, 1);
+          viewContainerRef.remove(i);
+        }
         break;
       }
     }

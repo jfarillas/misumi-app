@@ -9,9 +9,10 @@ export class ListCustomersPipe implements PipeTransform {
     if (customers && typeof data !== 'undefined') {
       if (data.length !== 0 && data.trim() !== '') {
         return customers.filter((listing: any) => {
-          return listing.customerKey === data || listing.businessRegNo === data 
-          || listing.name === data || listing.contactNo === data
-          || listing.status === data;
+          let re = new RegExp(data, 'i');
+          return re.test(listing.customerKey) || re.test(listing.businessRegNo)
+          || re.test(listing.name) || re.test(listing.contactNo)
+          || re.test(listing.status);
         });
       } else {
         return customers;

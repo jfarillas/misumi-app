@@ -1,18 +1,14 @@
 export class Sales {
     constructor(
-      public picName:          string,
-      public picContact:       string,
-      public gender:           string,
-      public status:           string,
-      public customersId:      number,
-      public paymentTerms:     string,
-      public remarks:          string,
-      public invoicesRef:      string,
+      public customersId:      string,
+      public accountsId:       string,
       public invoices:         string,
       public payments:         string,
-      public cost:             string,
-      public profit:           string,
-      public lost:             string,
+      public paymentDate:      string,
+      public paymentDateYear:  string,
+      public paymentDateMonth: string,
+      public paymentDateDay:   string,
+      public isEnabled:        number,
       id?:                     number
     ) {}
   }

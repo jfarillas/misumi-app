@@ -6,11 +6,21 @@
 }
 
 .list-customers table {
+    table-layout: auto;
     background-color: #fff;
+}
+
+.list-customers table thead tr {
+    display: block;
 }
 
 .list-customers table th .sort {
     margin-left: 10px;
+}
+
+.list-customers table th:nth-child(5) {
+    width: 100px;
+    padding-left: 23px !important;
 }
 
 .list-customers table thead th {
@@ -26,16 +36,41 @@
 }
 
 .list-customers table tbody {
-    border-right: 2px solid #e6e6e6;;
+    display: block;
+    overflow: auto;
+    height: 100vh;
+    border-right: 2px solid #e6e6e6;
 }
 
 .list-customers table tbody tr {
     cursor: pointer;
 }
 
+.list-customers table tbody td:nth-child(2) {
+    padding-left: 10px !important
+}
+
+.list-customers table tbody td:nth-child(3) {
+    padding-left: 0 !important;
+}
+
+.list-customers table tbody td:nth-child(2) {
+    width: 200px;
+    max-width: 200px;
+}
+
+.list-customers table tbody td:nth-child(3) {
+    width: 300px;
+    max-width: 300px;
+}
+
+.list-customers table tbody td:nth-child(4) {
+    padding-left: 38px;
+}
+
 .list-customers table td {
     padding: .25rem 1rem;
-    max-width: 100px;
+    max-width: 150px;
     overflow-wrap: break-word;
 }
 

@@ -1,7 +1,159 @@
-.list-group-item.row, #theForm {
-    clear: both;
+/** Sales form **/
+.sales-container #theForm {
+    margin: 0 30px 20px;
+    float: left;
+    width: 60%;
+    height: 100vh;
+    font-size: 12px;
+    padding: 12px 10px;
+    background-color: #fff;
 }
 
-#theForm {
-    margin-top: 50px;
+.sales-container #theForm h2 {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.sales-container .form-group label {
+    margin-right: -15px;
+    font-size: 12px;
+    float: left;
+    line-height: 30px;
+    padding: 0;
+}
+
+.sales-container .form-group input, .sales-container .form-group textarea, .sales-container .form-group ng-select {
+    margin-left: -15px;
+    float: left;
+    height: 25px;
+    width: 255px;
+    color: #6e6e6e;
+    font-size: 12px;
+}
+
+.sales-container .form-group input::placeholder {
+    color: #ced4da;
+    font-size: 12px;
+}
+
+.sales-container .form-group .datepicker-custom {
+    position: absolute;
+    right: 15px;
+}
+
+.sales-container .form-group .datepicker-custom button {
+    padding: 0 5px;
+    border: none;
+}
+
+.sales-container .form-group .datepicker-custom button:hover {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.sales-container .form-group .submit-container {
+    float: right;    
+}
+
+.sales-container .form-group .submit-container button {
+    font-weight: bold;
+    padding: 5px 25px;
+}
+
+/** List of sales **/
+.list-sales {
+    float: left;
+    font-size: 12px;
+}
+
+.list-sales table {
+    table-layout: auto;
+    background-color: #e6e6e6;
+    margin-left: -25px;
+    margin-right: -25px;
+    width: initial;
+}
+
+.list-sales table thead {
+    background-color: #1d4a66;
+    color: #fff;
+}
+
+.list-sales table thead tr {
+    display: block;
+}
+
+.list-sales table th .sort {
+    margin-left: 10px;
+}
+
+.list-sales table th:nth-child(4), .list-sales table th:nth-child(5) {
+    width: 100px;
+}
+
+.list-sales table th {
+    width: 200px;
+    text-align: center;
+}
+
+.list-sales table thead th {
+    vertical-align: middle;
+    padding: .20rem .90rem;
+}
+
+.list-sales table tbody tr:hover {
+    background-color: #2b8bd9;
+    color: #fff;
+}
+
+.list-sales table tbody {
+    display: block;
+    overflow: auto;
+    height: 100vh;
+}
+
+.list-sales table tbody tr {
+    cursor: pointer;
+}
+
+.list-sales table tbody td:nth-child(2) {
+    padding-left: 10px !important
+}
+
+.list-sales table tbody td:nth-child(3) {
+    padding-left: 0 !important;
+}
+
+.list-sales table tbody td:nth-child(1), .list-sales table tbody td:nth-child(2), .list-sales table tbody td:nth-child(3) {
+    width: 200px;
+    max-width: 200px;
+    text-align: center;
+}
+
+.list-sales table tbody td:nth-child(4), .list-sales table tbody td:nth-child(5) {
+    width: 100px;
+    max-width: 100px;
+    text-align: center;
+}
+
+.list-sales table tbody tr .fa-edit-style {
+    color: #2b8bd9;
+}
+
+.list-sales table tbody tr .fa-delete-style {
+    color: #db0000;
+}
+
+.list-sales table td {
+    padding: .25rem 1rem;
+    max-width: 150px;
+    overflow-wrap: break-word;
+}
+
+.list-sales table tbody .odd {
+    background-color: #e6e6e6;
+}
+
+.list-sales table tbody .even {
+    background-color: rgb(139, 128, 128)139, 128, 128);
 }

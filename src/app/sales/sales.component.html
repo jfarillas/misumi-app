@@ -1,171 +1,101 @@
-<div *ngIf="error" class="alert alert-danger">{{error}}</div>
-<div *ngIf="success" class="alert alert-success">{{success}}</div>
-<div id="theForm">
-  <h2>Add sales</h2>
+<div class="sales-container">
+  <!-- Sales form -->
+  <div id="theForm">
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="success" class="alert alert-success">{{success}}</div>
+  <h2>New Sales Entry</h2>
   <form #f="ngForm" name="theForm" (submit)="addSales(f)">
-    <div class="form-group">
-      <label>PIC name</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.picName"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
+    <div class="row">
+      <div class="col">
+        <div class="row form-group">
+          <div class="col">
+            <label>Amount</label>
+          </div>
+          <div class="col">
+            <input type="text"
+                  class="form-control"
+                  name="model"
+                  [(ngModel)]="sale.payments"
+                  #accountModel="ngModel"
+                  placeholder="Eg. 1,234,567,890"
+                  required
+                  pattern="^[a-zA-Z]+$">
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label>PIC contact</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.picContact"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
+        <div class="row form-group">
+          <div class="col">
+            <label>Invoice Number</label>
+          </div>
+          <div class="col">
+            <input type="text"
+                  class="form-control"
+                  name="model"
+                  [(ngModel)]="sale.invoices"
+                  #accountModel="ngModel"
+                  placeholder="Eg. 987654321"
+                  required
+                  pattern="^[a-zA-Z]+$">
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row form-group">
+          <div class="col">
+            <label>Date</label>
+          </div>
+          <div class="col">
+            <input type="text"
+                  class="form-control"
+                  name="model"
+                  [(ngModel)]="sale.paymentDate"
+                  #accountModel="ngModel" 
+                  placeholder="Eg. 31 December 2018" 
+                  name="d2" 
+                  ngbDatepicker #d2="ngbDatepicker"
+                  required>
+            <div class="input-group-append datepicker-custom">
+              <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"><i class="far fa-calendar-alt fa-sm"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col">
+            <label>&nbsp;</label>
+          </div>
+          <div class="col">
+            <div class="submit-container">
+              <button class="btn btn-primary btn-sm">Add New</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="form-group">
-      <!-- select -->
-      <label>Gender</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.gender"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <!-- select -->
-      <label>Status</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.status"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Customer</label>
-      <!-- Select -->
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.customersId"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Payment terms</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.paymentTerms"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Remarks</label>
-      <!-- textarea -->
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.remarks"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Invoices ref</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.invoicesRef"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Invoices</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.invoices"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Payments</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.payments"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Cost</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.cost"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Profit</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.profit"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-
-    <div class="form-group">
-      <label>Lost</label>
-      <input type="text"
-            class="form-control"
-            name="model"
-            [(ngModel)]="sale.lost"
-            #accountModel="ngModel"
-            required
-            pattern="^[a-zA-Z]+$">
-      
-    </div>
-    
-
-    <button class="btn btn-primary btn-sm">Add</button>
-    
   </form>
+  <!-- List of sales -->
+  <div class="col list-sales">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Invoice Number</th>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of salesArr;let i = index;">
+          <td>{{salesArr[i].paymentDate}}</td>
+          <td>{{salesArr[i].payments}}</td>
+          <td>{{salesArr[i].invoices}}</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <!-- <td><i class="fas fa-pencil-alt fa-lg fa-edit-style"></i> Edit</td>
+          <td><i class="fa fa-times fa-lg fa-delete-style"></i> Delete</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
 </div>
-

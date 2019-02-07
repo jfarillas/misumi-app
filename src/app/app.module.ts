@@ -40,7 +40,6 @@ const routes: Routes = [
         // { path: '', redirectTo: 'login', pathMatch: 'full' },
         { path: 'customers', component: DetailsCustomersComponent,canActivate: [AuthguardService] },
         { path: 'new-customer', component: CustomersComponent,canActivate: [AuthguardService] },
-        { path: 'sales', component: SalesComponent,canActivate: [AuthguardService] },
       ] },
 
     // otherwise redirect to home

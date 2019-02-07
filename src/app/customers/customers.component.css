@@ -4,9 +4,9 @@
     width: 60%;
     background-color: #fff;
     border-radius: 10px;
-    -webkit-box-shadow: 0px 2px 5px 0px #cfcfcf;;
-    -moz-box-shadow: 0px 2px 5px 0px #cfcfcf;;
-    box-shadow: 0px 2px 5px 0px #cfcfcf;;
+    -webkit-box-shadow: 0px 2px 5px 0px #cfcfcf;
+    -moz-box-shadow: 0px 2px 5px 0px #cfcfcf;
+    box-shadow: 0px 2px 5px 0px #cfcfcf;
 }
 
 .customer-container .form-group {

@@ -8,12 +8,14 @@
     float: left;
 }
 
-.nav-tabs .active:nth-child(2) {
+.nav-tabs li:nth-child(2), .nav-tabs .active:nth-child(2), .nav-tabs li:nth-child(3), .nav-tabs li:nth-child(4), .nav-tabs li:nth-child(5) {
     padding: 7px;
     margin-top: 20px;
+    height: 36px;
+    border-right: 2px solid #dee2e6;
 }
 
-.nav-tabs .active {
+.nav-tabs .active:nth-child(2), .nav-tabs .active:nth-child(3), .nav-tabs .active:nth-child(4), .nav-tabs .active:nth-child(5) {
     background-color: #2b8bd9;
     width: 184px;
     text-align: center;
@@ -22,11 +24,32 @@
     color: #fff;
 }
 
+.nav-tabs li:nth-child(2), .nav-tabs li:nth-child(3), .nav-tabs li:nth-child(4), .nav-tabs li:nth-child(5) {
+    background-color: #fff;
+    width: 184px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.nav-tabs li:nth-child(2) .tab-close {
+    display: none;
+}
+
+.nav-tabs .active:nth-child(2) .tab-close {
+    display: block;
+}
+
+.nav-tabs .active .tab-title {
+    float: left;
+    width: 100%;
+}
+
 .nav-tabs .active a {
     font-weight: bold;
-    color: #fff;
-    margin-right: 10px;
-    float: right;
+    position: relative;
+    top: 16px;
+    left: -58px;
 }
 
 .nav-tabs .active a .tab-close {

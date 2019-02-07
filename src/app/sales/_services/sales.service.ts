@@ -12,13 +12,13 @@ import { Sales } from '../sales';
   providedIn: 'root'
 })
 export class SalesService {
-  baseUrl = environment.baseUrl+'/api/users';
+  baseUrl = environment.baseUrl+'/api/sales';
   sales: Sales[];
 
   constructor(private http: HttpClient) { }
 
-  /* getAll(): Observable<Sales[]> {
-    return this.http.get(`${this.baseUrl}/list.php`).pipe(
+  getAll(): Observable<Sales[]> {
+    return this.http.get(`${this.baseUrl}/list`).pipe(
       map((res) => {
         this.sales = res['data'];
         console.log("Sales listed:");
@@ -26,14 +26,14 @@ export class SalesService {
         return this.sales;
     }),
     catchError(this.handleError));
-  } */
+  }
 
   store(sale: Sales): Observable<Sales[]> {
-    console.log("Account to be added:");
+    console.log("Sales to be added:");
     console.log(sale);
-    return this.http.post(`${this.baseUrl}/store.php`, { data: sale })
+    return this.http.post(`${this.baseUrl}/store`, { data: sale })
       .pipe(map((res) => {
-        //this.sales.push(res['data']);
+        this.sales.push(res['data']);
         return this.sales;
       }),
       catchError(this.handleError));

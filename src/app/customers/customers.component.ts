@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateCustomParserFormatter } from "../shared/dateformat";
+import { NgbDateWholeCustomParserFormatter } from "../shared/dateformatwhole";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,8 +19,8 @@ import { NgbDateCustomParserFormatter } from "../shared/dateformat";
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css'],
   providers: [
-    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
-   ]
+    {provide: NgbDateParserFormatter, useClass: NgbDateWholeCustomParserFormatter}
+  ]
 })
 export class CustomersComponent implements OnInit {
 

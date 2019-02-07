@@ -21,7 +21,8 @@ export class AuthenticationService {
     return this.http.post(`${this.baseUrl}/authenticate.php`, { data: login })
       .pipe(map((res) => {
         this.logins.push(res['data']);
-        console.log(this.logins[0]['name']);
+        console.log(this.logins[0]['id']+' - '+this.logins[0]['name']);
+        localStorage.setItem('userId', this.logins[0]['id']);
         localStorage.setItem('currentUser', this.logins[0]['name']);
         localStorage.setItem('currentUserEmail', this.logins[0]['email']);
         

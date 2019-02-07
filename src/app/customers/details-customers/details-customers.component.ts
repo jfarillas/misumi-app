@@ -10,18 +10,31 @@ import { TabsComponent } from './../../tabs/tabs.component';
 export class DetailsCustomersComponent {
 
   @ViewChild('profileContainer') openProfileTemplate : any;
+  @ViewChild('paymentContainer') openPaymentTemplate : any;
+  @ViewChild('salesContainer') openSalesTemplate : any;
   @ViewChild(TabsComponent) tabsComponent: any;
 
   constructor() { }
 
   openCustomerProfile(customer: any) {
     console.log('open profile tab...');
-    console.log(customer);
     this.tabsComponent.openTab(
       `Profile`,
       this.openProfileTemplate,
       customer,
       true
+    );
+    this.tabsComponent.openTab(
+      `Payment`,
+      this.openPaymentTemplate,
+      customer,
+      false
+    );
+    this.tabsComponent.openTab(
+      `Sales`,
+      this.openSalesTemplate,
+      customer,
+      false
     );
   }
   
