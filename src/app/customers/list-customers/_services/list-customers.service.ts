@@ -19,7 +19,7 @@ export class ListCustomersService {
 
   async getAll(): Promise<ListCustomers[]> {
     try {
-      const res = await this.http.get(`${this.baseUrl}/list`).toPromise();
+      const res = await this.http.get(`${this.baseUrl}/list.php`).toPromise();
       return res['data'];
     }
     catch (error) {
