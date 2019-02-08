@@ -1,7 +1,11 @@
-<ul class="nav nav-tabs {{showTab}}">
-  <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">{{tab.title}}</li>
-  <!-- dynamic tabs -->
-  <li *ngFor="let tab of dynamicTabs" (click)="selectTab(tab)" [class.active]="tab.active"><div class="tab-title">{{tab.title}}</div> <a href="javaScript:void(0);"><span class="tab-close" *ngIf="tab.isCloseable" (click)="closeTab(tab)"><i class="fas fa-angle-double-left fa-sm"></i> Back</span></a></li>
-</ul>
-<ng-content></ng-content>
-<ng-template dynamic-tabs #container></ng-template>
+<div class="container-fluid">
+  <ul class="nav nav-tabs {{showTab}}">
+    <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">{{tab.title}}</li>
+    <!-- dynamic tabs -->
+    <li *ngFor="let tab of dynamicTabs" (click)="selectTab(tab)" [class.active]="tab.active"><div class="tab-title">{{tab.title}}</div> <a href="javaScript:void(0);"><span class="tab-close" *ngIf="tab.isCloseable" (click)="closeTab(tab)"><i class="fas fa-angle-double-left fa-sm"></i> Back</span></a></li>
+  </ul>
+</div>
+<div class="container-fluid">
+  <ng-content></ng-content>
+  <ng-template dynamic-tabs #container></ng-template>
+</div>
