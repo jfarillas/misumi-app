@@ -12,7 +12,7 @@ import { Sales } from '../sales';
   providedIn: 'root'
 })
 export class SalesService {
-  baseUrl = environment.baseUrl+'/api/sales';
+  baseUrl = environment.baseUrl + '/api/sales';
   sales: Sales[];
 
   constructor(private http: HttpClient) { }
@@ -21,16 +21,12 @@ export class SalesService {
     return this.http.get(`${this.baseUrl}/list.php`).pipe(
       map((res) => {
         this.sales = res['data'];
-        console.log("Sales listed:");
-        console.log(this.sales);
         return this.sales;
     }),
     catchError(this.handleError));
   }
 
   store(sale: Sales): Observable<Sales[]> {
-    console.log("Sales to be added:");
-    console.log(sale);
     return this.http.post(`${this.baseUrl}/store.php`, { data: sale })
       .pipe(map((res) => {
         this.sales.push(res['data']);
@@ -38,7 +34,7 @@ export class SalesService {
       }),
       catchError(this.handleError));
   }
-  
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
 

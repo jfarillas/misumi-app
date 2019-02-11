@@ -1,17 +1,16 @@
-import { 
-  Component, 
+import {
+  Component,
   OnInit,
-  OnChanges, 
+  OnChanges,
   Input,
-  SimpleChanges, 
+  SimpleChanges,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { Sales } from './sales';
 import { SalesService } from './_services/sales.service';
 
 import { NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateWholeCustomParserFormatter } from "../shared/dateformatwhole";
-import { Customers } from '../customers/customers';
+import { NgbDateWholeCustomParserFormatter } from '../shared/dateformatwhole';
 
 @Component({
   selector: 'app-sales',
@@ -22,7 +21,7 @@ import { Customers } from '../customers/customers';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SalesComponent implements OnChanges {
+export class SalesComponent implements OnChanges, OnInit {
   @Input() getCustomer: any;
   customer: any;
   sales: Sales[];
@@ -33,12 +32,12 @@ export class SalesComponent implements OnChanges {
   constructor(private salesService: SalesService) {
   }
   ngOnInit() {
+    console.log("init");
     this.getSales();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changing on Sales...');
-    console.log(changes.getCustomer.currentValue);
+    console.log("changing");
     this.customer = changes.getCustomer.currentValue;
   }
   getSales(): void {
@@ -59,14 +58,16 @@ export class SalesComponent implements OnChanges {
     this.sale.accountsId = localStorage.getItem('userId');
 
     // Date format for DB
-    let registrationDateFormat: object = Object.values(this.sale.paymentDate);
-    let regYearDateFormat: string = registrationDateFormat[0];
-    let regMonthDateFormat: string = (registrationDateFormat[1] < 10) ? '0'+registrationDateFormat[1] : registrationDateFormat[1];
-    let regDayDateFormat: string = (registrationDateFormat[2] < 10) ? '0'+registrationDateFormat[2] : registrationDateFormat[2];
-    console.log(regYearDateFormat+'-'+regMonthDateFormat+'-'+regDayDateFormat);
+
+    const dateValues = this.sale.paymentDate.split('-');
+    const registrationDateFormat: object = Object.values(this.sale.paymentDate);
+    const regYearDateFormat: string = registrationDateFormat[0];
+    const regMonthDateFormat: string = (registrationDateFormat[1] < 10) ? '0' + registrationDateFormat[1] : registrationDateFormat[1];
+    const regDayDateFormat: string = (registrationDateFormat[2] < 10) ? '0' + registrationDateFormat[2] : registrationDateFormat[2];
+    console.log(regYearDateFormat + '-' + regMonthDateFormat + '-' + regDayDateFormat);
     this.sale.paymentDateYear = regYearDateFormat;
     this.sale.paymentDateMonth = regMonthDateFormat;
-    this.sale.paymentDateDay = regDayDateFormat
+    this.sale.paymentDateDay = regDayDateFormat;
 
     this.salesService.store(this.sale)
       .subscribe((res: Sales[]) => {

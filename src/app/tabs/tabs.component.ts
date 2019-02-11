@@ -92,7 +92,7 @@ export class TabsComponent implements AfterContentInit {
       if (this.dynamicTabs[i] === tab) {
         console.log(this.dynamicTabs);
         // destroy our dynamically created component again
-        let viewContainerRef = this.dynamicTabPlaceholder.viewContainer;
+        const viewContainerRef = this.dynamicTabPlaceholder.viewContainer;
         // close other tabs when closing profile page
         if (i === 0) {
           // remove the tab from our array

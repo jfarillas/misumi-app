@@ -2,6 +2,15 @@
     width: 60%;
 }
 
+.nav-tabs li {
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-tabs li:hover {
+    text-decoration: underline;
+}
+
 .nav-tabs.show-tab {
     border-bottom: 2px solid #b5b5b5;
     margin-left: 30px;

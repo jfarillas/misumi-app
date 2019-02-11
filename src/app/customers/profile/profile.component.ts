@@ -1,12 +1,12 @@
-import { Component, 
-  OnInit, 
-  OnChanges, 
+import { Component,
+  OnInit,
+  OnChanges,
   Input,
-  Output, 
-  SimpleChanges, 
+  Output,
+  SimpleChanges,
   ChangeDetectionStrategy,
   EventEmitter,
-  ChangeDetectorRef 
+  ChangeDetectorRef
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -18,7 +18,7 @@ import { DataService, Country } from './../../shared/data.service';
   styleUrls: ['./profile.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileComponent implements OnChanges {
+export class ProfileComponent implements OnChanges, OnInit {
 
   @Input() getCustomer: any;
   @Output() changeCountry: EventEmitter<any> = new EventEmitter();
@@ -27,15 +27,15 @@ export class ProfileComponent implements OnChanges {
   country: any;
 
   // Bar charts for financial status
-  barChartOptions:any = {
+  barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  barChartLabels:string[] = ['2018', '2019'];
-  barChartType:string = 'bar';
-  barChartLegend:boolean = true;
- 
-  barChartData:any[] = [
+  barChartLabels: string[] = ['2018', '2019'];
+  barChartType: string = 'bar';
+  barChartLegend: boolean = true;
+
+  barChartData: any[] = [
     {data: [1234, 1234], label: 'Sales'},
     {data: [1000, 678], label: 'Payment'}
   ];
@@ -66,17 +66,12 @@ export class ProfileComponent implements OnChanges {
   ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changing...');
-    console.log(changes.getCustomer.currentValue);
-
     // Country filters
     this.dataService.getCountries().subscribe(countries => {
-      console.log(countries);
-      let selectedCountry = countries.find((country: { code: any; name: any; }) => country.code === changes.getCustomer.currentValue.country);
+      const selectedCountry = countries.find((country: { code: any; name: any; }) => country.code === changes.getCustomer.currentValue.country);
       this.country = selectedCountry.name;
       // Check if the country field has been changed
-      this.ref.detectChanges();
-      console.log(this.country);
+      this.ref.detectChanges(); 
     });
 
     this.customer = changes.getCustomer.currentValue;
