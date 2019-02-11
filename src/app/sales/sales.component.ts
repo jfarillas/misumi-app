@@ -58,17 +58,12 @@ export class SalesComponent implements OnChanges, OnInit {
     this.sale.accountsId = localStorage.getItem('userId');
 
     // Date format for DB
-
     const dateValues = this.sale.paymentDate.split('-');
-    const registrationDateFormat: object = Object.values(this.sale.paymentDate);
-    const regYearDateFormat: string = registrationDateFormat[0];
-    const regMonthDateFormat: string = (registrationDateFormat[1] < 10) ? '0' + registrationDateFormat[1] : registrationDateFormat[1];
-    const regDayDateFormat: string = (registrationDateFormat[2] < 10) ? '0' + registrationDateFormat[2] : registrationDateFormat[2];
-    console.log(regYearDateFormat + '-' + regMonthDateFormat + '-' + regDayDateFormat);
-    this.sale.paymentDateYear = regYearDateFormat;
-    this.sale.paymentDateMonth = regMonthDateFormat;
-    this.sale.paymentDateDay = regDayDateFormat;
 
+    this.sale.paymentDateYear = dateValues[0];
+    this.sale.paymentDateMonth = dateValues[1];
+    this.sale.paymentDateDay = dateValues[2];
+ 
     this.salesService.store(this.sale)
       .subscribe((res: Sales[]) => {
         // Update the list of sales
