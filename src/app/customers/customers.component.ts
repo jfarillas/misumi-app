@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { 
+  Component, 
+  OnInit, 
+  ChangeDetectionStrategy, 
+  ViewChild, 
+  ChangeDetectorRef 
+} from '@angular/core';
 import { Customers } from './customers';
 import { CustomersService } from './_services/customers.service';
 
@@ -44,7 +50,8 @@ export class CustomersComponent implements OnInit {
 
   constructor(
     private customerService: CustomersService,
-    private dataService: DataService
+    private dataService: DataService,
+    private ref: ChangeDetectorRef
   ) {}
   countries: Country[] = [];
   status: CustomerStatus[] = [];
@@ -105,7 +112,11 @@ export class CustomersComponent implements OnInit {
         this.success = 'Created successfully';
         // Reset the form
         f.reset();
-      }, (err) => this.error = err);
+      }, (err) => {
+        this.error = err;
+        // Check if the customer data has been added
+        this.ref.detectChanges();
+      });
   }
   private resetErrors() {
     this.success = '';

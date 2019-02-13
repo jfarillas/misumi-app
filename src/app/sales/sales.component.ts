@@ -4,7 +4,8 @@ import {
   OnChanges,
   Input,
   SimpleChanges,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { Sales } from './sales';
 import { SalesService } from './_services/sales.service';
@@ -29,7 +30,10 @@ export class SalesComponent implements OnChanges, OnInit {
   error = '';
   success = '';
   sale = new Sales('', '', '', '', '', '', '', '', 0);
-  constructor(private salesService: SalesService) {
+  constructor(
+    private salesService: SalesService,
+    private ref: ChangeDetectorRef
+  ) {
   }
   ngOnInit() {
     console.log("init");
@@ -43,6 +47,8 @@ export class SalesComponent implements OnChanges, OnInit {
   getSales(): void {
     this.salesService.getAll().subscribe((res: Sales[]) => {
       this.salesArr = res;
+      // Check if the sales data has been fetched
+      this.ref.detectChanges();
       console.log(this.salesArr);
     }, (err) => {
       this.error = err;
@@ -72,7 +78,11 @@ export class SalesComponent implements OnChanges, OnInit {
         this.success = 'Created successfully';
         // Reset the form
         f.reset();
-      }, (err) => this.error = err);
+      }, (err) => {
+        this.error = err; 
+        // Check if the sales data has not been added
+        this.ref.detectChanges();
+      });
   }
   private resetErrors() {
     this.success = '';

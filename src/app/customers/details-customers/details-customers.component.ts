@@ -10,7 +10,7 @@ import { TabsComponent } from './../../tabs/tabs.component';
 export class DetailsCustomersComponent {
 
   @ViewChild('profileContainer') openProfileTemplate : any;
-  @ViewChild('paymentContainer') openPaymentTemplate : any;
+  @ViewChild('paymentsContainer') openPaymentTemplate : any;
   @ViewChild('salesContainer') openSalesTemplate : any;
   @ViewChild(TabsComponent) tabsComponent: any;
 

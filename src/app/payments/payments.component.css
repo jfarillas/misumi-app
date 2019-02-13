@@ -1,0 +1,11 @@
+/** Payments form **/
+.payments-container #theForm {
+    float: left;
+    width: 60%;
+    margin-left: 30px;
+    background-color: white;
+}
+
+#payments-form-wrapper {
+    padding: 15px;
+}

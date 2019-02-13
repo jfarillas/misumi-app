@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Accounts } from './accounts';
 import { AccountsService } from './_services/accounts.service';
 
@@ -21,7 +21,10 @@ export class AccountsComponent implements OnInit {
   // Designation selections
   designation_options: any = ['Admin', 'Director', 'Manager', 'Staff'];
   
-  constructor(private accountService: AccountsService) {
+  constructor(
+    private accountService: AccountsService,
+    private ref: ChangeDetectorRef
+  ) {
   }
   ngOnInit() {
     // Designation filters
@@ -46,7 +49,11 @@ export class AccountsComponent implements OnInit {
         f.reset();
         // Retain selection default value
         this.account.designation = 'Staff';
-      }, (err) => this.error = err);
+      }, (err) => {
+        this.error = err;
+        // Check if the account data has been added
+        this.ref.detectChanges();
+      });
   }
   private resetErrors() {
     this.success = '';
