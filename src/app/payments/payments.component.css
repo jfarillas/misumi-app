@@ -1,4 +1,4 @@
-/** Payments form **/
+/** Sales form **/
 .payment-container #theForm {
     float: left;
     width: 60%;
@@ -6,6 +6,69 @@
     background-color: white;
 }
 
+
 #payments-form-wrapper {
     padding: 15px;
+}
+
+.payment-container #theForm h2 {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.form-group .col-form-label {
+    font-size: 12px;
+    font-weight: bolder;
+    padding-left: 0px;
+}
+
+/** List of sales **/
+.list-sales {
+    width: 100%;
+    float: left;
+    font-size: 12px;
+    padding: 0px;
+    background-color: white;
+
+}
+
+tr {
+    width: 100%;
+    display: inline-table;
+    table-layout: fixed;
+    background-color: white;
+}
+    
+th {
+    background-color: #144E66;
+    color: white;
+}
+
+tbody {
+    position: absolute;
+    max-height: calc(600%);
+    overflow-y: auto;
+    background-color: white;
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+
+.even {
+    background-color: #E9E9E9;
+   
+}
+
+.highlight-btn {
+    cursor: pointer;
+}
+
+.fa-pencil-alt {
+    color: #0098D8;
+}
+
+.fa-times {
+    color: #D80000;
+}
+
+.highlight-btn:hover {
+    text-decoration: underline;
 }
