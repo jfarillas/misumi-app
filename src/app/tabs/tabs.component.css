@@ -15,11 +15,12 @@
     border-bottom: 2px solid #b5b5b5;
     margin-left: 30px;
     float: left;
+    position: relative;
 }
 
 .nav-tabs li:nth-child(2), .nav-tabs .active:nth-child(2), .nav-tabs li:nth-child(3), .nav-tabs li:nth-child(4), .nav-tabs li:nth-child(5) {
     padding: 7px;
-    margin-top: 20px;
+    margin-top: 45px;
     height: 36px;
     border-right: 2px solid #dee2e6;
 }
@@ -41,12 +42,12 @@
     font-size: 14px;
 }
 
-.nav-tabs li:nth-child(2) .tab-close {
+.nav-tabs li:nth-child(2) .tab-close-container, .nav-tabs li:nth-child(3) .tab-close-container, .nav-tabs li:nth-child(4) .tab-close-container, .nav-tabs li:nth-child(5) .tab-close-container {
     display: none;
 }
 
-.nav-tabs .active:nth-child(2) .tab-close {
-    display: block;
+.nav-tabs .active:nth-child(2) .tab-close-container, .nav-tabs .active:nth-child(3) .tab-close-container, .nav-tabs .active:nth-child(4) .tab-close-container, .nav-tabs .active:nth-child(5) .tab-close-container {
+    display: inline-block;
 }
 
 .nav-tabs .active .tab-title {
@@ -54,13 +55,15 @@
     width: 100%;
 }
 
-.nav-tabs .active a {
+.nav-tabs .active .tab-close-container {
     font-weight: bold;
-    position: relative;
-    top: 16px;
-    left: -58px;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    cursor: default;
+    color: #6e6e6e;
 }
 
-.nav-tabs .active a .tab-close {
+.nav-tabs .active div .tab-close-container {
     margin-right: 0;
 }

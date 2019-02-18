@@ -28,13 +28,13 @@ export class DetailsCustomersComponent {
       `Payment`,
       this.openPaymentTemplate,
       customer,
-      false
+      true
     );
     this.tabsComponent.openTab(
       `Sales`,
       this.openSalesTemplate,
       customer,
-      false
+      true
     );
   }
   

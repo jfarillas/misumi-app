@@ -21,6 +21,7 @@ export class TabsComponent implements AfterContentInit {
 
   dynamicTabs: TabComponent[] = [];
   showTab: string;
+  customerData: any = [];
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
   @ViewChild(DynamicTabsDirective) dynamicTabPlaceholder: DynamicTabsDirective;
 
@@ -64,6 +65,10 @@ export class TabsComponent implements AfterContentInit {
     instance.dataContext = data;
     instance.isCloseable = isCloseable;
 
+    // Get the customer data
+    this.customerData = instance.dataContext;
+    console.log(this.customerData.name);
+
     // remember the dynamic component for rendering the
     // tab navigation headers
     this.dynamicTabs.push(componentRef.instance as TabComponent);
@@ -93,25 +98,19 @@ export class TabsComponent implements AfterContentInit {
         console.log(this.dynamicTabs);
         // destroy our dynamically created component again
         const viewContainerRef = this.dynamicTabPlaceholder.viewContainer;
-        // close other tabs when closing profile page
-        if (i === 0) {
-          // remove the tab from our array
-          this.dynamicTabs.splice(i, 1);
-          this.dynamicTabs.splice(0, 1);
-          this.dynamicTabs.splice(0, 1);
-          viewContainerRef.remove(i);
-          viewContainerRef.remove(0);
-          viewContainerRef.remove(0);
-          console.log(this.dynamicTabs);
-          // set tab index to 1st one
-          this.selectTab(this.tabs.first);
-          // hide the first tab styles
-          this.showTab = '';
-        } else {
-          // remove the tab from our array
-          this.dynamicTabs.splice(i, 1);
-          viewContainerRef.remove(i);
-        }
+        // close all tabs
+        // remove the tab from our array
+        this.dynamicTabs.splice(i, 1);
+        this.dynamicTabs.splice(0, 1);
+        this.dynamicTabs.splice(0, 1);
+        viewContainerRef.remove(i);
+        viewContainerRef.remove(0);
+        viewContainerRef.remove(0);
+        console.log(this.dynamicTabs);
+        // set tab index to 1st one
+        this.selectTab(this.tabs.first);
+        // hide the first tab styles
+        this.showTab = '';
         break;
       }
     }
