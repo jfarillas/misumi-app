@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { PaymentsService, Salesref } from './_services/payments.service';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-payments',
@@ -11,11 +14,25 @@ export class PaymentsComponent implements OnInit {
   payments: any[];
   payment;
   paymentArr;
+  salesref: Salesref[] = [];
+  salesRef$: Observable<Salesref[]>;
+  selectedSalesRef: string = null;
   error = '';
   success = '';
-  constructor() { }
+  constructor(
+    private paymentsService: PaymentsService
+  ) { }
 
   ngOnInit() {
+    // Sales ref filters
+    this.salesRef$ = this.paymentsService.getSalesRef();
+    this.paymentsService.getSalesRef().subscribe(salesref => {
+      this.salesref = salesref;
+      this.selectedSalesRef = this.salesref[0].value;
+      console.log(this.selectedSalesRef);
+      //this.payment.salesRef = this.selectedSalesRef;
+      //console.log('Salesref prop value :: '+this.payment.salesRef);
+    });
   }
 
   addPayment(f: {

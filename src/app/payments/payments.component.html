@@ -14,7 +14,15 @@
                   Sales Ref
                 </div>
                 <div class="col-8">
-                  <input type="text" class="form-control form-control-sm"/>
+                  <ng-select [items]="salesRef$ | async"
+                    name="salesref"
+                    bindLabel="text"
+                    bindValue="value"
+                    [(ngModel)]="selectedSalesRef" 
+                    [ngModelOptions]="{standalone: true}" 
+                    ngDefaultControl
+                    class="custom-sales-ref">
+                  </ng-select>
                 </div>
               </div>
               <div class="form-group row">

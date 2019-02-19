@@ -16,6 +16,11 @@ ng-select.custom .ng-value-container {
     font-size: 12px;
 }
 
+ng-select.custom-sales-ref, ng-select.custom-sales-ref .ng-select-container {
+    height: 32px !important;
+    min-height: 32px !important;
+}
+
 .list-customers table th .mat-sort-header-container .mat-sort-header-arrow{
     display: none !important;
 }
