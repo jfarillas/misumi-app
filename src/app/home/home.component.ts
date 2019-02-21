@@ -41,7 +41,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.router.navigate(['/customers']);
+  }
 
   displayCustomerTitle(title: string = null) {
     this.newTitle = title;

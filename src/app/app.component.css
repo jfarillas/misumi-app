@@ -1,6 +1,4 @@
-.container {
-    max-width: 100% !important;
-    padding-right: 0 !important;
-    padding-left: 0 !important;
+.app-container {
+    padding: 0;
     color: #6e6e6e;
 }

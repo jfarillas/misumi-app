@@ -1,7 +1,9 @@
+.customer-container {
+    padding: 0;
+}
+
 .customer-container #theForm {
-    margin: 20px 25px;
-    float: left;
-    width: 60%;
+    margin: 20px 0;
     background-color: #fff;
     border-radius: 10px;
     -webkit-box-shadow: 0px 2px 5px 0px #cfcfcf;
@@ -21,6 +23,10 @@
     padding: 0;
 }
 
+.customer-container .form-group .reg-date {
+    line-height: 15px;
+}
+
 .customer-container .form-group .company-name {
     line-height: 15px;
 }
@@ -38,13 +44,17 @@
     margin-bottom: 0;
 }
 
-.customer-container .form-group input, .customer-container .form-group textarea, .customer-container .form-group ng-select {
-    margin-left: -15px;
+.customer-container .form-group input, .customer-container .form-group textarea {
+    margin-left: -10px;
     float: left;
     height: 25px;
-    width: 225px;
     color: #6e6e6e;
     font-size: 12px;
+}
+
+.customer-container .form-group ng-select {
+    width: 100%;
+    margin-left: -10px;
 }
 
 .customer-container .form-group input:-webkit-autofill:focus {
@@ -60,7 +70,7 @@
 
 .customer-container .form-group .datepicker-custom {
     position: absolute;
-    right: 15px;
+    right: 25px;
 }
 
 .customer-container .form-group .datepicker-custom button {
@@ -77,28 +87,18 @@
     width: 100%;
 }
 
-.customer-container .form-group.gender .lbl_gender {
-    width: 225px;
-    overflow: auto;
-}
-
-.customer-container .form-group.gender label.lbl_g_1 {
-    width: 133px;
-    margin-left: 8px;
-}
-
 .customer-container .form-group.gender input {
     width: 40px;
-}
-
-.customer-container .form-group .expanded {
-    width: 97.5% !important;
     margin-left: 0;
 }
 
-.customer-container .form-group .remarks-container {
-    margin: 0 -15px;
-    overflow: auto;
+.customer-container .form-group .expanded {
+    margin-left: 0;
+}
+
+.customer-container .form-group .txt-remarks {
+    padding-left: 0;
+    padding-right: 25px;
 }
 
 .alert.alert-danger.custom, .alert.alert-success.custom {
@@ -108,20 +108,20 @@
 }
 
 .customer-container .submit-container {
-    width: 60%;
-    overflow: auto;
-    position: absolute;
+    width: 100%;
     margin: 15px 0;
     font-size: 12px;
 }
 
 .customer-container .submit-container span {
-    margin-left: 15px;
     color: #ff0000;
 }
 
+.customer-container .submit-container .btn-save {
+    padding: 0;
+}
+
 .customer-container .submit-container button {
-    float: right;
     padding: 5px 42px;
     background-color: #2b8bd9;
     font-weight: bold;

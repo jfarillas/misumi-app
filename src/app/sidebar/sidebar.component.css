@@ -1,7 +1,5 @@
-.sidebar-a {
-    width: 192px;
-    float: left;
-    padding-top: 8px;
+.menu {
+    padding-top: 8px !important;
     background-color: #124366;
 }
 
@@ -26,4 +24,5 @@
 
 ul.menu > li {
     list-style-type: none;
+    padding: 0;
 }

@@ -1,7 +1,5 @@
 .profile-container {
-    margin: 0 30px 20px;
-    float: left;
-    width: 60%;
+    margin-bottom: 10px;
     font-size: 12px;
     padding: 15px 10px;
     background-color: #fff;
@@ -13,7 +11,7 @@
 }
 
 .profile-container .details {
-    margin-left: -25%
+    margin-left: -15%
 }
 
 .profile-container .spb-details {

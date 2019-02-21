@@ -1,8 +1,9 @@
 /** Sales form **/
+.sales-container {
+    padding: 0;
+}
+
 .sales-container #theForm {
-    float: left;
-    width: 60%;
-    margin-left: 30px;
     background-color: white;
 }
 
@@ -23,8 +24,6 @@
 
 /** List of sales **/
 .list-sales {
-    width: 100%;
-    float: left;
     font-size: 12px;
     padding: 0px;
     background-color: white;

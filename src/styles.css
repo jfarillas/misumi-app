@@ -1,5 +1,6 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 body {
+    overflow-x: hidden;
     background-color: #e6e6e6 !important;
 }
 

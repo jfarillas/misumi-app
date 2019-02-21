@@ -3,10 +3,8 @@ table {
 }
 
 .list-customers {
-    margin: 20px 15px;
-    float: left;
-    width: 60%;
-    min-width: 870px;
+    padding: 0;
+    margin-top: 20px;
     font-size: 12px;
 }
 

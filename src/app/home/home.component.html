@@ -1,5 +1,12 @@
 <app-header [newTitle]="newTitle"></app-header>
-<div class="main">
-    <app-sidebar (getUpdatedCustomerTitle)="displayCustomerTitle($event)"></app-sidebar>
-    <router-outlet></router-outlet>
+<div class="main container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <app-sidebar (getUpdatedCustomerTitle)="displayCustomerTitle($event)"></app-sidebar>
+        </div>
+        <div class="col-sm-7">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
 </div>

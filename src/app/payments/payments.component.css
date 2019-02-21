@@ -1,8 +1,9 @@
 /** Sales form **/
+.payment-container {
+    padding: 0;
+}
+
 .payment-container #theForm {
-    float: left;
-    width: 60%;
-    margin-left: 30px;
     background-color: white;
 }
 

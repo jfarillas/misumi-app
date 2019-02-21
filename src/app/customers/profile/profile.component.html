@@ -1,101 +1,101 @@
-<div class="profile-container">
+<div class="profile-container container-fluid">
   <div class="row">
-    <div class="col">
+    <div class="col-sm-6">
       <div class="row">
-        <div class="col label">Customer Key</div>
-        <div class="col details">{{customer.customerKey}}</div>
+        <div class="col-sm-6 label">Customer Key</div>
+        <div class="col-sm-6 details">{{customer.customerKey}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Business Reg No</div>
-        <div class="col details">{{customer.businessRegNo}}</div>
+        <div class="col-sm-6 label">Business Reg No</div>
+        <div class="col-sm-6 details">{{customer.businessRegNo}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Company Name/<br>Individual Buyer</div>
-        <div class="col details">{{customer.name}}</div>
+        <div class="col-sm-6 label">Company Name/<br>Individual Buyer</div>
+        <div class="col-sm-6 details">{{customer.name}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Date of Registration</div>
-        <div class="col details">{{customer.registrationDate | date:'dd MMMM yyyy'}}</div>
+        <div class="col-sm-6 label">Date of Registration</div>
+        <div class="col-sm-6 details">{{customer.registrationDate | date:'dd MMMM yyyy'}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Address</div>
-        <div class="col details">{{customer.streetName}}</div>
+        <div class="col-sm-6 label">Address</div>
+        <div class="col-sm-6 details">{{customer.streetName}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details">{{customer.buildingName}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details">{{customer.buildingName}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details">{{customer.unitNo}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details">{{customer.unitNo}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details">{{customer.postalCode}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details">{{customer.postalCode}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Country</div>
-        <div class="col details">{{country}}</div>
+        <div class="col-sm-6 label">Country</div>
+        <div class="col-sm-6 details">{{country}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Contact</div>
-        <div class="col details">{{customer.contactNo}}</div>
+        <div class="col-sm-6 label">Contact</div>
+        <div class="col-sm-6 details">{{customer.contactNo}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details">{{customer.contactName}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details">{{customer.contactName}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details">{{customer.email}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details">{{customer.email}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details">{{customer.faxNo}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details">{{customer.faxNo}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details">{{customer.contactMisc}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details">{{customer.contactMisc}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Gender</div>
-        <div class="col details">{{customer.gender | titlecase}}</div>
+        <div class="col-sm-6 label">Gender</div>
+        <div class="col-sm-6 details">{{customer.gender | titlecase}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Origin</div>
-        <div class="col details">{{customer.origin}}</div>
+        <div class="col-sm-6 label">Origin</div>
+        <div class="col-sm-6 details">{{customer.origin}}</div>
       </div>
     </div>
-    <div class="col">
+    <div class="col-sm-6">
       <div class="row">
-        <div class="col label">Financial Status</div>
+        <div class="col-sm-12 label">Financial Status</div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-sm-12">
           <canvas baseChart
           [datasets]="barChartData"
           [labels]="barChartLabels"
@@ -108,30 +108,30 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Sales/Payment/<br>Banking Details</div>
-        <div class="col details">{{customer.salesDetails}}</div>
+        <div class="col-sm-6 label">Sales/Payment/<br>Banking Details</div>
+        <div class="col-sm-6 details">{{customer.salesDetails}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details spb-details">{{customer.paymentDetails}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details spb-details">{{customer.paymentDetails}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details spb-details">{{customer.bankingDetails}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details spb-details">{{customer.bankingDetails}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
-        <div class="col details spb-details">{{customer.miscDetails}}</div>
+        <div class="col-sm-6">&nbsp;</div>
+        <div class="col-sm-6 details spb-details">{{customer.miscDetails}}</div>
       </div>
       <div class="row">
-        <div class="col">&nbsp;</div>
+        <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
-        <div class="col label">Remarks</div>
-        <div class="col details">{{customer.remarks}}</div>
+        <div class="col-sm-6 label">Remarks</div>
+        <div class="col-sm-6 details">{{customer.remarks}}</div>
       </div>
     </div>
   </div>
