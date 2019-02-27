@@ -101,6 +101,10 @@
     padding-right: 25px;
 }
 
+.customer-container .form-group .txt-remarks textarea {
+    height: 50px;
+}
+
 .alert.alert-danger.custom, .alert.alert-success.custom {
     width: 100%;
     border-bottom-left-radius: 0;

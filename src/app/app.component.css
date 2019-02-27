@@ -1,6 +1,6 @@
 .app-container {
     height: 100vh;
-    overflow-y: hidden;
+    overflow-y: auto;
     padding: 0;
     color: #6e6e6e;
 }
