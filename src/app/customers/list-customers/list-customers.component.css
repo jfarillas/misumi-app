@@ -10,12 +10,16 @@ table {
 
 .list-customers table {
     table-layout: auto;
-    background-color: #fff;
 }
 
 .list-customers table th .sort {
     margin-left: 10px;
 }
+
+.list-customers table thead {
+    background-color: #fff;
+}
+
 
 .list-customers table thead th {
     border-right: 2px solid #dee2e6;
@@ -31,10 +35,13 @@ table {
 .list-customers table tbody {
     overflow: auto;
     height: 75vh;
+    display: block;
     border-right: 2px solid #e6e6e6;
 }
 
 .list-customers table tbody tr {
+    width: 100%;
+    display: block;
     cursor: pointer;
 }
 
@@ -44,6 +51,10 @@ table {
 
 .list-customers table tbody .odd {
     background-color: #e6e6e6;
+}
+
+.list-customers table tbody .even {
+    background-color: #fff;
 }
 
 .list-customers .form-group.search {
@@ -82,4 +93,11 @@ table {
 
 .list-customers .form-group.search .container-fa-search i {
     margin: 10px 8px;
+}
+
+/* On screens 1500px or more */
+@media screen and (min-width: 1500px) {
+    .list-customers table tbody {
+        height: 75.5vh;
+    }
 }

@@ -1,6 +1,9 @@
+.sidebar-a {
+    height: 95vh;
+    background-color: #124366;
+}
 .menu {
     padding-top: 8px !important;
-    background-color: #124366;
 }
 
 .sidebar-a ul, .sidebar-a ul.menu > li a {

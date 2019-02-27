@@ -31,7 +31,7 @@ export class ProfileComponent implements OnChanges, OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  barChartLabels: string[] = ['2018', '2019'];
+  barChartLabels: string[] = [];
   barChartType: string = 'bar';
   barChartLegend: boolean = true;
 

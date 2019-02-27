@@ -44,10 +44,8 @@ th {
 
 tbody {
     position: absolute;
-    max-height: calc(600%);
+    height: 50vh;
     overflow-y: auto;
-    background-color: white;
-    border-bottom: 1px solid rgba(0,0,0,0.25);
 }
 
 .even {
@@ -69,4 +67,11 @@ tbody {
 
 .highlight-btn:hover {
     text-decoration: underline;
+}
+
+/* On screens 1500px or more */
+@media screen and (min-width: 1500px) {
+    tbody {
+        height: 55vh;
+    }
 }

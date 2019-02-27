@@ -1,3 +1,27 @@
 .main {
     padding: 0;
 }
+
+.main div {
+    margin-right: 0;
+}
+
+/* On screens less than 1500px */
+@media screen and (max-width: 1499px) {
+    .main div div:nth-child(3) {
+        display: none;
+    }
+}
+
+/* On screens 1500px or more */
+@media screen and (min-width: 1500px) {
+    .main div div:nth-child(2) {
+        flex: 0 0 58.333333%;
+        max-width: 58.333333%;
+    }
+
+    .main div div:nth-child(3) {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}

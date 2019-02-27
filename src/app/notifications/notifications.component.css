@@ -1,0 +1,16 @@
+/* On screens 1500px or more */
+@media screen and (min-width: 1500px) {
+    .notif-container {
+        margin-top: 20px;
+        padding: 0 15px;
+        max-height: 89vh;
+        background-color: #fff;
+    }
+
+    .notif-container div:nth-child(1) div {
+        text-align: center;
+        padding: 5px;
+    }
+}
+
+

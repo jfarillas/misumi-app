@@ -31,6 +31,7 @@ import { TabComponent } from './tab/tab.component';
 import { DynamicTabsDirective } from './tabs/dynamic-tabs.directive';
 import { ChartsModule } from 'ng2-charts';
 import { PaymentsComponent } from './payments/payments.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
 
@@ -66,6 +67,7 @@ const routes: Routes = [
     TabComponent,
     DynamicTabsDirective,
     PaymentsComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

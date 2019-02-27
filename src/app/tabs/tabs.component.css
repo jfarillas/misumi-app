@@ -1,5 +1,6 @@
 .tab-container {
-   padding: 0;
+    padding-left: 0;
+    padding-right: 25px;
 }
 
 .nav-tabs li {
@@ -64,4 +65,11 @@
 
 .nav-tabs .active div .tab-close-container {
     margin-right: 0;
+}
+
+/* On screens 1500px or more */
+@media screen and (min-width: 1500px) {
+    .tab-container {
+        padding-right: 0;
+    }
 }
