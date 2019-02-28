@@ -95,6 +95,11 @@ table {
     margin: 10px 8px;
 }
 
+.no-records {
+    text-align: center;
+    color: #ff0000;
+}
+
 /* On screens 1500px or more */
 @media screen and (min-width: 1500px) {
     .list-customers table tbody {

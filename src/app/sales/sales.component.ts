@@ -30,6 +30,10 @@ export class SalesComponent implements OnChanges, OnInit {
   error = '';
   success = '';
   sale = new Sales('', '', '', '', '', '', '', '', 0);
+
+  // Has sales data
+  hasData: boolean;
+
   constructor(
     private salesService: SalesService,
     private ref: ChangeDetectorRef
@@ -37,19 +41,23 @@ export class SalesComponent implements OnChanges, OnInit {
   }
   ngOnInit() {
     console.log("init");
-    this.getSales();
+    this.getSales(this.getCustomer);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("changing");
     this.customer = changes.getCustomer.currentValue;
   }
-  getSales(): void {
-    this.salesService.getAll().subscribe((res: Sales[]) => {
+  getSales(getCustomers: any): void {
+    console.log(getCustomers.customerId);
+    this.salesService.getAll(getCustomers.customerId).subscribe((res: Sales[]) => {
       this.salesArr = res;
+      // No records found when there is/are no data fetched
+      console.log(this.salesArr.length);
+      this.hasData = this.salesArr.length > 0 ? true : false;
+      console.log(this.hasData);
       // Check if the sales data has been fetched
       this.ref.detectChanges();
-      console.log(this.salesArr);
     }, (err) => {
       this.error = err;
     });

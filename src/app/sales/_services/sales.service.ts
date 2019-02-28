@@ -17,8 +17,8 @@ export class SalesService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Sales[]> {
-    return this.http.get(`${this.baseUrl}/list.php`).pipe(
+  getAll(customerId: string): Observable<Sales[]> {
+    return this.http.get(`${this.baseUrl}/list.php?customer_id=`+customerId).pipe(
       map((res) => {
         this.sales = res['data'];
         return this.sales;

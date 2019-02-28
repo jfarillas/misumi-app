@@ -45,11 +45,16 @@
     </tbody>
     <tbody *ngIf="isSorted">
       <tr (click)="openProfile.emit(customer)" *ngFor="let customer of listCustomersSorted | listCustomers:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
-          <td class="d-inline-block col-2">{{customer.customerKey}}</td>
-          <td class="d-inline-block col-2">{{customer.businessRegNo}}</td>
-          <td class="d-inline-block col-4">{{customer.name}}</td>
-          <td class="d-inline-block col-2">{{customer.contactNo}}</td>
-          <td class="d-inline-block col-2">{{customer.status}}</td>
+        <td class="d-inline-block col-2">{{customer.customerKey}}</td>
+        <td class="d-inline-block col-2">{{customer.businessRegNo}}</td>
+        <td class="d-inline-block col-4">{{customer.name}}</td>
+        <td class="d-inline-block col-2">{{customer.contactNo}}</td>
+        <td class="d-inline-block col-2">{{customer.status}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="!hasData">
+      <tr [class.odd]="isOdd">
+        <td class="d-inline-block col-12">No records found.</td>
       </tr>
     </tbody>
   </table>

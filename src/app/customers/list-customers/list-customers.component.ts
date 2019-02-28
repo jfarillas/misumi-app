@@ -9,7 +9,8 @@ import {
   ComponentFactory,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ListCustomers } from './list-customers';
 import { ListCustomersService } from './_services/list-customers.service';
@@ -62,12 +63,16 @@ export class ListCustomersComponent implements OnInit {
   sortActiveFourth: boolean = false;
   sortActiveFifth: boolean = false;
 
+  // Has customer data
+  hasData: boolean;
+
   // Load profile component when a specific record has been selected
   @ViewChild('profilecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
 
   constructor(
     private listCustomersService: ListCustomersService,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private ref: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -79,6 +84,10 @@ export class ListCustomersComponent implements OnInit {
       console.log(res);
       // Sorting data
       this.sortedData = res;
+      // No records found when there is/are no data fetched
+      console.log(res.length);
+      this.hasData = res.length > 0 ? true : false;
+      console.log(this.hasData);
       //return customersArr;
       return res;
     }, (err) => {

@@ -73,7 +73,7 @@
     </form>
   </div>
   <!-- List of sales -->  
-  <div class="col-12 list-sales">
+  <div *ngIf="hasData" class="col-12 list-sales">
     <table class="table">
       <thead>
         <tr>
@@ -95,5 +95,6 @@
       </tbody>
     </table>
   </div>
+  <div *ngIf="!hasData" class="col-12 list-sales"></div>
   </div>
 </div>
