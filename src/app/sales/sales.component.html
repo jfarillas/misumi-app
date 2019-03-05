@@ -34,7 +34,7 @@
                   <input type="text"
                   class="form-control form-control-sm"
                   name="model"
-                  [(ngModel)]="sale.payments"
+                  [(ngModel)]="sale.amount"
                   #accountModel="ngModel"
                   placeholder="Eg. 1,234,567,890"
                   required
@@ -87,7 +87,7 @@
       <tbody>
         <tr *ngFor="let item of salesArr; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
           <td class="d-inline-block col-2">{{item.paymentDate}}</td>
-          <td class="d-inline-block col-3">${{item.payments}}</td>
+          <td class="d-inline-block col-3">${{item.amount}}</td>
           <td class="d-inline-block col-3">{{item.invoices}}</td>
           <td class="d-inline-block col-2 highlight-btn"><i class="fas fa-pencil-alt fa-lg fa-edit-style"></i> Edit</td>
           <td class="d-inline-block col-2 highlight-btn"><i class="fas fa-times fa-lg fa-delete-style"></i> Delete</td>

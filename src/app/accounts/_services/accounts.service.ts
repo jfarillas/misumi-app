@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -20,7 +20,11 @@ export class AccountsService {
   store(account: Accounts): Observable<Accounts[]> {
     console.log("Account to be added:");
     console.log(account);
-    return this.http.post(`${this.baseUrl}/store`, { data: account })
+    // Set header content-type
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    };
+    return this.http.post(`${this.baseUrl}/store`, { data: account }, options)
       .pipe(map((res) => {
         //this.accounts.push(res['data']);
         return this.accounts;

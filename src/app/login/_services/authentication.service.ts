@@ -1,6 +1,6 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -18,7 +18,11 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
   login(login: Login): Observable<Login[]> {
     console.log("Logging in...");
-    return this.http.post(`${this.baseUrl}/authenticate.php`, { data: login })
+    // Set header content-type
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    };
+    return this.http.post(`${this.baseUrl}/authenticate.php`, { data: login }, options)
       .pipe(map((res) => {
         this.logins.push(res['data']);
         console.log(this.logins[0]['id']+' - '+this.logins[0]['name']);

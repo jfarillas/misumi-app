@@ -3,7 +3,7 @@ export class Sales {
       public customersId:      string,
       public accountsId:       string,
       public invoices:         string,
-      public payments:         string,
+      public amount:           string,
       public paymentDate:      string,
       public paymentDateYear:  string,
       public paymentDateMonth: string,

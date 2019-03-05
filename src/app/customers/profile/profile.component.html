@@ -95,9 +95,20 @@
         <div class="col-sm-12 label">Financial Status</div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
+        <div *ngIf="!updateData" class="col-sm-12">
           <canvas baseChart
           [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          [colors]="chartColors"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+        <div *ngIf="updateData" class="col-sm-12 fff">
+          <canvas baseChart
+          [datasets]="barChartDataUpdate"
           [labels]="barChartLabels"
           [options]="barChartOptions"
           [legend]="barChartLegend"

@@ -93,6 +93,7 @@ export class PaymentsComponent implements OnInit {
     this.submitting = true;
 
     const payload = {
+      customerId: this.getCustomer.customerId,
       invoiceNo: this.invoiceNo,
       amountPaid: this.amountPaid,
       dueDate: this.dueDate,

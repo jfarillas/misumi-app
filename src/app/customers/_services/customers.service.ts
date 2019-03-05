@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -20,7 +20,11 @@ export class CustomersService {
   store(customer: Customers): Observable<Customers[]> {
     console.log("Customer to be added:");
     console.log(customer);
-    return this.http.post(`${this.baseUrl}/store`, { data: customer })
+    // Set header content-type
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    };
+    return this.http.post(`${this.baseUrl}/store`, { data: customer }, options)
       .pipe(map((res) => {
         //this.customers.push(res['data']);
         return this.customers;

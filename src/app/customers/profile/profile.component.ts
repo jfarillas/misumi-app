@@ -11,6 +11,7 @@ import { Component,
 import { Observable } from 'rxjs';
 
 import { DataService, Country } from './../../shared/data.service';
+import { ProfileService, Totalsales, Totalpayments } from './_services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +27,10 @@ export class ProfileComponent implements OnChanges, OnInit {
   countries: Country[] = [];
   country: any;
 
+  // Financial status
+  // Total sales & payments
+  totalsales: Totalsales[] = [];
+  totalpayments: Totalpayments[] = [];
   // Bar charts for financial status
   barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -35,10 +40,22 @@ export class ProfileComponent implements OnChanges, OnInit {
   barChartType: string = 'bar';
   barChartLegend: boolean = true;
 
-  barChartData: any[] = [
+  /* barChartData: any[] = [
     {data: [1234, 1234], label: 'Sales'},
     {data: [1000, 678], label: 'Payment'}
+  ]; */
+
+  barChartData: any[] = [
+    {data: [0.00], label: 'Sales'},
+    {data: [0.00], label: 'Payment'}
   ];
+  barChartDataUpdate: any[] = [
+    {data: [0.00], label: 'Sales'},
+    {data: [0.00], label: 'Payment'}
+  ];
+  totolSalesUpdate: boolean = false;
+  totolPaymentUpdate: boolean = false;
+  updateData: boolean = false;
 
   chartColors: Array<any> = [
     { // first color
@@ -60,10 +77,53 @@ export class ProfileComponent implements OnChanges, OnInit {
  
   constructor(
     private dataService: DataService,
-    private ref: ChangeDetectorRef
+    private profileService: ProfileService,
+    private ref: ChangeDetectorRef,
+    private refSales: ChangeDetectorRef,
+    private refPayments: ChangeDetectorRef
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    // Get total sales & payments per customer
+    // Total sales
+    this.profileService.getTotalSales(this.getCustomer.customerId).subscribe(totalsales => {
+      if (totalsales.length > 0) {
+        this.barChartDataUpdate.forEach((dataset, index) => {
+          if (index === 0) {
+            this.barChartDataUpdate[index] = Object.assign({}, this.barChartDataUpdate[index], {
+              data: [totalsales[0].totalSales]
+            });
+            // Total payments
+            this.totalPaymentsData(this.getCustomer.customerId);
+          }
+        });
+      }
+      // Total payments
+      this.totalPaymentsData(this.getCustomer.customerId);
+    });
+    console.log(this.barChartDataUpdate);
+  }
+
+  totalPaymentsData(customerId: string) {
+    this.profileService.getTotalPayments(customerId).subscribe(totalpayments => {
+      if (totalpayments.length > 0) {
+        this.barChartDataUpdate.forEach((dataset, index) => {
+          if (index === 1) {
+            this.barChartDataUpdate[index] = Object.assign({}, this.barChartDataUpdate[index], {
+              data: [totalpayments[0].totalPayments]
+            });
+            this.updateDataSet(true);
+          }
+        });
+      }
+      this.updateDataSet(true);
+    });
+  }
+
+  updateDataSet(flag: boolean) {
+    this.updateData = flag;
+    this.ref.detectChanges();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     // Country filters

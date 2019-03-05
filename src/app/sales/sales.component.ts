@@ -84,6 +84,7 @@ export class SalesComponent implements OnChanges, OnInit {
         this.sales = res;
         // Inform the user
         this.success = 'Created successfully';
+        this.hasData = true;
         // Reset the form
         f.reset();
       }, (err) => {
