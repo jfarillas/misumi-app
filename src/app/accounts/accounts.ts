@@ -5,6 +5,7 @@ export class Accounts {
     public password:    string,
     public name:        string,
     public contactNo:   string,
+    public parentId:    number,
     id?:                number
   ) {}
 }

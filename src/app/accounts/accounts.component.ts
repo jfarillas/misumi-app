@@ -16,7 +16,8 @@ export class AccountsComponent implements OnInit {
   accounts: Accounts[];
   error = '';
   success = '';
-  account = new Accounts('', '', '', '', '');
+  account = new Accounts('', '', '', '', '', 0);
+  hasUserName = localStorage.getItem('currentUser') !== null ? true : false;
 
   // Designation selections
   designation_options: any = ['Admin', 'Director', 'Manager', 'Staff'];
@@ -29,6 +30,7 @@ export class AccountsComponent implements OnInit {
   ngOnInit() {
     // Designation filters
     this.account.designation = 'Staff';
+    console.log(this.hasUserName);
   }
 
   addAccount(f: {

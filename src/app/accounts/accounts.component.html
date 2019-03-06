@@ -1,8 +1,10 @@
 <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 <div *ngIf="success" class="alert alert-success">{{success}}</div>
-<div><a routerLink="/login" routerLinkActive="active">Login</a></div>
+<div *ngIf="!hasUserName"><a routerLink="/login" routerLinkActive="active">Login</a></div>
+<div *ngIf="hasUserName"></div>
 <div id="theForm">
-  <h2>Add account</h2>
+  <div *ngIf="!hasUserName"><h2>Add account</h2></div>
+  <div *ngIf="hasUserName">&nbsp;</div>
   <form #f="ngForm" name="theForm" (submit)="addAccount(f)">
       <div class="form-group">
         <label>Designation</label>

@@ -47,7 +47,7 @@ th {
 
 tbody {
     position: absolute;
-    height: 50vh;
+    height: 35vh;
     overflow-y: auto;
 }
 
@@ -75,6 +75,6 @@ tbody {
 /* On screens 1500px or more */
 @media screen and (min-width: 1500px) {
     tbody {
-        height: 55vh;
+        height: 40vh;
     }
 }

@@ -18,6 +18,22 @@ export class AccountsService {
   constructor(private http: HttpClient) { }
 
   store(account: Accounts): Observable<Accounts[]> {
+    // Generate parent ID
+    let start: number;
+    switch (account.designation) {
+      case 'Admin':
+        start = 0;
+        this.generateParentId(account, 'admin', start);
+      break;
+      case 'Director':
+        start = 1000;
+        this.generateParentId(account, 'director', start);
+      break;
+      case 'Manager':
+        start = 2000;
+        this.generateParentId(account, 'manager', start);
+      break;
+    }
     console.log("Account to be added:");
     console.log(account);
     // Set header content-type
@@ -37,5 +53,35 @@ export class AccountsService {
 
     // return an observable with a user friendly message
     return throwError('Error! something went wrong.');
+  }
+
+  generateParentId(account: any, designation: string, start: number) {
+    switch (designation) {
+      case 'admin':
+        this.storeParentId(account, 'adminId', start);
+      break;
+      case 'director':
+        this.storeParentId(account, 'directorId', start);
+      break;
+      case 'manager':
+        this.storeParentId(account, 'managerId', start);
+      break;
+    }
+    
+  }
+
+  storeParentId(account: any, parentIdName: string, start: number) {
+    if (localStorage.getItem(parentIdName) !== null) {
+      let ctr = Number(localStorage.getItem(parentIdName))+1
+      localStorage.setItem(parentIdName, ctr.toString());
+      account.parentId = localStorage.getItem(parentIdName)
+      console.log('have parent id');
+    } else {
+      let ctr = start+1;
+      localStorage.setItem(parentIdName, ctr.toString());
+      account.parentId = localStorage.getItem(parentIdName);
+      console.log('no parent id');
+    }
+    console.log(localStorage.getItem(parentIdName))
   }
 }
