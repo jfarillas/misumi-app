@@ -58,13 +58,13 @@ export class AccountsService {
   generateParentId(account: any, designation: string, start: number) {
     switch (designation) {
       case 'admin':
-        this.storeParentId(account, 'adminId', start);
+        this.storeParentId(account, 'lastAdminId', start);
       break;
       case 'director':
-        this.storeParentId(account, 'directorId', start);
+        this.storeParentId(account, 'lastDirectorId', start);
       break;
       case 'manager':
-        this.storeParentId(account, 'managerId', start);
+        this.storeParentId(account, 'lastManagerId', start);
       break;
     }
     
