@@ -29,7 +29,29 @@ export class AccountsComponent implements OnInit {
   }
   ngOnInit() {
     // Designation filters
-    this.account.designation = 'Staff';
+    // Remove staff from the designation options if the account to be added is admin, director or manager
+    if (localStorage.getItem('designation') === null) {
+      this.designation_options.splice(3, 1);
+      this.account.designation = 'Admin';
+    } else {
+      this.account.designation = 'Staff';
+    }
+
+    switch (localStorage.getItem('designation')) {
+      case 'admin':
+        this.designation_options.splice(0, 1);
+        this.account.designation = 'Director';
+      break;
+      case 'director':
+        this.designation_options.splice(0, 2);
+        this.account.designation = 'Manager';
+      break;
+      case 'manager':
+        this.designation_options.splice(0, 3);
+        this.account.designation = 'Staff';
+      break;
+    }
+    
     console.log(this.hasUserName);
   }
 
@@ -41,7 +63,9 @@ export class AccountsComponent implements OnInit {
     // Update the designation property in customer model with the value from angular material specific form field/s.
     //this.account.designation = this.frmDesignationControl.value;
 
-    this.accountService.store(this.account)
+    console.log(this.account.designation);
+    if (this.account.designation !== 'Staff' || localStorage.getItem('designation') !== null) {
+      this.accountService.store(this.account)
       .subscribe((res: Accounts[]) => {
         // Update the list of accounts
         this.accounts = res;
@@ -56,6 +80,12 @@ export class AccountsComponent implements OnInit {
         // Check if the account data has been added
         this.ref.detectChanges();
       });
+    } else {
+      this.error = this.account.designation+' cannot create user account.';
+      // Check if the account data has been added
+      this.ref.detectChanges();
+    }
+    
   }
   private resetErrors() {
     this.success = '';

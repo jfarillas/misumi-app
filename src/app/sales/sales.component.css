@@ -57,8 +57,12 @@ tbody {
     cursor: pointer;
 }
 
-.fa-pencil-alt {
-    color: #0098D8;
+.fa-pencil-alt-enabled {
+    color: #0098D8 !important;
+}
+
+.fa-pencil-alt-disabled {
+    color: #ced4da !important;
 }
 
 .fa-times {
@@ -67,6 +71,15 @@ tbody {
 
 .highlight-btn:hover {
     text-decoration: underline;
+}
+
+.no-highlight-btn:hover {
+    text-decoration: none;
+}
+
+.btn-cancel, btn-cancel:active:focus, .btn-cancel:hover {
+    background-color: #D80000!important;
+    border-color: #D80000!important;
 }
 
 /* On screens 1500px or more */

@@ -18,21 +18,25 @@ export class AccountsService {
   constructor(private http: HttpClient) { }
 
   store(account: Accounts): Observable<Accounts[]> {
-    // Generate parent ID
-    let start: number;
-    switch (account.designation) {
-      case 'Admin':
-        start = 0;
-        this.generateParentId(account, 'admin', start);
-      break;
-      case 'Director':
-        start = 1000;
-        this.generateParentId(account, 'director', start);
-      break;
-      case 'Manager':
-        start = 2000;
-        this.generateParentId(account, 'manager', start);
-      break;
+    // Generate parent ID if the user accounts to be created are for admin, directors or managers
+    if (localStorage.getItem('userParentId') === null) {
+      let start: number;
+      switch (account.designation) {
+        case 'Admin':
+          start = 0;
+          this.generateParentId(account, 'admin', start);
+        break;
+        case 'Director':
+          start = 1000;
+          this.generateParentId(account, 'director', start);
+        break;
+        case 'Manager':
+          start = 2000;
+          this.generateParentId(account, 'manager', start);
+        break;
+      }
+    } else {
+      account.parentId = Number(localStorage.getItem('userParentId'));
     }
     console.log("Account to be added:");
     console.log(account);

@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 
 import { TabsComponent } from './../../tabs/tabs.component';
+
+import { NotificationsService } from './../../notifications/_services/notifications.service';
 
 @Component({
   selector: 'app-details-customers',
@@ -13,8 +15,9 @@ export class DetailsCustomersComponent {
   @ViewChild('paymentsContainer') openPaymentTemplate : any;
   @ViewChild('salesContainer') openSalesTemplate : any;
   @ViewChild(TabsComponent) tabsComponent: any;
+  @Input() updateEvents: any = [];
 
-  constructor() { }
+  constructor(private notificationsService: NotificationsService) { }
 
   openCustomerProfile(customer: any) {
     console.log('open profile tab...');
@@ -37,5 +40,12 @@ export class DetailsCustomersComponent {
       true
     );
   }
-  
+
+  pushUpdatedEvents(notifications: any) {
+    this.updateEvents = notifications;
+    console.log('Loading notifications...');
+    console.log(this.updateEvents);
+    this.notificationsService.updatedEvents(notifications)
+    return notifications;
+  }
 }

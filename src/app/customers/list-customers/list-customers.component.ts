@@ -160,19 +160,6 @@ export class ListCustomersComponent implements OnInit {
   toggleHeaderListFifth() {
     this.isHeaderFifthClicked = !this.isHeaderFifthClicked;
   }
-
-  // Get the customer data to carry over on profile tab
-  showCustomerProfile(customer: any) {
-    this.openProfile.subscribe((data: any) => this.customerProfile(data));
-    this.openProfile.emit(customer);
-  }
-
-  customerProfile(data: any) {
-    this.getCustomer = data;
-    console.log('from list customer...');
-    console.log(this.getCustomer);
-  }
-
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

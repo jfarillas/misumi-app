@@ -4,12 +4,48 @@
         margin-top: 20px;
         padding: 0 15px;
         max-height: 89vh;
+        overflow: auto;
         background-color: #fff;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        -webkit-box-shadow: 0px 2px 5px 0px #cfcfcf;
+        -moz-box-shadow: 0px 2px 5px 0px #cfcfcf;
+        box-shadow: 0px 2px 5px 0px #cfcfcf;
+        border: 1px solid #6e6e6e;
     }
 
     .notif-container div:nth-child(1) div {
         text-align: center;
         padding: 5px;
+        background-color: #dbdbdb;
+    }
+
+    .notif-list {
+        padding: 10px 0;
+        border-bottom: 1px solid #dbdbdb;
+    }
+
+    .notif-list .event-type {
+        font-weight: bold;
+    }
+
+    .notif-list .event-time {
+        text-align: right;
+        font-weight: bold;
+    }
+
+    .notif-list .description {
+        line-height: 1rem;
+    }
+
+    .new {
+        color: #ff8800;
+    }
+
+    .update {
+        color: #2b8bd9;
     }
 }
 

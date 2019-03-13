@@ -15,6 +15,7 @@ export class SidebarComponent implements OnInit {
   
   @Input() newTitle: string = '';
   @Output() getUpdatedCustomerTitle: EventEmitter<any> = new EventEmitter();
+  isNotStaff: boolean;
 
   constructor(
     private modalService: NgbModal,
@@ -44,6 +45,8 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Hide "New Account" link if the user is staff only.
+    this.isNotStaff = localStorage.getItem('designation') !== 'staff' ? true : false;
   }
 
   changeTitleCustomers(headerTitle: string) {

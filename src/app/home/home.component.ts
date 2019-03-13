@@ -1,8 +1,10 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomersComponent } from './../customers/customers.component';
 import { HeaderComponent } from './../header/header.component';
+
+import { Notifications } from './../notifications/notifications';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +14,8 @@ import { HeaderComponent } from './../header/header.component';
 export class HomeComponent implements OnInit {
 
   @Input() newTitle: string = '';
+  @Input() updateEvents: any;
+  @Output() pushEvents: EventEmitter<any> = new EventEmitter();
   userName = localStorage.getItem('currentUser');
 
   constructor(
@@ -51,4 +55,11 @@ export class HomeComponent implements OnInit {
     return title;
   }
 
+  pushUpdatedEvents(notifications: any) {
+    this.updateEvents = notifications;
+    console.log('Home latest notifications...');
+    console.log(this.updateEvents);
+    //this.pushEvents.emit(this.updateEvents)
+    return notifications;
+  }
 }

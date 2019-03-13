@@ -29,7 +29,7 @@ export class AuthenticationService {
         localStorage.setItem('userId', this.logins[0]['id']);
         localStorage.setItem('currentUser', this.logins[0]['name']);
         localStorage.setItem('currentUserEmail', this.logins[0]['email']);
-        localStorage.setItem('designation', this.logins[0]['designation']);
+        localStorage.setItem('designation', this.logins[0]['designation'].toLowerCase());
         localStorage.setItem('userParentId', this.logins[0]['parentId']);
         
         return this.logins;

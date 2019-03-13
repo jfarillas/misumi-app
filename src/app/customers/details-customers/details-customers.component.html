@@ -12,5 +12,5 @@
     <app-payments [getCustomer]="customer"></app-payments>
   </ng-template>
 <ng-template let-customer="customer" #salesContainer>
-  <app-sales [getCustomer]="customer"></app-sales>
+  <app-sales [getCustomer]="customer" (pushEvents)="pushUpdatedEvents($event)"></app-sales>
 </ng-template>
