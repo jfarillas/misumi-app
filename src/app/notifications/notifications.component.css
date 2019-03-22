@@ -20,11 +20,14 @@
         text-align: center;
         padding: 5px;
         background-color: #dbdbdb;
+        font-weight: bold;
+        z-index: 1;
     }
 
     .notif-list {
         padding: 10px 0;
         border-bottom: 1px solid #dbdbdb;
+        z-index: 0;
     }
 
     .notif-list .event-type {
@@ -46,6 +49,10 @@
 
     .update {
         color: #2b8bd9;
+    }
+
+    .delete {
+        color: #D80000;
     }
 }
 

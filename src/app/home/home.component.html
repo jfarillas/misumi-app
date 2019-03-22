@@ -8,7 +8,7 @@
             <router-outlet></router-outlet>
         </div>
         <div class="container-fluid">
-            <app-notifications [updateEvents]="updateEvents"></app-notifications>
+            <app-notifications [updateEvents]="updateEvents" (pushEvents)="pushUpdatedEvents($event)"></app-notifications>
         </div>
     </div>
 </div>

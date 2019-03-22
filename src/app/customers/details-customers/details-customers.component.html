@@ -9,7 +9,7 @@
   <app-profile [getCustomer]="customer"></app-profile>
 </ng-template>
 <ng-template let-customer="customer" #paymentsContainer>
-    <app-payments [getCustomer]="customer"></app-payments>
+    <app-payments [getCustomer]="customer" (pushEvents)="pushUpdatedEvents($event)"></app-payments>
   </ng-template>
 <ng-template let-customer="customer" #salesContainer>
   <app-sales [getCustomer]="customer" (pushEvents)="pushUpdatedEvents($event)"></app-sales>

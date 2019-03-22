@@ -56,6 +56,19 @@ export class SalesService {
       }),
       catchError(this.handleError));
   }
+
+  delete(sale: Sales): Observable<Sales[]> {
+    // Set header content-type
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    };
+    return this.http.post(`${this.baseUrl}/delete.php`, { data: sale }, options)
+      .pipe(map((res) => {
+        this.sales.push(res['data']);
+        return this.sales;
+      }),
+      catchError(this.handleError));
+  }
   
   getAccountsParentId(customerId: string): Observable<Sales[]> {
     return this.http.get(`${this.baseUrl}/listparentid.php?customer_id=`+customerId).pipe(

@@ -8,6 +8,7 @@ export class Sales {
       public paymentDateYear:  string,
       public paymentDateMonth: string,
       public paymentDateDay:   string,
+      public parentId:         number,
       public isEnabled:        string,
       id?:                     number
     ) {}

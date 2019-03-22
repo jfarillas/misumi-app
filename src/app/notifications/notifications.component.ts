@@ -11,13 +11,27 @@ import { Notifications } from './notifications';
 
 import { NotificationsService } from './_services/notifications.service';
 import { SalesService } from './../sales/_services/sales.service';
+
+import { trigger, transition, animate, style, state } from '@angular/animations';
 import * as moment from 'moment';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({transform: 'translateY(-100%)'}),
+        animate('500ms ease-in', style({transform: 'translateY(0%)'}))
+      ]),
+      transition(':leave', [
+        style({'transform-origin': 'top'}),
+        animate('500ms ease-out', style({transform: 'scaleY(0)'}))
+      ])
+    ])
+  ]
 })
 export class NotificationsComponent implements OnInit, OnChanges {
   @Input() getCustomer: any;
@@ -84,7 +98,10 @@ export class NotificationsComponent implements OnInit, OnChanges {
             console.log(this.getEventTime(notifications[index].createDateTime));
             this.ref.detectChanges();
           } else if (notifications[index].updateDateTime !== null) {
-            notifications[index]['notifStatus'] = 2;
+            // Check if the event type is deleted 
+            let eventType = new RegExp('delete', 'i');
+            let isDeleted = eventType.test(notifications[index].eventType);
+            notifications[index]['notifStatus'] = !isDeleted ? 2 : 3;
             // Compute time difference
             notifications[index]['notifTime'] = this.getEventTime(notifications[index].updateDateTime);
             console.log(notifications[index].updateDateTime);
@@ -104,7 +121,10 @@ export class NotificationsComponent implements OnInit, OnChanges {
             console.log(this.getEventTime(notifications[last].createdatetime));
             this.ref.detectChanges();
           } else if (typeof notifications[last].updatedatetime !== 'undefined') {
-            notifications[last]['notifStatus'] = 2;
+             // Check if the event type is deleted 
+             let eventType = new RegExp('delete', 'i');
+             let isDeleted = eventType.test(notifications[last].eventType);
+            notifications[last]['notifStatus'] = !isDeleted ? 2 : 3;
             // Compute time difference
             notifications[last]['notifTime'] = this.getEventTime(notifications[last].updatedatetime);
             console.log(notifications[last].updatedatetime);

@@ -71,6 +71,7 @@
 .customer-container .form-group .datepicker-custom {
     position: absolute;
     right: 25px;
+    z-index: 0;
 }
 
 .customer-container .form-group .datepicker-custom button {

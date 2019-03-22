@@ -65,8 +65,12 @@ tbody {
     color: #ced4da !important;
 }
 
-.fa-times {
-    color: #D80000;
+.fa-times-enabled {
+    color: #D80000 !important;
+}
+
+.fa-times-disabled {
+    color: #ced4da !important;
 }
 
 .highlight-btn:hover {

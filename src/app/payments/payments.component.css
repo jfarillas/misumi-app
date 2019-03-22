@@ -47,7 +47,7 @@ th {
 
 tbody {
     position: absolute;
-    height: 35vh;
+    height: 40vh;
     overflow-y: auto;
 }
 
@@ -60,16 +60,37 @@ tbody {
     cursor: pointer;
 }
 
-.fa-pencil-alt {
-    color: #0098D8;
+.fa-pencil-alt-enabled {
+    color: #0098D8 !important;
 }
 
-.fa-times {
-    color: #D80000;
+.fa-pencil-alt-disabled {
+    color: #ced4da !important;
+}
+
+.fa-times-enabled {
+    color: #D80000 !important;
+}
+
+.fa-times-disabled {
+    color: #ced4da !important;
 }
 
 .highlight-btn:hover {
     text-decoration: underline;
+}
+
+.no-highlight-btn:hover {
+    text-decoration: none;
+}
+
+.btn-cancel, btn-cancel:active:focus, .btn-cancel:hover {
+    background-color: #D80000!important;
+    border-color: #D80000!important;
+}
+
+.col-adjust {
+    padding-left: 1.2rem;
 }
 
 /* On screens 1500px or more */
