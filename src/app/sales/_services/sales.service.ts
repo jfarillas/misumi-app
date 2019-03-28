@@ -22,10 +22,14 @@ export class SalesService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(customerId: string): Observable<Sales[]> {
-    return this.http.get(`${this.baseUrl}/list.php?customer_id=`+customerId).pipe(
+  getAll(userId: string, designation: string, customerId: string): Observable<Sales[]> {
+    return this.http.get(`${this.baseUrl}/list.php?user_id=`+userId+`&customer_id=`+customerId).pipe(
       map((res) => {
-        this.sales = res['data'];
+        if (res) {
+          this.sales = res['data'];
+        } else {
+          this.sales = [];
+        }
         return this.sales;
     }),
     catchError(this.handleError));
@@ -73,7 +77,11 @@ export class SalesService {
   getAccountsParentId(customerId: string): Observable<Sales[]> {
     return this.http.get(`${this.baseUrl}/listparentid.php?customer_id=`+customerId).pipe(
       map((res) => {
-        this.sales = res['data'];
+        if (res) {
+          this.sales = res['data'];
+        } else {
+          this.sales = [];
+        }
         return this.sales;
     }),
     catchError(this.handleError));

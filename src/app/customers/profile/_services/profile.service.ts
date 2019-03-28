@@ -28,8 +28,21 @@ export class ProfileService {
   getTotalSales(customerId: string): Observable<Totalsales[]> {
     return this.http.get(`${this.baseUrlSales}/totalsales.php?customer_id=`+customerId).pipe(
       map((res) => {
-        this.totalSales = res['data'];
-        return this.totalSales;
+        if (res) {
+          console.log('total sales obj :: ');
+          console.log(res);
+          const isObjResEmpty = !Object.keys(res).length;
+          if (!isObjResEmpty) {
+            this.totalSales = res['data'];
+          } else {
+            this.totalSales = [];
+          }
+          return this.totalSales;
+        } else {
+          this.totalSales = [];
+          return this.totalSales;
+        }
+        
     }),
     catchError(this.handleError));
   }
@@ -37,8 +50,21 @@ export class ProfileService {
   getTotalPayments(customerId: string): Observable<Totalpayments[]> {
     return this.http.get(`${this.baseUrlPayments}/totalpayments.php?customer_id=`+customerId).pipe(
       map((res) => {
-        this.totalPayments = res['data'];
-        return this.totalPayments;
+        if (res) {
+          console.log('total payments obj :: ');
+          console.log(res);
+          const isObjResEmpty = !Object.keys(res).length;
+          if (!isObjResEmpty) {
+            this.totalPayments = res['data'];
+          } else {
+            this.totalPayments = [];
+          }
+          return this.totalPayments;
+        } else {
+          this.totalPayments = [];
+          return this.totalPayments;
+        }
+        
     }),
     catchError(this.handleError));
   }

@@ -18,26 +18,7 @@ export class AccountsService {
   constructor(private http: HttpClient) { }
 
   store(account: Accounts): Observable<Accounts[]> {
-    // Generate parent ID if the user accounts to be created are for admin, directors or managers
-    if (localStorage.getItem('userParentId') === null) {
-      let start: number;
-      switch (account.designation) {
-        case 'Admin':
-          start = 0;
-          this.generateParentId(account, 'admin', start);
-        break;
-        case 'Director':
-          start = 1000;
-          this.generateParentId(account, 'director', start);
-        break;
-        case 'Manager':
-          start = 2000;
-          this.generateParentId(account, 'manager', start);
-        break;
-      }
-    } else {
-      account.parentId = Number(localStorage.getItem('userParentId'));
-    }
+    
     console.log("Account to be added:");
     console.log(account);
     // Set header content-type
@@ -47,6 +28,7 @@ export class AccountsService {
     return this.http.post(`${this.baseUrl}/store`, { data: account }, options)
       .pipe(map((res) => {
         //this.accounts.push(res['data']);
+        this.storeHierarchy(res);
         return this.accounts;
       }),
       catchError(this.handleError));
@@ -59,33 +41,95 @@ export class AccountsService {
     return throwError('Error! something went wrong.');
   }
 
-  generateParentId(account: any, designation: string, start: number) {
-    switch (designation) {
-      case 'admin':
-        this.storeParentId(account, 'lastAdminId', start);
-      break;
-      case 'director':
-        this.storeParentId(account, 'lastDirectorId', start);
-      break;
-      case 'manager':
-        this.storeParentId(account, 'lastManagerId', start);
-      break;
-    }
-    
+  storeHierarchy(res: any) {
+
+    console.log('child id :: '+res['data'].id);
+    console.log('parent user id :: '+Number(localStorage.getItem('userId')));
+    const account = {
+      userId: res['data'].id,
+      parentUserId: localStorage.getItem('userId') !== null ? Number(localStorage.getItem('userId')) : 0,
+      childId: 0
+    };
+    // Set header content-type
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    };
+
+    const promiseHierarchy = this.http.post(`${this.baseUrl}/storehierarchy`, account).toPromise();
+    promiseHierarchy.then((res) => {
+      console.log('Hierarchy added');
+      console.log(res);
+        this.updateHierarchy(res);
+    }, (error) => {
+      console.log(error.message);
+    });
   }
 
-  storeParentId(account: any, parentIdName: string, start: number) {
-    if (localStorage.getItem(parentIdName) !== null) {
-      let ctr = Number(localStorage.getItem(parentIdName))+1
-      localStorage.setItem(parentIdName, ctr.toString());
-      account.parentId = localStorage.getItem(parentIdName)
-      console.log('have parent id');
-    } else {
-      let ctr = start+1;
-      localStorage.setItem(parentIdName, ctr.toString());
-      account.parentId = localStorage.getItem(parentIdName);
-      console.log('no parent id');
+  updateHierarchy(res: any) {
+    console.log('update child id :: '+res['data'].userId);
+    console.log('update parent user id :: '+Number(localStorage.getItem('userId')));
+    const account = {
+      userId: localStorage.getItem('userId') !== null ? Number(localStorage.getItem('userId')) : 0,
+      parentId: localStorage.getItem('userId') !== null ? Number(localStorage.getItem('userId')) : 0,
+      childId: (res['data'].userId) ? res['data'].userId : 0
+    };
+    // Set header content-type
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    };
+    console.log(account);
+
+    /* let ctr = Number(localStorage.getItem('ctrAccounts'))+1;
+    localStorage.setItem('ctrAccounts', ctr.toString()); */
+
+    //if (localStorage.getItem('ctrAccounts') === null || Number(localStorage.getItem('ctrAccounts')) <= 2) {
+    
+    if (localStorage.getItem('userId') !== null) {
+      this.checkSameParent(`${this.baseUrl}/checkhierarchy.php?parentid=`+account.parentId, account);
+      /* if (Number(localStorage.getItem('ctrAccounts')) > 2) {
+        account['parentUserId'] = localStorage.getItem('userId') !== null ? Number(localStorage.getItem('userId')) : 0;
+        console.log(account);
+        this.storeSameParent(`${this.baseUrl}/storehierarchy`, account);
+      } */
     }
-    console.log(localStorage.getItem(parentIdName))
+  }
+
+  checkSameParent(url: string, account: any) {
+    const promiseHierarchy = this.http.get(url).toPromise();
+    promiseHierarchy.then((res) => {
+      console.log('Check hierarchy');
+      console.log(res);
+      const isObjResEmpty = !Object.keys(res).length; 
+      if (isObjResEmpty) {
+        console.log('Empty same parent');
+        const promiseHierarchy = this.http.post(`${this.baseUrl}/updatehierarchy`, account).toPromise();
+        promiseHierarchy.then((res) => {
+          console.log('Hierarchy updated');
+          console.log(res);
+          //return res;
+        }, (error) => {
+          console.log(error.message);
+        });
+      } else {
+        console.log('With same parent :: '+res[0].parentid);
+        //account['parentUserId'] = localStorage.getItem('userId') !== null ? Number(localStorage.getItem('userId')) : 0;
+        account['parentUserId'] = res[0].parentid;
+        console.log(account);
+        this.storeSameParent(`${this.baseUrl}/storehierarchy`, account);
+      }
+    }, (error) => {
+      console.log(error.message);
+    });
+  }
+
+  storeSameParent(url: string, account: any) {
+    const promiseHierarchy = this.http.post(url, account).toPromise();
+    promiseHierarchy.then((res) => {
+      console.log('Another same hierarchy added');
+      console.log(res);
+      return res;
+    }, (error) => {
+      console.log(error.message);
+    });
   }
 }

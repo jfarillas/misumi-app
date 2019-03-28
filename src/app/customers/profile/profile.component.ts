@@ -88,6 +88,7 @@ export class ProfileComponent implements OnChanges, OnInit {
     // Total sales
     this.profileService.getTotalSales(this.getCustomer.customerId).subscribe(totalsales => {
       if (totalsales.length > 0) {
+        console.log('totalsales inside :: '+totalsales.length);
         this.barChartDataUpdate.forEach((dataset, index) => {
           if (index === 0) {
             this.barChartDataUpdate[index] = Object.assign({}, this.barChartDataUpdate[index], {

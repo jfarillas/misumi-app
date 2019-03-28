@@ -87,6 +87,7 @@ export class PaymentsComponent implements OnInit {
   isValid: boolean = true;
   isValidEdit: boolean = true;
   isValidDueDate: boolean;
+  isValidDueDateEdit: boolean;
 
   // Callback data
   callbackData: any;
@@ -133,48 +134,54 @@ export class PaymentsComponent implements OnInit {
 
   loadTables() {
     this.loading = true;    
-    const promise = this.http.post(environment.baseUrl + '/api/payments/openinvoices.php', {customer: this.customerID}).toPromise();
-    const promise2 = this.http.post(environment.baseUrl + '/api/payments/list.php', {customer: this.customerID}).toPromise();
+    const promise = this.http.post(environment.baseUrl + '/api/payments/openinvoices.php', {userId: localStorage.getItem('userId'), customer: this.customerID}).toPromise();
+    const promise2 = this.http.post(environment.baseUrl + '/api/payments/list.php', {userId: localStorage.getItem('userId'), customer: this.customerID}).toPromise();
 
     promise.then((res) => {
-      this.invoiceSet = res;
+      if (res) {
+        console.log(res);
+        this.invoiceSet = res;
+      } else {
+        this.invoiceSet = []
+      }
+      console.log(this.invoiceSet);
     }, (error) => {
       console.log("Error loading Invoices");
     });
 
     promise2.then((res) => {
-      this.paymentSet = res;
-      console.log(this.paymentSet);
-      this.paymentSet.forEach((dataset: any, index: number) => {
-        this.paymentSet[index]['index'] = index;
-        console.log(this.paymentSet[index].parentid);
-        // Enable edit link for respective user
-        this.paymentSet[index]['isEditable'] = this.dataService.accessRights(this.paymentSet[index], 'payments', 86400000) ? true : false;  
-        console.log('Can edit :: '+this.paymentSet[index]['isEditable']);
-        // Make all payments non-editable by default
-        this.rearrangeHeader = false;
-        this.paymentSet[index]['editNow'] = false;
-        this.paymentSet[index]['isUpdated'] = false;
-        // Set update datetime as empty by default
-        this.paymentSet[index]['updateDateTime'] = '';
-        // Save old data when cancel button has been clicked
-        this.oldPaymentSet.push({
-          'duedate': this.paymentSet[index].duedate,
-          'paiddate': this.paymentSet[index].paiddate,
-          'amount': this.paymentSet[index].amount,
-          'invoicekey': this.paymentSet[index].invoicekey,
-          'remarks': this.paymentSet[index].remarks
+      if (res) {
+        this.paymentSet = res;
+        this.paymentSet.forEach((dataset: any, index: number) => {
+          this.paymentSet[index]['index'] = index;
+          console.log(this.paymentSet[index].parentid);
+          // Enable edit link for respective user
+          this.paymentSet[index]['isEditable'] = true;
+          //this.paymentSet[index]['isEditable'] = this.dataService.accessRights(this.paymentSet[index], 'payments', 86400000) ? true : false;  
+          console.log('Can edit :: '+this.paymentSet[index]['isEditable']);
+          // Make all payments non-editable by default
+          this.rearrangeHeader = false;
+          this.paymentSet[index]['editNow'] = false;
+          this.paymentSet[index]['isUpdated'] = false;
+          // Set update datetime as empty by default
+          this.paymentSet[index]['updateDateTime'] = '';
+          // Save old data when cancel button has been clicked
+          this.oldPaymentSet.push({
+            'duedate': this.paymentSet[index].duedate,
+            'paiddate': this.paymentSet[index].paiddate,
+            'amount': this.paymentSet[index].amount,
+            'invoicekey': this.paymentSet[index].invoicekey,
+            'remarks': this.paymentSet[index].remarks
+          });
+          this.ref.detectChanges();
         });
-        this.ref.detectChanges();
-      });
-      // No records found when there is/are no data fetched
-      console.log('Has data :: '+this.paymentSet.length);
-      console.log(this.paymentSet.length);
-      this.hasData = this.paymentSet.length > 0 ? true : false;
-      console.log(this.hasData);
-      // Check if the payments data has been fetched
-      this.ref.detectChanges();
-
+        this.hasData = true;
+      } else {
+        // No records found when there is/are no data fetched
+        this.paymentSet = [];
+        this.hasData = false;
+      }
+      console.log(this.paymentSet);
     }, (error) => {
       console.log("Error loading Payments");
     });
@@ -204,14 +211,51 @@ export class PaymentsComponent implements OnInit {
     const promise = this.http.post(environment.baseUrl + '/api/payments/salesdate.php', {invoicekey: item, customer: this.getCustomer.customerId}).toPromise();
 
     promise.then((res) => {
-      this.salesDate = res;
-      console.log(this.salesDate[this.salesDate.length-1]);
-      this.refSalesDate = this.salesDate[this.salesDate.length-1].paymentDate;
-      console.log('Sales date :: '+this.refSalesDate);
-      console.log('Due date :: '+this.dueDate);
+      if (res) {
+        this.salesDate = res;
+        this.salesDate.forEach((dataset: any, index: any) => {
+          console.log(this.salesDate[index]);
+          this.refSalesDate = this.salesDate[index].paymentDate;
+          console.log('Sales date :: '+this.refSalesDate);
+          console.log('Due date :: '+this.dueDate);
+        });
+      } else {
+        this.salesDate = [];
+      }
     }, (error) => {
       console.log("Error loading Sales Date");
     });
+  }
+
+  validateDueDate(dueDate: any, salesDate: any, action: string) {
+     // Validation rules
+     switch (action) {
+       case 'store':
+        this.isValid = false;
+        const salesDateInvalid = new Date(this.refSalesDate) >= new Date(dueDate) && !this.isValid;
+        if (salesDateInvalid) {
+          console.log(this.refSalesDate+'>='+dueDate);
+          this.submitting = false;
+          this.isValidDueDate = false;
+          event.stopPropagation();
+        } else {
+          this.isValid = true;
+        }
+       break;
+       case 'update':
+        this.isValidEdit = false;
+        const salesDateInvalidEdit = new Date(salesDate) >= new Date(dueDate) && !this.isValidEdit;
+        if (salesDateInvalidEdit) {
+          console.log(this.refSalesDate+'>='+dueDate);
+          this.submitting = false;
+          this.isValidDueDateEdit = false;
+          event.stopPropagation();
+        } else {
+          this.isValidEdit = true;
+        }
+       break;
+     }
+    
   }
 
   submitPayment(event: any) {
@@ -224,21 +268,14 @@ export class PaymentsComponent implements OnInit {
     const dateDueInvalid = !this.dueDate && !this.isValid;
     const invoiceAmountInvalid = !this.amountPaid && !this.isValid;
     const invoiceNoInvalid = !this.invoiceNo && !this.isValid;
-    if (dateDueInvalid || invoiceAmountInvalid || invoiceNoInvalid || parentIDInvalid) {
+    const salesDateInvalid = new Date(this.refSalesDate) >= new Date(this.dueDate) && !this.isValid;
+    if (dateDueInvalid || invoiceAmountInvalid || invoiceNoInvalid || parentIDInvalid || salesDateInvalid) {
       console.log('required');
-      event.stopPropagation();
       this.submitting = false;
-      // Validate Due Date against Sales Date 
-      console.log((new Date(this.dueDate))+' - '+(new Date(this.refSalesDate)));
-      if (new Date(this.refSalesDate) >= new Date(this.dueDate) && !this.isValid) {
-        this.isValidDueDate = false;
-        console.log('error sales date');
-      } else {
-        this.isValidDueDate = true;
-        console.log('valid sales date');
-      }
-      this.ref.detectChanges();
+      this.isValidDueDate = false;
+      event.stopPropagation();
     } else {
+      this.isValid = true;
       this.parentID = Number(localStorage.getItem('userParentId'));
       this.createdBy = localStorage.getItem('currentUser')+' ('+this.parent.convertCase(localStorage.getItem('designation'))+')';
       const payload = {
@@ -299,11 +336,14 @@ export class PaymentsComponent implements OnInit {
     const invoicekeyInvalid = !item.invoicekey && !this.isValidEdit;
     const amountInvalid = !item.amount && !this.isValidEdit;
     const duedateInvalid = !item.duedate && !this.isValidEdit;
-    if (invoicekeyInvalid || amountInvalid || duedateInvalid || parentIDInvalid) {
+    const salesDateInvalid = new Date(item.payment_date) >= new Date(item.duedate) && !this.isValidEdit;
+    if (invoicekeyInvalid || amountInvalid || duedateInvalid || parentIDInvalid || salesDateInvalid) {
       console.log('required');
-      event.stopPropagation();
       this.submitting = false;
+      this.isValidDueDateEdit = false;
+      event.stopPropagation();
     } else {
+      this.isValidEdit = true;
       this.parentID = Number(localStorage.getItem('userParentId'));
       this.updatedBy = localStorage.getItem('currentUser')+' ('+this.parent.convertCase(localStorage.getItem('designation'))+')';
       const payload = {

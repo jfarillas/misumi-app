@@ -25,7 +25,12 @@ export class PaymentsService {
   getSalesRef(): Observable<Salesref[]> {
     return this.http.get(`${this.baseUrl}/listsalesref.php`).pipe(
       map((res) => {
-        this.salesRef = res['data'];
+        const isObjResEmpty = !Object.keys(res).length;
+        if (!isObjResEmpty) {
+          this.salesRef = res['data'];
+        } else {
+          this.salesRef = [];
+        }
         return this.salesRef;
     }),
     catchError(this.handleError));

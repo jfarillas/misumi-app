@@ -99,14 +99,16 @@ export class SalesComponent implements OnChanges, OnInit {
 
   getSales(getCustomers: any): void {
     console.log(getCustomers.customerId);
-    this.salesService.getAll(getCustomers.customerId).subscribe((res: Sales[]) => {
+    this.salesService.getAll(localStorage.getItem('userId'), localStorage.getItem('designation'), getCustomers.customerId).subscribe((res: Sales[]) => {
       this.salesAry = res;
       console.log(this.salesAry);
+      console.log('Sales data length :: '+this.salesAry.length);
       this.salesAry.forEach((dataset: any, index: number) => {
         this.salesAry[index]['index'] = index;
         console.log(this.salesAry[index].parentId);
         // Enable edit link for respective user
-        this.salesAry[index]['isEditable'] = this.dataService.accessRights(this.salesAry[index], 'sales', 86400000) ? true : false;  
+        this.salesAry[index]['isEditable'] = true;
+        //this.salesAry[index]['isEditable'] = this.dataService.accessRights(this.salesAry[index], 'sales', 86400000) ? true : false;  
         console.log('Can edit :: '+this.salesAry[index]['isEditable']);
         // Make all sales non-editable by default
         this.rearrangeHeader = false;

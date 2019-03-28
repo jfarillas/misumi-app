@@ -16,7 +16,7 @@ export class AccountsComponent implements OnInit {
   accounts: Accounts[];
   error = '';
   success = '';
-  account = new Accounts('', '', '', '', '', 0);
+  account = new Accounts('', '', '', '', '');
   hasUserName = localStorage.getItem('currentUser') !== null ? true : false;
 
   // Designation selections
