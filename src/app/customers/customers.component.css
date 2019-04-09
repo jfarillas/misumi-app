@@ -11,6 +11,11 @@
     box-shadow: 0px 2px 5px 0px #cfcfcf;
 }
 
+.updatedetails-container {
+    margin: 0 !important;
+    border-radius: 0 0 10px 10px !important;
+}
+
 .customer-container .form-group {
     margin: 15px 0;
 }

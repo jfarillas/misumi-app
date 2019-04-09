@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, Output, Input, EventEmitter } from '@angular/core';
 import { Login } from './login';
-import { Router,  NavigationExtras,ActivatedRoute } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from './_services/authentication.service';
@@ -59,7 +59,16 @@ export class LoginComponent implements OnInit {
      this.rForm.reset();
      // Redirect and change into Home Component
      this.router.navigate([this.returnUrl]); 
-   }, (err) => this.loginError = true);
+   }, (err) => {
+     /* let ctr = Number(localStorage.getItem('ctrLoginAttempts'))+1;
+    localStorage.setItem('ctrLoginAttempts', ctr.toString());
+    console.log(Number(localStorage.getItem('ctrLoginAttempts')));
+    if (Number(localStorage.getItem('ctrLoginAttempts')) === 3) {
+      console.log('Login locked.');
+    }
+    */
+     this.loginError = true
+    });
 
   }
   private resetErrors() {

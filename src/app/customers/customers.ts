@@ -3,7 +3,7 @@ export class Customers {
       public customerKey:       string,
       public name:              string,
       public businessRegNo:     string,
-      public registrationDate:  string,
+      public registrationDate:  any,
       public regDateYear:       string,
       public regDateMonth:      string,
       public regDateDay:        string,

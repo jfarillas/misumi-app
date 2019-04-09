@@ -33,6 +33,10 @@ import { ChartsModule } from 'ng2-charts';
 import { PaymentsComponent } from './payments/payments.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { SalesDateDirective } from './payments/sales-date.directive';
+import { ReceivablesTodayComponent } from './receivables/receivables-today/receivables-today.component';
+import { OverdueInvoicesComponent } from './overdue/overdue-invoices/overdue-invoices.component';
+import { DetailsReceivablesComponent } from './receivables/details-receivables/details-receivables.component';
+import { DetailsOverdueComponent } from './overdue/details-overdue/details-overdue.component';
 
 const routes: Routes = [
 
@@ -44,6 +48,8 @@ const routes: Routes = [
         { path: 'customers', component: DetailsCustomersComponent,canActivate: [AuthguardService] },
         { path: 'new-customer', component: CustomersComponent,canActivate: [AuthguardService] },
         { path: 'new-account', component: AccountsComponent,canActivate: [AuthguardService] },
+        { path: 'receivables-today', component: DetailsReceivablesComponent,canActivate: [AuthguardService] },
+        { path: 'overdue-invoices', component: DetailsOverdueComponent,canActivate: [AuthguardService] },
       ] },
 
     // otherwise redirect to home
@@ -71,6 +77,10 @@ const routes: Routes = [
     PaymentsComponent,
     NotificationsComponent,
     SalesDateDirective,
+    ReceivablesTodayComponent,
+    OverdueInvoicesComponent,
+    DetailsReceivablesComponent,
+    DetailsOverdueComponent,
   ],
   imports: [
     BrowserModule,

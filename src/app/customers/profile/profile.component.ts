@@ -22,6 +22,7 @@ import { ProfileService, Totalsales, Totalpayments } from './_services/profile.s
 export class ProfileComponent implements OnChanges, OnInit {
 
   @Input() getCustomer: any;
+  @Input() updateProfile: any;
   @Output() changeCountry: EventEmitter<any> = new EventEmitter();
   customer: any;
   countries: Country[] = [];
@@ -127,15 +128,33 @@ export class ProfileComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // Country filters
-    this.dataService.getCountries().subscribe(countries => {
-      const selectedCountry = countries.find((country: { code: any; name: any; }) => country.code === changes.getCustomer.currentValue.country);
-      this.country = selectedCountry.name;
-      // Check if the country field has been changed
-      this.ref.detectChanges(); 
-    });
-
-    this.customer = changes.getCustomer.currentValue;
+    // Update the customer profile once the data has been modified
+    if(changes.updateProfile) {
+      if (Object.prototype.toString.call(changes.updateProfile.currentValue) === '[object Object]') {
+        // Country filters
+        this.dataService.getCountries().subscribe(countries => {
+          const selectedCountry = countries.find((country: { code: any; name: any; }) => country.code === changes.updateProfile.currentValue.country);
+          this.country = selectedCountry.name;
+          // Check if the country field has been changed
+          this.ref.detectChanges(); 
+        });
+        this.customer = changes.updateProfile.currentValue;
+      }
+    }
+    // Load customer profile
+    if (changes.getCustomer) {
+      if (changes.getCustomer.currentValue) {
+        // Country filters
+        this.dataService.getCountries().subscribe(countries => {
+          const selectedCountry = countries.find((country: { code: any; name: any; }) => country.code === changes.getCustomer.currentValue.country);
+          this.country = selectedCountry.name;
+          // Check if the country field has been changed
+          this.ref.detectChanges(); 
+        });
+        this.customer = changes.getCustomer.currentValue;
+      } 
+    }
+    
   }
 
   // Financial status events

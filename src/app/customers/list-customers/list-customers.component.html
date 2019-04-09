@@ -9,28 +9,23 @@
       <i class="fas fa-search fa-lg"></i>
     </div>
   </div> 
-  <table class="table" matSort (matSortChange)="sortData($event, sortedData)">
+  <table class="table" matSort (matSortChange)="sortData($event, sortedData)" matSortActive="nameSort" matSortDirection="asc" matSortDisableClear>
     <thead>
       <tr>
-        <th scope="col" mat-sort-header="customerKey" class="d-inline-block col-2">Customer Key<span class="sort">
-          <i *ngIf="sortDirectionFirst" (click)="toggleHeaderListFirst()" [ngClass]="isHeaderFirstClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
-          <i *ngIf="sortActiveFirst && !sortDirectionFirst" (click)="toggleHeaderListFirst()" class="fas fa-sort"></i>
+        <th scope="col" mat-sort-header="customerKey" (click)="toggleHeaderListFirst()" class="d-inline-block col-2">Customer Key<span class="sort">
+          <i *ngIf="sortDirectionFirst" [ngClass]="isHeaderFirstClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
         </span></th>
-        <th scope="col" mat-sort-header="businessRegNo" class="d-inline-block col-2">Business Reg No.<span class="sort">
-          <i *ngIf="sortDirectionSecond" (click)="toggleHeaderListSecond()" [ngClass]="isHeaderSecondClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
-          <i *ngIf="sortActiveSecond && !sortDirectionSecond" (click)="toggleHeaderListSecond()" class="fas fa-sort"></i>
+        <th scope="col" mat-sort-header="businessRegNo" (click)="toggleHeaderListSecond()" class="d-inline-block col-2">Business Reg No.<span class="sort">
+          <i *ngIf="sortDirectionSecond" [ngClass]="isHeaderSecondClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
         </span></th>
-        <th scope="col" mat-sort-header="name" class="d-inline-block col-4">Company Name / Individual Buyer<span class="sort">
-          <i *ngIf="sortDirectionThird" (click)="toggleHeaderListThird()" [ngClass]="isHeaderThirdClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
-          <i *ngIf="sortActiveThird && !sortDirectionThird" (click)="toggleHeaderListThird()" class="fas fa-sort"></i>
+        <th scope="col" mat-sort-header="name" (click)="toggleHeaderListThird()" class="d-inline-block col-4">Company Name / Individual Buyer<span class="sort">
+          <i *ngIf="sortDirectionThird" [ngClass]="isHeaderThirdClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
         </span></th>
-        <th scope="col" mat-sort-header="contactNo" class="d-inline-block col-2">Contact No.<span class="sort">
-          <i *ngIf="sortDirectionFourth" (click)="toggleHeaderListFourth()" [ngClass]="isHeaderFourthClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
-          <i *ngIf="sortActiveFourth && !sortDirectionFourth" (click)="toggleHeaderListFourth()" class="fas fa-sort"></i>
+        <th scope="col" mat-sort-header="contactNo" (click)="toggleHeaderListFourth()" class="d-inline-block col-2">Contact No.<span class="sort">
+          <i *ngIf="sortDirectionFourth" [ngClass]="isHeaderFourthClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
         </span></th>
-        <th scope="col" mat-sort-header="status" class="d-inline-block col-2">Status<span class="sort">
-          <i *ngIf="sortDirectionFifth" (click)="toggleHeaderListFifth()" [ngClass]="isHeaderFifthClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
-          <i *ngIf="sortActiveFifth && !sortDirectionFifth" (click)="toggleHeaderListFifth()" class="fas fa-sort"></i>
+        <th scope="col" mat-sort-header="status" (click)="toggleHeaderListFifth()" class="d-inline-block col-2">Status<span class="sort">
+          <i *ngIf="sortDirectionFifth" [ngClass]="isHeaderFifthClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
         </span></th>
       </tr>
     </thead>

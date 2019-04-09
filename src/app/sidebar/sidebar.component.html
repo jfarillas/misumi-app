@@ -2,6 +2,8 @@
   <ul class="menu row">
     <li class="col-sm-12"><a (click)="changeTitleCustomers('Customers')" routerLink="/customers" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><div><i class="fas fa-user-friends fa-xs"></i>Customers</div></a></li>
     <li class="col-sm-12"><a (click)="changeTitleCustomers('Create New Customer')" routerLink="/new-customer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><div><i class="fas fa-plus fa-sm"></i>New Customer</div></a></li>
+    <li class="col-sm-12"><a (click)="changeTitleCustomers('Receivables Today')" routerLink="/receivables-today" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><div><i class="fas fa-newspaper fa-xs"></i>Receivables Today</div></a></li>
+    <li class="col-sm-12"><a (click)="changeTitleCustomers('Overdue Invoices')" routerLink="/overdue-invoices" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><div><i class="fas fa-file-invoice fa-xs"></i>Overdue Invoices</div></a></li>
     <li *ngIf="isNotStaff" class="col-sm-12"><a (click)="changeTitleCustomers('Create New Account')" routerLink="/new-account" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><div><i class="fas fa-plus fa-sm"></i>New Account</div></a></li>
     <li class="col-sm-12"><a routerLink="/login" routerLinkActive="active"><div><i class="fas fa-sign-out-alt fa-sm"></i>Logout</div></a></li>
   </ul> 

@@ -19,6 +19,10 @@ export class SalesService {
   notifications: Notifications[];
   updatedEventsObj: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   notifData = this.updatedEventsObj.asObservable();
+  updatedInvoicesObj: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  changeEmitted$ = this.updatedInvoicesObj.asObservable();
+  getCustomerObj: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  changeEmittedCustomer$ = this.getCustomerObj.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -85,6 +89,15 @@ export class SalesService {
         return this.sales;
     }),
     catchError(this.handleError));
+  }
+
+  updatedInvoices(res: any) {
+    return this.updatedInvoicesObj.next(res);
+  }
+
+  getCustomer(res: any) {
+    console.log('dsss');
+    return this.getCustomerObj.next(res);
   }
 
   updatedEvents(res: any) {

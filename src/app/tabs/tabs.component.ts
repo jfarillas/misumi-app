@@ -1,12 +1,15 @@
 import { 
   Component, 
   OnInit,
+  Input,
+  OnChanges, 
+  SimpleChanges,
   ContentChildren,
   QueryList,
   AfterContentInit,
   ViewChild,
   ComponentFactoryResolver,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { Router,  NavigationExtras,ActivatedRoute } from '@angular/router';
 import { TabComponent } from '../tab/tab.component';
@@ -17,13 +20,14 @@ import { DynamicTabsDirective } from './dynamic-tabs.directive';
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.css']
 })
-export class TabsComponent implements AfterContentInit {
+export class TabsComponent implements AfterContentInit, OnChanges {
 
   dynamicTabs: TabComponent[] = [];
   showTab: string;
   customerData: any = [];
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
   @ViewChild(DynamicTabsDirective) dynamicTabPlaceholder: DynamicTabsDirective;
+  @Input() listCustomers: any = [];
 
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
@@ -40,6 +44,17 @@ export class TabsComponent implements AfterContentInit {
       this.selectTab(this.tabs.first);
       // hide the first tab styles
       this.showTab = '';
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("Changing on tab's breadcrumbs for customer list...");
+    console.log(changes);
+    // Update list of customers once modify the data
+    if (changes.listCustomers) {
+      if (Object.prototype.toString.call(changes.listCustomers.currentValue) === '[object Object]') {
+        this.customerData = changes.listCustomers.currentValue;
+      }
     }
   }
 
@@ -61,7 +76,7 @@ export class TabsComponent implements AfterContentInit {
     // set the according properties on our component instance
     const instance: TabComponent = componentRef.instance as TabComponent;
     instance.title = title;
-    instance.template = template;
+    instance.template = template.openTemplate;
     instance.dataContext = data;
     instance.isCloseable = isCloseable;
 
@@ -72,10 +87,27 @@ export class TabsComponent implements AfterContentInit {
     // remember the dynamic component for rendering the
     // tab navigation headers
     this.dynamicTabs.push(componentRef.instance as TabComponent);
+    console.log('Opened tab...');
+    console.log(template.sourceComponent);
+    // Open a tab based on specifications
+    switch (template.sourceComponent) {
+      case 'DetailsCustomersComponent':
+        // set it active
+        // load first the profile tab
+        this.selectTab(this.dynamicTabs.find(dt => dt.title === 'Profile'));
+      break;
+      case 'DetailsReceivablesComponent':
+        // set it active
+        // load the payment tab
+        this.selectTab(this.dynamicTabs.find(dt => dt.title === 'Payment'));
+      break;
 
-    // set it active
-    // first to load profile tab
-    this.selectTab(this.dynamicTabs.find(dt => dt.title === 'Profile'));
+      case 'DetailsOverdueComponent':
+        // set it active
+        // load the payment tab
+        this.selectTab(this.dynamicTabs.find(dt => dt.title === 'Payment'));
+      break;
+    }
   }
 
   selectTab(tab: TabComponent) {
@@ -103,7 +135,9 @@ export class TabsComponent implements AfterContentInit {
         this.dynamicTabs.splice(i, 1);
         this.dynamicTabs.splice(0, 1);
         this.dynamicTabs.splice(0, 1);
+        this.dynamicTabs.splice(0, 1);
         viewContainerRef.remove(i);
+        viewContainerRef.remove(0);
         viewContainerRef.remove(0);
         viewContainerRef.remove(0);
         console.log(this.dynamicTabs);

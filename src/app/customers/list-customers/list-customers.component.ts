@@ -1,6 +1,8 @@
 import { 
   Component, 
-  OnInit, 
+  OnInit,
+  OnChanges, 
+  SimpleChanges,
   ChangeDetectionStrategy, 
   ViewChild, 
   ViewContainerRef,
@@ -14,6 +16,7 @@ import {
 } from '@angular/core';
 import { ListCustomers } from './list-customers';
 import { ListCustomersService } from './_services/list-customers.service';
+import { CustomersService } from './../_services/customers.service';
 
 import { DataService, Country, CustomerStatus } from '../../shared/data.service';
 // import { NgbDateCustomParserFormatter } from '../shared/dateformat';
@@ -33,7 +36,7 @@ import { Sort } from '@angular/material';
   styleUrls: ['./list-customers.component.css']
 })
 
-export class ListCustomersComponent implements OnInit {
+export class ListCustomersComponent implements OnInit, OnChanges {
 
   //listCustomers: Promise<ListCustomers[]>;
   @Input() listCustomers: any = [];
@@ -71,12 +74,24 @@ export class ListCustomersComponent implements OnInit {
 
   constructor(
     private listCustomersService: ListCustomersService,
+    private customersService: CustomersService,
     private resolver: ComponentFactoryResolver,
     private ref: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.getCustomers();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Changing on customers list...');
+    console.log(changes);
+    // Update list of customers once the data has been modified
+    if (changes.listCustomers) {
+      if (Object.prototype.toString.call(changes.listCustomers.currentValue) === '[object Object]') {
+        this.getCustomers();
+      }
+    }
   }
 
   getCustomers(): void {
@@ -96,29 +111,6 @@ export class ListCustomersComponent implements OnInit {
   }
 
   sortData(sort: Sort, sortedData: any) {
-    switch (sort.active) {
-      case 'customerKey': 
-        this.sortDirectionFirst = sort.direction != '' ? true : false; 
-        this.sortActiveFirst = true;
-      break;
-      case 'businessRegNo': 
-        this.sortDirectionSecond = sort.direction != '' ? true : false; 
-        this.sortActiveSecond = true;
-      break;
-      case 'name': 
-        this.sortDirectionThird = sort.direction != '' ? true : false; 
-        this.sortActiveThird = true;
-      break;
-      case 'contactNo': 
-        this.sortDirectionFourth = sort.direction != '' ? true : false; 
-        this.sortActiveFourth = true;
-      break;
-      case 'status': 
-        this.sortDirectionFifth = sort.direction != '' ? true : false; 
-        this.sortActiveFifth = true;
-      break;
-    }
-    
     const data = sortedData.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;

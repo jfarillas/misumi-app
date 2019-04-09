@@ -1,16 +1,19 @@
-<app-tabs>
+<app-tabs [listCustomers]="listCustomers">
   <app-tab [tabTitle]="">
     <app-list-customers
-      (openProfile)="openCustomerProfile($event)">
+      (openProfile)="openCustomerProfile($event)" [listCustomers]="listCustomers">
     </app-list-customers>
   </app-tab>
 </app-tabs>
 <ng-template let-customer="customer" #profileContainer>
-  <app-profile [getCustomer]="customer"></app-profile>
+  <app-profile [getCustomer]="customer" [updateProfile]="updateProfile"></app-profile>
 </ng-template>
 <ng-template let-customer="customer" #paymentsContainer>
-    <app-payments [getCustomer]="customer" (pushEvents)="pushUpdatedEvents($event)"></app-payments>
-  </ng-template>
+  <app-payments [getCustomer]="customer" [updateInvoices]="updateInvoices" (pushEvents)="pushUpdatedEvents($event)"></app-payments>
+</ng-template>
 <ng-template let-customer="customer" #salesContainer>
-  <app-sales [getCustomer]="customer" (pushEvents)="pushUpdatedEvents($event)"></app-sales>
+  <app-sales [getCustomer]="customer" (pushEvents)="pushUpdatedEvents($event)" (pushInvoices)="pushUpdatedInvoices($event)"></app-sales>
+</ng-template>
+<ng-template let-customer="customer" #customerContainer>
+  <app-customer [getCustomer]="customer" (pushCustomers)="pushUpdatedCustomers($event)" (pushGetCustomer)="pushUpdatedProfile($event)"></app-customer>
 </ng-template>

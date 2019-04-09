@@ -57,8 +57,12 @@
                 <div class="offset-1 col-3 col-form-label">
                   Invoice No.
                 </div>
-                <div class="col-8">
+                <div *ngIf="!invoicesUpdated" class="col-8">
                   <ng-select [items]="invoices" bindLabel="invoiceNo" bindValue="invoiceNo" [(ngModel)]="invoiceNo" (ngModelChange)="selectedSalesDate(invoiceNo)"></ng-select>
+                  <div *ngIf="!invoiceNo && !isValid" class="required-field">Invoice No. is required.</div>
+                </div>
+                <div *ngIf="invoicesUpdated" class="col-8">
+                  <ng-select [items]="invoicesChanged" bindLabel="invoiceNo" bindValue="invoiceNo" [(ngModel)]="invoiceNo" (ngModelChange)="selectedSalesDate(invoiceNo)"></ng-select>
                   <div *ngIf="!invoiceNo && !isValid" class="required-field">Invoice No. is required.</div>
                 </div>
               </div>
@@ -119,10 +123,17 @@
             <td *ngIf="item.editNow" class="d-inline-block col-2"><input type="date" [(ngModel)]="item.duedate" [(value)]="item.duedate" (change)="validateDueDate(item.duedate, item.payment_date, 'update')" class="form-control form-control-sm" required/><div *ngIf="!item.duedate && !isValidEdit" class="required-field">Required</div><div *ngIf="!isValidDueDateEdit && !isValidEdit" class="required-field">Date Due should be later than Sales Date.</div></td>
             <td *ngIf="!item.editNow" class="d-inline-block col-2">{{item.paiddate}}</td>
             <td *ngIf="item.editNow" class="d-inline-block col-2"><input type="date" [(ngModel)]="item.paiddate" [(value)]="item.paiddate" class="form-control form-control-sm" required/></td>
-            <td *ngIf="!item.editNow" class="d-inline-block col-2 col-adjust">${{item.amount}}</td>
+            <td *ngIf="!item.editNow" class="d-inline-block col-2 col-adjust">${{item.amount | number:'.2-2'}}</td>
             <td *ngIf="item.editNow" class="d-inline-block col-2"><input type="number" [(ngModel)]="item.amount" [(value)]="item.amount" class="form-control form-control-sm" required/><div *ngIf="!item.amount && !isValidEdit" class="required-field">Required</div></td>
             <td *ngIf="!item.editNow" class="d-inline-block col-2 col-adjust">{{item.invoicekey}}</td>
-            <td *ngIf="item.editNow" class="d-inline-block col-2"><ng-select [items]="invoices" bindLabel="invoiceNo" bindValue="invoiceNo" [(ngModel)]="item.invoicekey" (ngModelChange)="selectedSalesDate(item.invoicekey)"></ng-select><div *ngIf="!item.invoicekey && !isValidEdit" class="required-field">Required</div></td>
+            <td *ngIf="item.editNow" class="d-inline-block col-2">
+              <div *ngIf="!invoicesUpdated">
+                  <ng-select [items]="invoices" bindLabel="invoiceNo" bindValue="invoiceNo" [(ngModel)]="item.invoicekey" (ngModelChange)="selectedSalesDate(item.invoicekey)"></ng-select><div *ngIf="!item.invoicekey && !isValidEdit" class="required-field">Required</div>
+              </div>
+              <div *ngIf="invoicesUpdated">
+                  <ng-select [items]="invoicesChanged" bindLabel="invoiceNo" bindValue="invoiceNo" [(ngModel)]="item.invoicekey" (ngModelChange)="selectedSalesDate(item.invoicekey)"></ng-select><div *ngIf="!item.invoicekey && !isValidEdit" class="required-field">Required</div>
+              </div>
+            </td>
             <td *ngIf="!item.editNow" class="d-inline-block col-2">{{item.remarks}}</td>
             <td *ngIf="item.editNow" class="d-inline-block col-2"><textarea class="form-control form-control-sm" [(ngModel)]="item.remarks"></textarea></td>
             <td *ngIf="!item.editNow" class="d-inline-block col-1" [class.highlight-btn]="item.isEditable" [class.no-highlight-btn]="!item.isEditable" (click)="editPayment($event, item, item.isEditable);"><i class="fas fa-pencil-alt fa-lg" [class.fa-pencil-alt-enabled]="item.isEditable" [class.fa-pencil-alt-disabled]="!item.isEditable"></i> Edit</td>

@@ -1,6 +1,7 @@
 import { 
   Component, 
-  OnInit, 
+  OnInit,
+  OnChanges,
   Input,
   Output,
   EventEmitter,
@@ -14,6 +15,7 @@ import { Observable } from 'rxjs';
 
 import { AppComponent } from '../app.component';
 
+import { SalesService } from './../sales/_services/sales.service';
 import { PaymentsService, Salesref } from './_services/payments.service';
 import { NotificationsService } from './../notifications/_services/notifications.service';
 import { DataService } from '../shared/data.service';
@@ -48,12 +50,14 @@ export class NgbdModalConfirmAutofocus {
     ])
   ]
 })
-export class PaymentsComponent implements OnInit {
+export class PaymentsComponent implements OnInit, OnChanges {
   loading  = false;
   submitting = false;
   
   @Input() getCustomer: any;
+  @Input() getItem: any;
   @Input() updateEvents: any;
+  @Input() updateInvoices: any;
   @Output() pushEvents: EventEmitter<any> = new EventEmitter();
 
   // IDs
@@ -62,6 +66,7 @@ export class PaymentsComponent implements OnInit {
   
   // Collections
   invoiceSet;
+  invoicesChanged;
   paymentSet;
 
   // Add fields
@@ -95,6 +100,9 @@ export class PaymentsComponent implements OnInit {
   // Has payment data
   hasData: boolean;
 
+  // Invoices have been changed
+  invoicesUpdated: boolean;
+
   // Modal properties
   modalItems: any;
   closeResult: string;
@@ -112,6 +120,7 @@ export class PaymentsComponent implements OnInit {
     private parent: AppComponent,
     private paymentsService: PaymentsService,
     private http: HttpClient,
+    private salesService: SalesService,
     private notificationsService: NotificationsService,
     private dataService: DataService,
     private ref: ChangeDetectorRef,
@@ -119,7 +128,7 @@ export class PaymentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.customerID = this.getCustomer.customerId;
+    this.customerID = this.getCustomerId();
     this.loadTables();
     // Sales ref filters
     /* this.salesRef$ = this.paymentsService.getSalesRef();
@@ -132,6 +141,63 @@ export class PaymentsComponent implements OnInit {
     }); */
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Changing on Payments...');
+    console.log(changes);
+    // Update list of invoices onces create a new data
+    if (changes.updateInvoices) {
+      if (this.invoiceSet && changes.updateInvoices.currentValue) {
+        this.invoiceSet.unshift({invoiceNo: changes.updateInvoices.currentValue});
+        this.invoicesChanged = this.invoiceSet;
+        this.invoicesUpdated = true;
+        console.log("Fetching newly invoices...");
+      } else {
+        this.invoicesUpdated = false;
+      }
+    }
+    // Update list of invoices once modify the data
+    this.salesService.changeEmitted$.subscribe(data => {
+      if (data.length > 0) {
+        console.log("Fetching updated invoices...");
+        let invoicesAry = [];
+        data.forEach((dataset: any, index: number) => {
+          if (data[index].invoices) {
+            invoicesAry.push({invoiceNo: data[index].invoices});
+          } else {
+            // Get all invoices when the page loads
+            invoicesAry.push({invoiceNo: data[index].invoiceNo});
+          }
+        });
+        console.log(invoicesAry);
+        this.invoicesChanged = invoicesAry;
+        this.invoicesUpdated = true;
+      } else {
+        let invoicesAry = [];
+        console.log(invoicesAry);
+        this.invoicesChanged = invoicesAry;
+        this.invoicesUpdated = true;
+      }
+    });
+    console.log(this.invoices);
+    //this.updateInvoices = changes.getCustomer.currentValue;
+  }
+
+  getCustomerId() {
+    if (this.getCustomer) {
+      return this.getCustomer.customerId;
+    } else if (this.getItem) {
+      return this.getItem.customerId;
+    }
+  }
+
+  getCustomerName() {
+    if (this.getCustomer) {
+      return this.getCustomer.name;
+    } else if (this.getItem) {
+      return this.getItem.name;
+    }
+  }
+
   loadTables() {
     this.loading = true;    
     const promise = this.http.post(environment.baseUrl + '/api/payments/openinvoices.php', {userId: localStorage.getItem('userId'), customer: this.customerID}).toPromise();
@@ -141,6 +207,8 @@ export class PaymentsComponent implements OnInit {
       if (res) {
         console.log(res);
         this.invoiceSet = res;
+        // Update invoices list in the drop down on payments form
+        this.salesService.updatedInvoices(this.invoiceSet)
       } else {
         this.invoiceSet = []
       }
@@ -208,7 +276,7 @@ export class PaymentsComponent implements OnInit {
   }
 
   selectedSalesDate(item: any) {
-    const promise = this.http.post(environment.baseUrl + '/api/payments/salesdate.php', {invoicekey: item, customer: this.getCustomer.customerId}).toPromise();
+    const promise = this.http.post(environment.baseUrl + '/api/payments/salesdate.php', {invoicekey: item, customer: this.getCustomerId()}).toPromise();
 
     promise.then((res) => {
       if (res) {
@@ -279,7 +347,7 @@ export class PaymentsComponent implements OnInit {
       this.parentID = Number(localStorage.getItem('userParentId'));
       this.createdBy = localStorage.getItem('currentUser')+' ('+this.parent.convertCase(localStorage.getItem('designation'))+')';
       const payload = {
-        customerId: this.getCustomer.customerId,
+        customerId: this.getCustomerId(),
         parentId: this.parentID,
         invoiceNo: this.invoiceNo,
         amountPaid: this.amountPaid,
@@ -290,6 +358,9 @@ export class PaymentsComponent implements OnInit {
       };
       this.cudPayment(environment.baseUrl + '/api/payments/addpayment.php', payload, 'store');
       
+    }
+    if (!salesDateInvalid) {
+      this.isValidDueDate = true;
     }
   }
 
@@ -348,7 +419,7 @@ export class PaymentsComponent implements OnInit {
       this.updatedBy = localStorage.getItem('currentUser')+' ('+this.parent.convertCase(localStorage.getItem('designation'))+')';
       const payload = {
         paymentId: item.id,
-        customerId: this.getCustomer.customerId,
+        customerId: this.getCustomerId(),
         parentId: this.parentID,
         invoiceNo: item.invoicekey,
         amountPaid: item.amount,
@@ -358,6 +429,9 @@ export class PaymentsComponent implements OnInit {
         updatedBy: this.updatedBy
       };
       this.cudPayment(environment.baseUrl + '/api/payments/update.php', payload, 'update');
+    }
+    if (!salesDateInvalid) {
+      this.isValidDueDateEdit = true;
     }
   }
 
@@ -466,18 +540,18 @@ export class PaymentsComponent implements OnInit {
         }
         // Get the newly created payments
         notification.eventType = eventType;
-        notification.description = '<strong>'+this.parent.convertCase(localStorage.getItem('currentUser'))+'</strong> have completely created the payments for <strong>'+this.parent.convertCase(this.getCustomer.name)+'</strong>.';
+        notification.description = '<strong>'+this.parent.convertCase(localStorage.getItem('currentUser'))+'</strong> have completely created the payments for <strong>'+this.parent.convertCase(this.getCustomerName())+'</strong>.';
         notification.createDateTime = paymentAry['createDateTime'];
       break;
       case 'updated':
         notification.eventType = eventType;
-        notification.description = '<strong>'+this.parent.convertCase(localStorage.getItem('currentUser'))+'</strong> have completely updated the payments for <strong>'+this.parent.convertCase(this.getCustomer.name)+'</strong>.';
+        notification.description = '<strong>'+this.parent.convertCase(localStorage.getItem('currentUser'))+'</strong> have completely updated the payments for <strong>'+this.parent.convertCase(this.getCustomerName())+'</strong>.';
         notification.updateDateTime = payments.updateDateTime;
         notification.createDateTime = '';
       break;
       case 'deleted':
         notification.eventType = eventType;
-        notification.description = '<strong>'+this.parent.convertCase(localStorage.getItem('currentUser'))+'</strong> have completely deleted the payments for <strong>'+this.parent.convertCase(this.getCustomer.name)+'</strong>.';
+        notification.description = '<strong>'+this.parent.convertCase(localStorage.getItem('currentUser'))+'</strong> have completely deleted the payments for <strong>'+this.parent.convertCase(this.getCustomerName())+'</strong>.';
         notification.updateDateTime = payments.updateDateTime;
         notification.createDateTime = '';
       break;

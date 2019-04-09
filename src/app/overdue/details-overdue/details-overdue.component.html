@@ -1,0 +1,10 @@
+<app-tabs>
+  <app-tab [tabTitle]="">
+    <app-overdue-invoices
+      (openPayment)="openCustomerPayment($event)">
+    </app-overdue-invoices>
+  </app-tab>
+</app-tabs>
+<ng-template let-item="item" #paymentsContainer>
+  <app-payments [getItem]="getItem" [updateInvoices]="updateInvoices" (pushEvents)="pushUpdatedEvents($event)"></app-payments>
+</ng-template>

@@ -52,12 +52,12 @@ export class DataService {
       case 'sales':
         const diffSales = moment(now).diff(moment(item.createDateTime));
         console.log('datetime diff :: '+diffSales);
-        return item.parentId === Number(localStorage.getItem('userParentId')) && diffSales < hourPassed;
+        return diffSales < hourPassed;
       break;
       case 'payments':
         const diffPayments = moment(now).diff(moment(item.createdatetime));
         console.log('datetime diff :: '+diffPayments);
-        return item.parentid === Number(localStorage.getItem('userParentId')) && diffPayments < hourPassed;
+        return diffPayments < hourPassed;
       break;
     }
   }

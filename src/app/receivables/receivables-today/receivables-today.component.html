@@ -1,0 +1,65 @@
+<div class="list-customers container-fluid">
+  <!-- <div class="form-group search">
+    <input type="text"
+          class="form-control"
+          name="model"
+          [(ngModel)]="data"
+          placeholder="Search">
+    <div class="container-fa-search">
+      <i class="fas fa-search fa-lg"></i>
+    </div>
+  </div>  -->
+  <table class="table" matSort (matSortChange)="sortData($event, sortedData)" matSortActive="nameSort" matSortDirection="asc" matSortDisableClear>
+    <thead>
+      <tr>
+        <th scope="col" mat-sort-header="name" (click)="toggleHeaderListFirst()" class="d-inline-block col-3">Customer Name<span class="sort">
+            <i *ngIf="sortDirectionFirst" [ngClass]="isHeaderFirstClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
+          </span></th>
+        <th scope="col" mat-sort-header="paymentDate" (click)="toggleHeaderListSecond()" class="d-inline-block col-3">Date<span class="sort">
+          <i *ngIf="sortDirectionSecond" [ngClass]="isHeaderSecondClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
+        </span></th>
+        <th scope="col" mat-sort-header="amount" (click)="toggleHeaderListThird()" class="d-inline-block col-3">Amount<span class="sort">
+          <i *ngIf="sortDirectionThird" [ngClass]="isHeaderThirdClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
+        </span></th>
+        <th scope="col" mat-sort-header="invoiceNo" (click)="toggleHeaderListFourth()" class="d-inline-block col-3">Invoice Number<span class="sort">
+          <i *ngIf="sortDirectionFourth" [ngClass]="isHeaderFourthClicked ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
+        </span></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="!isSorted">
+      <tr (click)="openPayment.emit(item)" *ngFor="let item of sales | async let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
+        <td class="d-inline-block col-3">{{item.name}}</td>
+        <td class="d-inline-block col-3">{{item.paymentDate}}</td>
+        <td class="d-inline-block col-3">${{item.amount | number:'.2-2'}}</td>
+        <td class="d-inline-block col-3">{{item.invoices}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="isSorted">
+      <tr (click)="openPayment.emit(item)" *ngFor="let item of salesSorted let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
+        <td class="d-inline-block col-3">{{item.name}}</td>
+        <td class="d-inline-block col-3">{{item.paymentDate}}</td>
+        <td class="d-inline-block col-3">${{item.amount | number:'.2-2'}}</td>
+        <td class="d-inline-block col-3">{{item.invoices}}</td>
+      </tr>
+    </tbody>
+    <!-- <tbody *ngIf="!isSorted">
+      <tr (click)="openProfile.emit(customer)" *ngFor="let item of sales | async | sales:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
+        <td class="d-inline-block col-2">{{item.paymentDate}}</td>
+        <td class="d-inline-block col-2">{{item.amount}}</td>
+        <td class="d-inline-block col-4">{{item.invoices}}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="isSorted">
+      <tr (click)="openProfile.emit(customer)" *ngFor="let item of salesSorted | sales:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
+        <td class="d-inline-block col-2">{{item.paymentDate}}</td>
+        <td class="d-inline-block col-2">{{item.amount}}</td>
+        <td class="d-inline-block col-4">{{item.invoices}}</td>
+      </tr>
+    </tbody> -->
+    <tbody *ngIf="!hasData">
+      <tr [class.odd]="isOdd">
+        <td class="d-inline-block col-12">No records found.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

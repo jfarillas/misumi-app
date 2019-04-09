@@ -54,6 +54,7 @@ export class SalesComponent implements OnChanges, OnInit {
   @Input() getCustomer: any;
   @Input() updateEvents: any;
   @Output() pushEvents: EventEmitter<any> = new EventEmitter();
+  @Output() pushInvoices: EventEmitter<any> = new EventEmitter();
   customer: any;
   sales: Sales[];
   notifications: Notifications[];
@@ -107,8 +108,7 @@ export class SalesComponent implements OnChanges, OnInit {
         this.salesAry[index]['index'] = index;
         console.log(this.salesAry[index].parentId);
         // Enable edit link for respective user
-        this.salesAry[index]['isEditable'] = true;
-        //this.salesAry[index]['isEditable'] = this.dataService.accessRights(this.salesAry[index], 'sales', 86400000) ? true : false;  
+        this.salesAry[index]['isEditable'] = this.dataService.accessRights(this.salesAry[index], 'sales', 86400000) ? true : false;  
         console.log('Can edit :: '+this.salesAry[index]['isEditable']);
         // Make all sales non-editable by default
         this.rearrangeHeader = false;
@@ -167,6 +167,8 @@ export class SalesComponent implements OnChanges, OnInit {
           this.sales[index]['editNow'] = false;
           this.sales[index]['isUpdated'] = false;
         });
+        // Update invoices list in the drop down on payments form
+        this.pushInvoices.emit(this.sales[0].invoices);
         // Inform the user
         this.success = 'Created successfully';
         this.hasData = true;
@@ -237,6 +239,8 @@ export class SalesComponent implements OnChanges, OnInit {
         // Remove old data from a specific selected sales
         this.sales.splice(this.sales.length-1, 1);
         console.log(this.sales);
+        // Update invoices list in the drop down on payments form
+        this.salesService.updatedInvoices(this.sales);
         this.ref.detectChanges();
       }, (err) => {
         this.error = err; 
@@ -284,6 +288,8 @@ export class SalesComponent implements OnChanges, OnInit {
         
         
         console.log(this.sales);
+        // Update invoices list in the drop down on payments form
+        this.salesService.updatedInvoices(this.sales);
         this.ref.detectChanges();
       }, (err) => {
         this.error = err; 

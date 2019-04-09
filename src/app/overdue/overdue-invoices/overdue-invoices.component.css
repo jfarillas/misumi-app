@@ -1,0 +1,65 @@
+table {
+    table-layout: fixed;
+}
+
+.list-customers {
+    padding: 0;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.list-customers table {
+    table-layout: auto;
+}
+
+.list-customers table th .sort {
+    margin-left: 10px;
+}
+
+.list-customers table thead {
+    background-color: #fff;
+}
+
+
+.list-customers table thead th {
+    border-right: 2px solid #dee2e6;
+    border-bottom: 2px solid #b5b5b5;
+    vertical-align: middle;
+}
+
+.list-customers table tbody {
+    overflow: auto;
+    height: 75vh;
+    display: block;
+    border-right: 2px solid #e6e6e6;
+}
+
+.list-customers table tbody tr {
+    width: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+.list-customers table td {
+    overflow-wrap: break-word;
+}
+
+.list-customers table tbody .odd {
+    background-color: #e6e6e6;
+}
+
+.list-customers table tbody .even {
+    background-color: #fff;
+}
+
+.list-customers table thead th:hover, .list-customers table tbody tr:hover {
+    background-color: #2b8bd9;
+    color: #fff;
+}
+
+/* On screens 1500px or more */
+@media screen and (min-width: 1500px) {
+    .list-customers table tbody {
+        height: 75.5vh;
+    }
+}
