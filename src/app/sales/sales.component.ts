@@ -73,6 +73,10 @@ export class SalesComponent implements OnChanges, OnInit {
   // Save old data when cancel button has been clicked
   oldSalesAry: any = [];
 
+  // For validation
+  isValid: boolean = true;
+  isValidEdit: boolean = true;
+
   // Has sales data
   hasData: boolean;
 
@@ -137,50 +141,60 @@ export class SalesComponent implements OnChanges, OnInit {
 
   addSales(f: {
     reset: () => void;
-  }) {
+  }, event: Event) {
     this.resetErrors();
+    // Fields checker
+    let regInvoices = RegExp('^[a-zA-Z0-9]+$', 'i');
+    event.preventDefault();
+    // Validation rules
+    const invalidFields = !this.sale.invoices || !regInvoices.test(this.sale.invoices) || !this.sale.amount || !this.sale.paymentDate;
+    if (invalidFields) {
+      this.isValid = false;
+    } else {
+      this.isValid = true;
+      // Update the properties in customer model with the value from standalone specific form field/s.
+      this.sale.customersId = this.customer.customerId;
+      this.sale.accountsId = localStorage.getItem('userId');
+      this.sale.parentId = Number(localStorage.getItem('userParentId'));
 
-    // Update the properties in customer model with the value from standalone specific form field/s.
-    this.sale.customersId = this.customer.customerId;
-    this.sale.accountsId = localStorage.getItem('userId');
-    this.sale.parentId = Number(localStorage.getItem('userParentId'));
+      // Date format for DB
+      const dateValues = this.sale.paymentDate.split('-');
 
-    // Date format for DB
-    const dateValues = this.sale.paymentDate.split('-');
-
-    this.sale.paymentDateYear = dateValues[0];
-    this.sale.paymentDateMonth = dateValues[1];
-    this.sale.paymentDateDay = dateValues[2];
- 
-    this.salesService.store(this.sale)
-      .subscribe((res: Sales[]) => {
-        // Update the list of sales
-        this.sales = res;
-        console.log(this.sales);
-        this.sales.forEach((dataset: any, index: number) => {
-          this.sales[index]['index'] = index;
-          console.log('New index is '+this.sales[index]['index']);
-          this.sales[index]['isEditable'] = this.dataService.accessRights(this.salesAry[index], 'sales', 86400000) ? true : false;  
-          console.log('New Can edit :: '+this.sales[index]['isEditable']);
-          // Make all sales non-editable by default
-          this.rearrangeHeader = false;
-          this.sales[index]['editNow'] = false;
-          this.sales[index]['isUpdated'] = false;
+      this.sale.paymentDateYear = dateValues[0];
+      this.sale.paymentDateMonth = dateValues[1];
+      this.sale.paymentDateDay = dateValues[2];
+  
+      this.salesService.store(this.sale)
+        .subscribe((res: Sales[]) => {
+          // Update the list of sales
+          this.sales = res;
+          console.log(this.sales);
+          this.sales.forEach((dataset: any, index: number) => {
+            this.sales[index]['index'] = index;
+            console.log('New index is '+this.sales[index]['index']);
+            this.sales[index]['isEditable'] = this.dataService.accessRights(this.salesAry[index], 'sales', 86400000) ? true : false;  
+            console.log('New Can edit :: '+this.sales[index]['isEditable']);
+            // Make all sales non-editable by default
+            this.rearrangeHeader = false;
+            this.sales[index]['editNow'] = false;
+            this.sales[index]['isUpdated'] = false;
+          });
+          // Update invoices list in the drop down on payments form
+          this.pushInvoices.emit(this.sales[0].invoices);
+          // Inform the user
+          this.success = 'Created successfully';
+          this.hasData = true;
+          // Log data changes on events
+          this.addEvents(this.notification, this.sales, 'New Sales', 'created');
+          // Reset the form
+          f.reset();
+        }, (err) => {
+          this.error = err; 
+          // Check if the sales data has not been added
+          this.ref.detectChanges();
         });
-        // Update invoices list in the drop down on payments form
-        this.pushInvoices.emit(this.sales[0].invoices);
-        // Inform the user
-        this.success = 'Created successfully';
-        this.hasData = true;
-        // Log data changes on events
-        this.addEvents(this.notification, this.sales, 'New Sales', 'created');
-        // Reset the form
-        f.reset();
-      }, (err) => {
-        this.error = err; 
-        // Check if the sales data has not been added
-        this.ref.detectChanges();
-      });
+    }
+    
   }
 
   editSales(event: any, item: any, isEditable: boolean) {
@@ -214,39 +228,47 @@ export class SalesComponent implements OnChanges, OnInit {
 
   updateSales(event: any, item: any) {
     event.stopPropagation();
-    // Get current sales ID
-    item['salesId'] = item.id;
+    // Fields checker
+    let regInvoices = RegExp('^[a-zA-Z0-9]+$', 'i');
+    // Validation rules
+    const invalidFields = !item.invoices || !regInvoices.test(item.invoices) || !item.amount || !item.paymentDate;
+    if (invalidFields) {
+      this.isValidEdit = false;
+    } else {
+      this.isValidEdit = true;
+      // Get current sales ID
+      item['salesId'] = item.id;
 
-    // Date format for DB
-    const dateValues = item.paymentDate.split('-');
-    item['paymentDateYear'] = dateValues[0];
-    item['paymentDateMonth'] = dateValues[1];
-    item['paymentDateDay'] = dateValues[2];
+      // Date format for DB
+      const dateValues = item.paymentDate.split('-');
+      item['paymentDateYear'] = dateValues[0];
+      item['paymentDateMonth'] = dateValues[1];
+      item['paymentDateDay'] = dateValues[2];
+      
+      this.salesService.update(item)
+        .subscribe((res: Sales[]) => {
+          // Update the list of sales
+          this.sales = res;
+          console.log(this.sales);
+          console.log(item);
+          item.updateDateTime = this.sales[this.sales.length-1]['updateDateTime'];
+          // Inform the user
+          this.success = 'The invoice number '+item.invoices+' has been updated successfully';
+          this.rearrangeHeader = false;
+          item.editNow = false;
+          // Remove old data from a specific selected sales
+          this.sales.splice(this.sales.length-1, 1);
+          console.log(this.sales);
+          // Update invoices list in the drop down on payments form
+          this.salesService.updatedInvoices(this.sales);
+          this.ref.detectChanges();
+        }, (err) => {
+          this.error = err; 
+          // Check if the sales data has not been added
+          this.ref.detectChanges();
+        });
+    }
     
-    this.salesService.update(item)
-      .subscribe((res: Sales[]) => {
-        // Update the list of sales
-        this.sales = res;
-        console.log(this.sales);
-        console.log(item);
-        item.updateDateTime = this.sales[this.sales.length-1]['updateDateTime'];
-        // Log data changes on events
-        this.addEvents(this.notification, item, 'Updated Sales', 'updated');
-        // Inform the user
-        this.success = 'The invoice number '+item.invoices+' has been updated successfully';
-        this.rearrangeHeader = false;
-        item.editNow = false;
-        // Remove old data from a specific selected sales
-        this.sales.splice(this.sales.length-1, 1);
-        console.log(this.sales);
-        // Update invoices list in the drop down on payments form
-        this.salesService.updatedInvoices(this.sales);
-        this.ref.detectChanges();
-      }, (err) => {
-        this.error = err; 
-        // Check if the sales data has not been added
-        this.ref.detectChanges();
-      });
   }
 
   deleteSales(item: any, result: any) {
@@ -261,8 +283,6 @@ export class SalesComponent implements OnChanges, OnInit {
         console.log(item);
         item.updateDateTime = this.sales[this.sales.length-1]['updateDateTime'];
         console.log('Delete update time :: '+item.updateDateTime);
-        // Log data changes on events
-        this.addEvents(this.notification, item, 'Deleted Sales', 'deleted');
         // Inform the user
         this.success = 'The invoice number '+item.invoices+' has been deleted successfully';
         this.rearrangeHeader = false;
@@ -313,7 +333,7 @@ export class SalesComponent implements OnChanges, OnInit {
         let sale = sales[0];
         console.log(sale);
         notification.eventType = eventType;
-        notification.description = '<strong>'+this.parent.convertCase(localStorage.getItem('currentUser'))+'</strong> have completely created the sales for <strong>'+sale.customerName+'</strong>.';
+        notification.description = '<strong>'+this.parent.convertCase(localStorage.getItem('currentUser'))+'</strong> created a sale for <strong>'+sale.customerName+'</strong>.';
         notification.createDateTime = sale.createDateTime;
       break;
       case 'updated':

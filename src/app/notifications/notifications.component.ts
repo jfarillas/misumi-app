@@ -43,6 +43,9 @@ export class NotificationsComponent implements OnInit, OnChanges {
   error = '';
   notification = new Notifications('', '', '', '', '');
 
+  // Has events data
+  hasData: boolean;
+
   constructor(
     private notificationsService: NotificationsService,
     private salesService: SalesService,
@@ -59,6 +62,8 @@ export class NotificationsComponent implements OnInit, OnChanges {
       console.log("Latest notifications...");
       this.notificationsAry = data;
       this.listNotifications(this.notificationsAry, 'push');
+      // No records found when there is/are no data fetched
+      this.hasData = this.notificationsAry.length > 0 ? true : false;
       this.ref.detectChanges();
     });
   }
@@ -71,9 +76,8 @@ export class NotificationsComponent implements OnInit, OnChanges {
       console.log(this.notificationsAry);
       this.ref.detectChanges();
       // No records found when there is/are no data fetched
-      console.log(this.notificationsAry.length);
-      /* this.hasData = this.notificationsAry.length > 0 ? true : false;
-      console.log(this.hasData); */
+      this.hasData = this.notificationsAry.length > 0 ? true : false;
+      // console.log(this.hasData);
       // Check if the sales data has been fetched
       this.ref.detectChanges();
     }, (err) => {

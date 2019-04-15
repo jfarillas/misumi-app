@@ -11,11 +11,6 @@ body {
 
 .modal-header h2 {
     font-weight: bold;
-    font-size: 14px;
-}
-
-.modal-body {
-    font-size: 12px;
 }
 
 .modal-btn-delete, modal-btn-delete:active:focus, .modal-btn-delete:hover {
@@ -28,8 +23,15 @@ ng-select.custom, ng-select.custom .ng-select-container {
     min-height: 25px !important;
 }
 
-ng-select.custom .ng-value-container {
-    font-size: 12px;
+/* ng-touched ("drop down has been opened" state) */
+/* ng-select-opened ("dropdown is open" state) */
+ng-select.custom.ng-touched .ng-select-container .ng-value,
+ng-select.custom.ng-touched .ng-select-container .ng-clear-wrapper,
+ng-select.custom.ng-touched .ng-select-container .ng-arrow-wrapper,
+ng-select.custom.ng-select-opened .ng-select-container .ng-value,
+ng-select.custom.ng-select-opened .ng-select-container .ng-clear-wrapper,
+ng-select.custom.ng-select-opened .ng-select-container .ng-arrow-wrapper {
+    margin-top: 10px;
 }
 
 ng-select.custom-sales-ref, ng-select.custom-sales-ref .ng-select-container {
@@ -42,6 +44,5 @@ ng-select.custom-sales-ref, ng-select.custom-sales-ref .ng-select-container {
 }
 
 .required-field {
-    font-size: 12px;
     color: #ff0000;
 }

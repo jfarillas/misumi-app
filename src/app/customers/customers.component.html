@@ -95,10 +95,11 @@
                     class="form-control"
                     name="registrationDate"
                     [(ngModel)]="customer.registrationDate"
-                    #accountModel="ngModel" 
+                    #registrationDate="ngModel" 
                     placeholder="Eg. 31 December 2018" 
                     name="d2" 
-                    ngbDatepicker #d2="ngbDatepicker"
+                    ngbDatepicker #d2="ngbDatepicker" 
+                    [readonly]="true" 
                     required>
               <div class="input-group-append datepicker-custom">
                 <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"><i class="far fa-calendar-alt fa-sm"></i></button>
@@ -110,9 +111,10 @@
                     class="form-control"
                     name="registrationDate"
                     [(ngModel)]="customer.registrationDate"
-                    #accountModel="ngModel" 
+                    #registrationDate="ngModel" 
                     name="d2" 
-                    ngbDatepicker #d2="ngbDatepicker"
+                    ngbDatepicker #d2="ngbDatepicker" 
+                    [readonly]="true" 
                     required>
               <div class="input-group-append datepicker-custom">
                 <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"><i class="far fa-calendar-alt fa-sm"></i></button>
@@ -182,21 +184,23 @@
                     class="form-control"
                     name="unitNo"
                     [(ngModel)]="customer.unitNo"
-                    #accountModel="ngModel"
+                    #unitNo="ngModel"
                     placeholder="Unit No."
                     required
-                    pattern="^[a-zA-Z0-9]+$">
+                    pattern="^[a-zA-Z0-9#-]+$">
               <div *ngIf="!customer.unitNo && !isValid" class="required-field">Unit No. is required.</div>
+              <div *ngIf="unitNo.errors?.pattern && (unitNo.touched || unitNo.dirty)" class="required-field">Invalid Unit No.</div>
             </div>
             <div *ngIf="updateDetails" class="col-sm-8">
               <input
                     class="form-control"
                     name="unitNo"
                     [(ngModel)]="customer.unitNo"
-                    #accountModel="ngModel"
+                    #unitNo="ngModel"
                     required
-                    pattern="^[a-zA-Z0-9]+$">
+                    pattern="^[a-zA-Z0-9#-]+$">
               <div *ngIf="!customer.unitNo && !isValidEdit" class="required-field">Unit No. is required.</div>
+              <div *ngIf="unitNo.errors?.pattern && (unitNo.touched || unitNo.dirty || !isValidEdit)" class="required-field">Invalid Unit No.</div>
             </div>
           </div>
           <div class="row form-group">
@@ -208,21 +212,23 @@
                     class="form-control"
                     name="postalCode"
                     [(ngModel)]="customer.postalCode"
-                    #accountModel="ngModel"
+                    #postalCode="ngModel"
                     placeholder="Postal Code"
                     required
                     pattern="^[a-zA-Z0-9]+$">
               <div *ngIf="!customer.postalCode && !isValid" class="required-field">Postal Code is required.</div>
+              <div *ngIf="postalCode.errors?.pattern && (postalCode.touched || postalCode.dirty)" class="required-field">Invalid Postal Code.</div>
             </div>
             <div *ngIf="updateDetails" class="col-sm-8">
               <input
                     class="form-control"
                     name="postalCode"
                     [(ngModel)]="customer.postalCode"
-                    #accountModel="ngModel"
+                    #postalCode="ngModel"
                     required
                     pattern="^[a-zA-Z0-9]+$">
               <div *ngIf="!customer.postalCode && !isValidEdit" class="required-field">Postal Code is required.</div>
+              <div *ngIf="postalCode.errors?.pattern && (postalCode.touched || postalCode.dirty || !isValidEdit)" class="required-field">Invalid Postal Code.</div>
             </div>
           </div>
 
@@ -293,21 +299,23 @@
                     class="form-control"
                     name="contactNo"
                     [(ngModel)]="customer.contactNo"
-                    #accountModel="ngModel"
+                    #contactNo="ngModel"
                     placeholder="Main Contact No."
                     required
-                    pattern="^(\+)[0-9]+$">
+                    pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s#*0-9]*$">
               <div *ngIf="!customer.contactNo && !isValid" class="required-field">Contact No. is required.</div>
+              <div *ngIf="contactNo.errors?.pattern && (contactNo.touched || contactNo.dirty)" class="required-field">Invalid Contact No.</div>
             </div>
             <div *ngIf="updateDetails" class="col-sm-8">
               <input type="text"
                     class="form-control"
                     name="contactNo"
                     [(ngModel)]="customer.contactNo"
-                    #accountModel="ngModel"
+                    #contactNo="ngModel"
                     required
-                    pattern="^(\+)[0-9]+$">
+                    pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s#*0-9]*$">
               <div *ngIf="!customer.contactNo && !isValidEdit" class="required-field">Contact No. is required.</div>
+              <div *ngIf="contactNo.errors?.pattern && (contactNo.touched || contactNo.dirty || !isValidEdit)" class="required-field">Invalid Contact No.</div>
             </div>
           </div>
           <div class="row form-group">
@@ -345,21 +353,23 @@
                     class="form-control"
                     name="email"
                     [(ngModel)]="customer.email"
-                    #accountModel="ngModel"
+                    #email="ngModel"
                     placeholder="E-mail Address"
                     required
-                    pattern="^[a-zA-Z0-9]+$">
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
               <div *ngIf="!customer.email && !isValid" class="required-field">E-mail is required.</div>
+              <div *ngIf="email.errors?.pattern && (email.touched || email.dirty)" class="required-field">Invalid E-mail.</div>
             </div>
             <div *ngIf="updateDetails" class="col-sm-8">
               <input
                     class="form-control"
                     name="email"
                     [(ngModel)]="customer.email"
-                    #accountModel="ngModel"
+                    #email="ngModel"
                     required
-                    pattern="^[a-zA-Z0-9]+$">
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
               <div *ngIf="!customer.email && !isValidEdit" class="required-field">E-mail is required.</div>
+              <div *ngIf="email.errors?.pattern && (email.touched || email.dirty || !isValidEdit)" class="required-field">Invalid E-mail.</div>
             </div>
           </div>
           <div class="row form-group">
@@ -372,18 +382,20 @@
                     name="faxNo"
                     [(ngModel)]="customer.faxNo"
                     placeholder="Fax No."
-                    #accountModel="ngModel"
+                    #faxNo="ngModel"
                     required
-                    pattern="^[a-zA-Z0-9]+$">
+                    pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s#*0-9]*$">
+              <div *ngIf="faxNo.errors?.pattern && (faxNo.touched || faxNo.dirty)" class="required-field">Invalid Fax No.</div>
             </div>
             <div *ngIf="updateDetails" class="col-sm-8">
               <input
                     class="form-control"
                     name="faxNo"
                     [(ngModel)]="customer.faxNo"
-                    #accountModel="ngModel"
+                    #faxNo="ngModel"
                     required
-                    pattern="^[a-zA-Z0-9]+$">
+                    pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s#*0-9]*$">
+              <div *ngIf="faxNo.errors?.pattern && (faxNo.touched || faxNo.dirty || !isValidEdit)" class="required-field">Invalid Fax No.</div>
             </div>
           </div>
           <div class="row form-group">
@@ -426,6 +438,7 @@
                     class="gender"> {{gender.label}}
                 </label>
                 <!-- end -->
+                <div *ngIf="!selectedGender && !isValid" class="required-field">Gender is required.</div>
               </div>
             </div>
             <div *ngIf="updateDetails" class="col-sm-8">
@@ -439,6 +452,7 @@
                     class="gender"> {{gender.label}}
                 </label>
                 <!-- end -->
+                <div *ngIf="!selectedGender && !isValidEdit" class="required-field">Gender is required.</div>
               </div>
             </div>
           </div>

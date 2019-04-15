@@ -123,26 +123,32 @@
       </div>
       <div class="row">
         <div class="col-sm-6 label">Sales/Payment/<br>Banking Details</div>
-        <div class="col-sm-6 details">{{customer.salesDetails}}</div>
+        <div *ngIf="customer.salesDetails" class="col-sm-6 details">{{customer.salesDetails}}</div>
+        <div *ngIf="!customer.salesDetails" class="col-sm-6 details">NA</div>
+        <!-- <div *ngIf="!customer.salesDetails && !customer.paymentDetails && !customer.bankingDetails && !customer.miscDetails" class="col-sm-6 details">NA</div> -->
       </div>
-      <div class="row">
+      <div *ngIf="customer.paymentDetails" class="row">
         <div class="col-sm-6">&nbsp;</div>
         <div class="col-sm-6 details spb-details">{{customer.paymentDetails}}</div>
       </div>
-      <div class="row">
+      <div *ngIf="!customer.paymentDetails"></div>
+      <div *ngIf="customer.bankingDetails" class="row">
         <div class="col-sm-6">&nbsp;</div>
         <div class="col-sm-6 details spb-details">{{customer.bankingDetails}}</div>
       </div>
-      <div class="row">
+      <div *ngIf="!customer.bankingDetails"></div>
+      <div *ngIf="customer.miscDetails" class="row">
         <div class="col-sm-6">&nbsp;</div>
         <div class="col-sm-6 details spb-details">{{customer.miscDetails}}</div>
       </div>
+      <div *ngIf="!customer.miscDetails"></div>
       <div class="row">
         <div class="col-sm-12">&nbsp;</div>
       </div>
       <div class="row">
         <div class="col-sm-6 label">Remarks</div>
-        <div class="col-sm-6 details">{{customer.remarks}}</div>
+        <div *ngIf="customer.remarks" class="col-sm-6 details">{{customer.remarks}}</div>
+        <div *ngIf="!customer.remarks" class="col-sm-6 details">NA</div>
       </div>
     </div>
   </div>

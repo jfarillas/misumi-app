@@ -1,4 +1,25 @@
+div > a {
+    margin: 15px 15px;
+}
+
 .list-group-item.row, #theForm {
     clear: both;
+}
+
+.single-form {
+    margin: 15px;
+}
+
+.account-title {
+    margin: 15px;
+}
+
+.account-title h2 {
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+select {
+    font-size: 0.875rem;
 }
 

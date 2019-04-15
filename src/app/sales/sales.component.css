@@ -12,19 +12,17 @@
 }
 
 .sales-container #theForm h2 {
+    font-size: 0.875rem;
     font-weight: bold;
-    font-size: 12px;
 }
 
 .form-group .col-form-label {
-    font-size: 12px;
     font-weight: bolder;
     padding-left: 0px;
 }
 
 /** List of sales **/
 .list-sales {
-    font-size: 12px;
     padding: 0px;
     background-color: white;
 

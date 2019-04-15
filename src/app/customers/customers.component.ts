@@ -111,6 +111,8 @@ export class CustomersComponent implements OnInit {
     this.dataService.getCountries().subscribe(countries => {
       this.countries = countries;
       this.selectedCountryCode = countries[0].code;
+      const defaultCountry = countries.find((country: { code: any; name: any; }) => country.code === 'SG');
+      this.selectedCountryCode = defaultCountry.code;
       // For Update Details
       if (this.getCustomer) {
         const selectedCountry = countries.find((country: { code: any; name: any; }) => country.code === this.getCustomer.country);
@@ -137,13 +139,20 @@ export class CustomersComponent implements OnInit {
     this.resetErrors();
     // Update customer details when there's only an existing customer ID
     // otherwise add new customer
+    // Fields checker
+    let regUnitNo = RegExp('^[a-zA-Z0-9#-]+$', 'i');
+    let regPostalCode = RegExp('^[a-zA-Z0-9]+$', 'i');
+    let regEmail = RegExp('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$', 'i');
+    let regContactNo = RegExp('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-#*0-9]*$', 'i');
+    let regFaxNo = RegExp('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-#*0-9]*$', 'i');
     if (!this.getCustomer) {
       event.preventDefault();
       // Validation rules
       const invalidFields = !this.customer.customerKey || !this.customer.businessRegNo || !this.customer.name 
-      || !this.customer.registrationDate || !this.customer.streetName || !this.customer.buildingName 
-      || !this.customer.unitNo || !this.customer.postalCode || !this.customer.bankAccountNo 
-      || !this.customer.contactNo || !this.customer.contactName || !this.customer.email || !this.customer.origin;
+      || !this.customer.registrationDate || Object.prototype.toString.call(this.customer.registrationDate) !== '[object Object]' || !this.customer.streetName || !this.customer.buildingName 
+      || !this.customer.unitNo || !regUnitNo.test(this.customer.unitNo) || !this.customer.postalCode || !regPostalCode.test(this.customer.postalCode) || !this.customer.bankAccountNo 
+      || !this.customer.contactNo || !regContactNo.test(this.customer.contactNo) || (this.customer.faxNo.length > 0 && !regFaxNo.test(this.customer.faxNo)) || !this.customer.contactName 
+      || !this.customer.email || !regEmail.test(this.customer.email) || !this.selectedGender || !this.customer.origin;
       if (invalidFields) {
         this.isValid = false;
       } else {
@@ -167,9 +176,10 @@ export class CustomersComponent implements OnInit {
       event.preventDefault();
       // Validation rules
       const invalidFields = !this.customer.customerKey || !this.customer.businessRegNo || !this.customer.name 
-      || !this.customer.registrationDate || !this.customer.streetName || !this.customer.buildingName 
-      || !this.customer.unitNo || !this.customer.postalCode || !this.customer.bankAccountNo 
-      || !this.customer.contactNo || !this.customer.contactName || !this.customer.email || !this.customer.origin;
+      || !this.customer.registrationDate || Object.prototype.toString.call(this.customer.registrationDate) !== '[object Object]' || !this.customer.streetName || !this.customer.buildingName 
+      || !this.customer.unitNo || !regUnitNo.test(this.customer.unitNo) || !this.customer.postalCode || !regPostalCode.test(this.customer.postalCode) || !this.customer.bankAccountNo 
+      || !this.customer.contactNo || !regContactNo.test(this.customer.contactNo) || (this.customer.faxNo.length > 0 && !regFaxNo.test(this.customer.faxNo)) || !this.customer.contactName 
+      || !this.customer.email || !regEmail.test(this.customer.email) || !this.selectedGender || !this.customer.origin;
       if (invalidFields) {
         this.isValidEdit = false;
       } else {
@@ -210,7 +220,6 @@ export class CustomersComponent implements OnInit {
     let regYearDateFormat: string = registrationDateFormat[0];
     let regMonthDateFormat: string = (registrationDateFormat[1] < 10) ? '0'+registrationDateFormat[1] : registrationDateFormat[1];
     let regDayDateFormat: string = (registrationDateFormat[2] < 10) ? '0'+registrationDateFormat[2] : registrationDateFormat[2];
-    console.log(regYearDateFormat+'-'+regMonthDateFormat+'-'+regDayDateFormat);
     this.customer.regDateYear = regYearDateFormat;
     this.customer.regDateMonth = regMonthDateFormat;
     this.customer.regDateDay = regDayDateFormat

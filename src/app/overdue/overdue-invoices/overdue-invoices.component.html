@@ -27,38 +27,25 @@
       </tr>
     </thead>
     <tbody *ngIf="!isSorted">
-      <tr (click)="openPayment.emit(item)" *ngFor="let item of sales | async let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
+      <tr (click)="openPayment.emit(item)" *ngFor="let item of sales | async let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven" [class.data]="hasData">
         <td class="d-inline-block col-3">{{item.name}}</td>
         <td class="d-inline-block col-3">{{item.paymentDate}}</td>
         <td class="d-inline-block col-3">${{item.amount | number:'.2-2'}}</td>
         <td class="d-inline-block col-3">{{item.invoices}}</td>
       </tr>
+      <tr *ngIf="!hasData" class="no-data-container">
+        <td class="d-inline-block col-12 no-data">No records found.</td>
+      </tr>
     </tbody>
     <tbody *ngIf="isSorted">
-      <tr (click)="openPayment.emit(item)" *ngFor="let item of salesSorted let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
+      <tr (click)="openPayment.emit(item)" *ngFor="let item of salesSorted let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven" [class.data]="hasData">
         <td class="d-inline-block col-3">{{item.name}}</td>
         <td class="d-inline-block col-3">{{item.paymentDate}}</td>
         <td class="d-inline-block col-3">${{item.amount | number:'.2-2'}}</td>
         <td class="d-inline-block col-3">{{item.invoices}}</td>
       </tr>
-    </tbody>
-    <!-- <tbody *ngIf="!isSorted">
-      <tr (click)="openProfile.emit(customer)" *ngFor="let item of sales | async | sales:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
-        <td class="d-inline-block col-2">{{item.paymentDate}}</td>
-        <td class="d-inline-block col-2">{{item.amount}}</td>
-        <td class="d-inline-block col-4">{{item.invoices}}</td>
-      </tr>
-    </tbody>
-    <tbody *ngIf="isSorted">
-      <tr (click)="openProfile.emit(customer)" *ngFor="let item of salesSorted | sales:data; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven">
-        <td class="d-inline-block col-2">{{item.paymentDate}}</td>
-        <td class="d-inline-block col-2">{{item.amount}}</td>
-        <td class="d-inline-block col-4">{{item.invoices}}</td>
-      </tr>
-    </tbody> -->
-    <tbody *ngIf="!hasData">
-      <tr [class.odd]="isOdd">
-        <td class="d-inline-block col-12">No records found.</td>
+      <tr *ngIf="!hasData" class="no-data-container">
+        <td class="d-inline-block col-12 no-data">No records found.</td>
       </tr>
     </tbody>
   </table>

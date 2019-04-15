@@ -474,8 +474,6 @@ export class PaymentsComponent implements OnInit, OnChanges {
         const promiseStore = this.http.post(uri, payload).toPromise();
         promiseStore.then((res) => {
           this.dataResponse(res, 'Payment submitted', 'store');
-          // Log data changes on events
-          this.addEvents(this.notification, res['data'], 'New Payment', 'created');
         }, (error) => {
           this.error = error.message;
           this.submitting = false;
@@ -486,8 +484,6 @@ export class PaymentsComponent implements OnInit, OnChanges {
         promiseUpdate.then((res) => {
           const objRes = JSON.parse(res);
           this.dataResponse(objRes, 'Payment updated', 'update');
-          // Log data changes on events
-          this.addEvents(this.notification, objRes['data'], 'Updated Payment', 'updated');
         }, (error) => {
           this.error = error.message;
           this.submitting = false;
@@ -498,9 +494,6 @@ export class PaymentsComponent implements OnInit, OnChanges {
         promiseDelete.then((res) => {
           const objRes = JSON.parse(res);
           this.dataResponse(objRes, 'Payment deleted', 'delete');
-          console.log(res);
-          // Log data changes on events
-          this.addEvents(this.notification, objRes['data'], 'Deleted Payment', 'deleted');
         }, (error) => {
           this.error = error.message;
           this.submitting = false;

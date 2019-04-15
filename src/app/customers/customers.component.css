@@ -22,10 +22,10 @@
 
 .customer-container .form-group label {
     margin-right: -15px;
-    font-size: 12px;
     float: left;
     line-height: 30px;
     padding: 0;
+    font-weight: bold;
 }
 
 .customer-container .form-group .reg-date {
@@ -54,7 +54,6 @@
     float: left;
     height: 25px;
     color: #6e6e6e;
-    font-size: 12px;
 }
 
 .customer-container .form-group ng-select {
@@ -70,7 +69,6 @@
 
 .customer-container .form-group input::placeholder {
     color: #ced4da;
-    font-size: 12px;
 }
 
 .customer-container .form-group .datepicker-custom {
@@ -120,7 +118,6 @@
 .customer-container .submit-container {
     width: 100%;
     margin: 15px 0;
-    font-size: 12px;
 }
 
 .customer-container .submit-container span {
@@ -135,5 +132,4 @@
     padding: 5px 42px;
     background-color: #2b8bd9;
     font-weight: bold;
-    font-size: 12px;
 }

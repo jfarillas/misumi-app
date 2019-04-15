@@ -5,7 +5,7 @@
     <div *ngIf="error" class="alert alert-danger">{{error}}</div>
     <div *ngIf="success" class="alert alert-success">{{success}}</div>
     <h2>New Sales Entry</h2>
-    <form #f="ngForm" name="theForm" (submit)="addSales(f)">
+    <form #f="ngForm" name="theForm" (submit)="addSales(f, $event)">
       <div class="container-fluid">
         <div class="row">
           <div class="col-6">
@@ -16,12 +16,14 @@
               <div class="col-9">
                 <input type="text"
                       class="form-control form-control-sm"
-                      name="model"
+                      name="invoices"
                       [(ngModel)]="sale.invoices"
-                      #accountModel="ngModel"
+                      #invoices="ngModel"
                       placeholder="Eg. 987654321"
                       required
-                      pattern="^[a-zA-Z]+$">
+                      pattern="^[a-zA-Z0-9]+$">
+                <div *ngIf="!sale.invoices && !isValid" class="required-field">Invoice No. is required.</div>
+                <div *ngIf="invoices.errors?.pattern && (invoices.touched || invoices.dirty)" class="required-field">Invalid Invoice No.</div>
               </div>
             </div>
           </div>
@@ -31,14 +33,14 @@
                 Amount
               </label>
               <div class=" col-8">
-                  <input type="number"
+                <input type="number"
                   class="form-control form-control-sm"
-                  name="model"
+                  name="amount"
                   [(ngModel)]="sale.amount"
-                  #accountModel="ngModel"
-                  placeholder="Eg. 1,234,567,890"
-                  required
-                  pattern="^[a-zA-Z]+$">
+                  #amount="ngModel"
+                  placeholder="Eg. 1234567890"
+                  required>
+                <div *ngIf="!sale.amount && !isValid" class="required-field">Amount is required.</div>
               </div>
             </div>
           </div>
@@ -52,13 +54,14 @@
               <div class="col-9">
                   <input type="date"
                     class="form-control form-control-sm"
-                    name="model"
+                    paymentDate="model"
                     [(ngModel)]="sale.paymentDate"
-                    #accountModel="ngModel" 
+                    #paymentDate="ngModel" 
                     placeholder="Eg. 31 December 2018" 
                     name="d2" 
                     ngbDatepicker #d2="ngbDatepicker"
                     required>
+                  <div *ngIf="!sale.paymentDate && !isValid" class="required-field">Date is required.</div>
               </div>
             </div>
           </div>
@@ -94,11 +97,11 @@
       <tbody>
         <tr *ngFor="let item of salesAry; let i = index; let isOdd = odd; let isEven = even;" [class.odd]="isOdd"  [class.even]="isEven" [@fadeInOut]>
           <td *ngIf="!item.editNow" class="d-inline-block col-2">{{item.paymentDate}}</td>
-          <td *ngIf="item.editNow" class="d-inline-block col-3"><input type="date" [(ngModel)]="item.paymentDate" [(value)]="item.paymentDate" class="form-control form-control-sm" required/></td>
+          <td *ngIf="item.editNow" class="d-inline-block col-3"><input type="date" [(ngModel)]="item.paymentDate" [(value)]="item.paymentDate" class="form-control form-control-sm" required/><div *ngIf="!item.paymentDate && !isValidEdit" class="required-field">Date is required.</div></td>
           <td *ngIf="!item.editNow" class="d-inline-block col-3">${{item.amount | number:'.2-2'}}</td>
-          <td *ngIf="item.editNow" class="d-inline-block col-2"><input type="number" [(ngModel)]="item.amount" [(value)]="item.amount" class="form-control form-control-sm" required/></td>
+          <td *ngIf="item.editNow" class="d-inline-block col-2"><input type="number" [(ngModel)]="item.amount" [(value)]="item.amount" class="form-control form-control-sm" required/><div *ngIf="!item.amount && !isValidEdit" class="required-field">Amount is required.</div></td>
           <td *ngIf="!item.editNow" class="d-inline-block col-3">{{item.invoices}}</td>
-          <td *ngIf="item.editNow" class="d-inline-block col-3"><input type="text" [(ngModel)]="item.invoices" [(value)]="item.invoices" class="form-control form-control-sm" required/></td>
+          <td *ngIf="item.editNow" class="d-inline-block col-3"><input type="text" [(ngModel)]="item.invoices" #invoices="ngModel" [(value)]="item.invoices" class="form-control form-control-sm" required pattern="^[a-zA-Z0-9]+$"/><div *ngIf="!item.invoices && !isValidEdit" class="required-field">Invoice No. is required.</div><div *ngIf="invoices.errors?.pattern && (invoices.touched || invoices.dirty || !isValidEdit)" class="required-field">Invalid Invoice No.</div></td>
           <td *ngIf="!item.editNow" class="d-inline-block col-2" [class.highlight-btn]="item.isEditable" [class.no-highlight-btn]="!item.isEditable" (click)="editSales($event, item, item.isEditable);"><i class="fas fa-pencil-alt fa-lg" [class.fa-pencil-alt-enabled]="item.isEditable" [class.fa-pencil-alt-disabled]="!item.isEditable"></i> Edit</td>
           <td *ngIf="item.editNow" class="d-inline-block col-2" (click)="updateSales($event, item);"><button class="mt-sm-auto btn btn-primary btn-sm">Update</button></td>
           <td *ngIf="!item.editNow" class="d-inline-block col-2" [class.highlight-btn]="item.isEditable" [class.no-highlight-btn]="!item.isEditable" (click)="confirmDeleteSales(content, item, item.isEditable)"><i class="fas fa-times fa-lg" [class.fa-times-enabled]="item.isEditable" [class.fa-times-disabled]="!item.isEditable"></i> Delete</td>

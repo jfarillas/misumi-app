@@ -21,6 +21,9 @@ export class AccountsComponent implements OnInit {
 
   // Designation selections
   designation_options: any = ['Admin', 'Director', 'Manager', 'Staff'];
+
+  // For validation
+  isValid: boolean = true;
   
   constructor(
     private accountService: AccountsService,
@@ -57,34 +60,46 @@ export class AccountsComponent implements OnInit {
 
   addAccount(f: {
     reset: () => void;
-  }) {
+  }, event: Event) {
     this.resetErrors();
 
     // Update the designation property in customer model with the value from angular material specific form field/s.
     //this.account.designation = this.frmDesignationControl.value;
 
-    console.log(this.account.designation);
-    if (this.account.designation !== 'Staff' || localStorage.getItem('designation') !== null) {
-      this.accountService.store(this.account)
-      .subscribe((res: Accounts[]) => {
-        // Update the list of accounts
-        this.accounts = res;
-        // Inform the user
-        this.success = 'Created successfully';
-        // Reset the form
-        f.reset();
-        // Retain selection default value
-        this.account.designation = 'Staff';
-      }, (err) => {
-        this.error = err;
+    // Email and Contact No. checker
+    let regEmail = RegExp('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$', 'i');
+    let regContactNo = RegExp('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-#*0-9]*$', 'i');
+    event.preventDefault();
+    // Validation rules
+    const invalidFields = !this.account.name || !this.account.password || !this.account.email 
+    || !regEmail.test(this.account.email) || !this.account.contactNo || !regContactNo.test(this.account.contactNo);
+    if (invalidFields) {
+      this.isValid = false;
+    } else {
+      console.log(this.account.designation);
+      if (this.account.designation !== 'Staff' || localStorage.getItem('designation') !== null) {
+        this.accountService.store(this.account)
+        .subscribe((res: Accounts[]) => {
+          // Update the list of accounts
+          this.accounts = res;
+          // Inform the user
+          this.success = 'Created successfully';
+          // Reset the form
+          //f.reset();
+          // Retain selection default value
+          this.account.designation = 'Staff';
+        }, (err) => {
+          this.error = err;
+          // Check if the account data has been added
+          this.ref.detectChanges();
+        });
+      } else {
+        this.error = this.account.designation+' cannot create user account.';
         // Check if the account data has been added
         this.ref.detectChanges();
-      });
-    } else {
-      this.error = this.account.designation+' cannot create user account.';
-      // Check if the account data has been added
-      this.ref.detectChanges();
+      }
     }
+    
     
   }
   private resetErrors() {

@@ -9,6 +9,7 @@
                 <div class="col-sm-6 event-time">{{item.notifTime}}</div>
                 <div class="col-sm-12 description" [innerHtml]="item.description"></div>
             </div>
+            <div *ngIf="!hasData" class="no-data" [@fadeInOut]>No events</div>
         </div>
         
     </div>

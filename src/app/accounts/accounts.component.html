@@ -3,9 +3,9 @@
 <div *ngIf="!hasUserName"><a routerLink="/login" routerLinkActive="active">Login</a></div>
 <div *ngIf="hasUserName"></div>
 <div id="theForm">
-  <div *ngIf="!hasUserName"><h2>Add account</h2></div>
+  <div *ngIf="!hasUserName" class="account-title"><h2>Add account</h2></div>
   <div *ngIf="hasUserName">&nbsp;</div>
-  <form #f="ngForm" name="theForm" (submit)="addAccount(f)">
+  <form #f="ngForm" name="theForm" (submit)="addAccount(f, $event)" [class.single-form]="!hasUserName">
       <div class="form-group">
         <label>Designation</label>
         <select name="designation"
@@ -18,70 +18,54 @@
           </option>
         </select>
       </div>
-    <!-- <div class="form-group">
-      <label>Designation</label>
-      <mat-form-field class="example-full-width">
-        <input type="text" 
-              placeholder="Staff"
-              matInput 
-                name="designation" 
-                required 
-                [formControl]="frmDesignationControl" 
-                [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div> -->
-
     <div class="form-group">
       <label>Email address</label>
       <input type="text"
             class="form-control"
-            name="model"
+            name="email"
             [(ngModel)]="account.email"
-            #accountModel="ngModel"
+            #email="ngModel"
             required
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
-      
+        <div *ngIf="!account.email && !isValid" class="required-field">E-mail is required.</div>
+        <div *ngIf="email.errors?.pattern && (email.touched || email.dirty)" class="required-field">Invalid E-mail.</div>
     </div>
 
     <div class="form-group">
       <label>Username</label>
       <input type="text"
             class="form-control"
-            name="model"
+            name="name"
             [(ngModel)]="account.name"
             #accountModel="ngModel"
             required
             pattern="^[a-zA-Z]+$">
-      
+      <div *ngIf="!account.name && !isValid" class="required-field">Username is required.</div>
     </div>
 
     <div class="form-group">
       <label>Password</label>
       <input type="password"
             class="form-control"
-            name="model"
+            name="password"
             [(ngModel)]="account.password"
             #accountModel="ngModel"
             required
             pattern="^[a-zA-Z]+$">
-      
+      <div *ngIf="!account.password && !isValid" class="required-field">Password is required.</div>
     </div>
 
     <div class="form-group">
       <label>Contact number</label>
       <input type="text"
             class="form-control"
-            name="model"
+            name="contactNo"
             [(ngModel)]="account.contactNo"
-            #accountModel="ngModel"
+            #contactNo="ngModel"
             required
-            pattern="^[a-zA-Z]+$">
-      
+            pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s#*0-9]*$">
+      <div *ngIf="!account.contactNo && !isValid" class="required-field">Contact No. is required.</div>
+      <div *ngIf="contactNo.errors?.pattern && (contactNo.touched || contactNo.dirty)" class="required-field">Invalid Contact No.</div>
     </div>
 
     <button class="btn btn-primary btn-sm">Add</button>

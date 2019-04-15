@@ -54,6 +54,11 @@
     .delete {
         color: #D80000;
     }
+
+    .notif-container .no-data {
+        text-align: center;
+        color: #ff0000;
+    }
 }
 
 

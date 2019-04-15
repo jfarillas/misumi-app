@@ -5,7 +5,6 @@ table {
 .list-customers {
     padding: 0;
     margin-top: 20px;
-    font-size: 12px;
 }
 
 .list-customers table {
@@ -27,7 +26,7 @@ table {
     vertical-align: middle;
 }
 
-.list-customers table thead th:hover, .list-customers table tbody tr:hover {
+.list-customers table thead th:hover, .list-customers table tbody tr.data:hover {
     background-color: #2b8bd9;
     color: #fff;
 }
@@ -42,11 +41,23 @@ table {
 .list-customers table tbody tr {
     width: 100%;
     display: block;
+}
+
+.list-customers table tbody tr.data {
     cursor: pointer;
+}
+
+.list-customers table tbody tr.no-data-container {
+    cursor: default;
 }
 
 .list-customers table td {
     overflow-wrap: break-word;
+}
+
+.list-customers table td.no-data {
+    text-align: center;
+    color: #ff0000;
 }
 
 .list-customers table tbody .odd {
@@ -93,11 +104,6 @@ table {
 
 .list-customers .form-group.search .container-fa-search i {
     margin: 10px 8px;
-}
-
-.no-records {
-    text-align: center;
-    color: #ff0000;
 }
 
 /* On screens 1500px or more */

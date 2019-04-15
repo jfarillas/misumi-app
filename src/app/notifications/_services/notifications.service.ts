@@ -23,7 +23,11 @@ export class NotificationsService {
   getAll(): Observable<Notifications[]> {
     return this.http.get(`${this.baseUrl}/list.php`).pipe(
       map((res) => {
-        this.notifications = res['data'];
+        if (res) {
+          this.notifications = res['data'];
+        } else {
+          this.notifications = [];
+        }
         return this.notifications;
     }),
     catchError(this.handleError));
