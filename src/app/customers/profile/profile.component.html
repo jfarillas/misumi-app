@@ -124,8 +124,7 @@
       <div class="row">
         <div class="col-sm-6 label">Sales/Payment/<br>Banking Details</div>
         <div *ngIf="customer.salesDetails" class="col-sm-6 details">{{customer.salesDetails}}</div>
-        <div *ngIf="!customer.salesDetails" class="col-sm-6 details">NA</div>
-        <!-- <div *ngIf="!customer.salesDetails && !customer.paymentDetails && !customer.bankingDetails && !customer.miscDetails" class="col-sm-6 details">NA</div> -->
+        <div *ngIf="!customer.salesDetails" class="col-sm-6 details">None</div>
       </div>
       <div *ngIf="customer.paymentDetails" class="row">
         <div class="col-sm-6">&nbsp;</div>
@@ -148,7 +147,7 @@
       <div class="row">
         <div class="col-sm-6 label">Remarks</div>
         <div *ngIf="customer.remarks" class="col-sm-6 details">{{customer.remarks}}</div>
-        <div *ngIf="!customer.remarks" class="col-sm-6 details">NA</div>
+        <div *ngIf="!customer.remarks" class="col-sm-6 details">None</div>
       </div>
     </div>
   </div>
