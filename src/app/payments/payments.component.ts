@@ -58,7 +58,9 @@ export class PaymentsComponent implements OnInit, OnChanges {
   @Input() getItem: any;
   @Input() updateEvents: any;
   @Input() updateInvoices: any;
+  @Input() updateTotalPayment: any;
   @Output() pushEvents: EventEmitter<any> = new EventEmitter();
+  @Output() pushTotalPayments: EventEmitter<any> = new EventEmitter();
 
   // IDs
   customerID;
@@ -326,7 +328,7 @@ export class PaymentsComponent implements OnInit, OnChanges {
     
   }
 
-  submitPayment(event: any) {
+  submitPayment(event: Event) {
     
     this.submitting = true;
 
@@ -364,7 +366,7 @@ export class PaymentsComponent implements OnInit, OnChanges {
     }
   }
 
-  editPayment(event: any, item: any, isEditable: boolean) {
+  editPayment(event: Event, item: any, isEditable: boolean) {
     event.stopPropagation();
     if (isEditable) {
       console.log(item);
@@ -374,7 +376,7 @@ export class PaymentsComponent implements OnInit, OnChanges {
     }
   }
 
-  cancelPayment(event: any, item: any) {
+  cancelPayment(event: Event, item: any) {
     event.stopPropagation();
     item.editNow = false;
     this.rearrangeHeader = false;
@@ -399,7 +401,7 @@ export class PaymentsComponent implements OnInit, OnChanges {
     this.ref.detectChanges();
   }
 
-  updatePayment(event: any, item: any) {
+  updatePayment(event: Event, item: any) {
     event.stopPropagation();
     // Validation rules
     this.isValidEdit = false;
@@ -521,6 +523,9 @@ export class PaymentsComponent implements OnInit, OnChanges {
     this.remarks  = null;
 
     this.paymentSet = res;
+    
+    // Update total sales chart on profile tab
+    this.pushTotalPayments.emit(res);
   }
 
   addEvents(notification: any, payments: any, eventType: string, status: string) {

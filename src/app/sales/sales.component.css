@@ -53,6 +53,7 @@ tbody {
 
 .highlight-btn {
     cursor: pointer;
+    text-align: center;
 }
 
 .fa-pencil-alt-enabled {
@@ -75,8 +76,17 @@ tbody {
     text-decoration: underline;
 }
 
+.no-highlight-btn {
+    text-align: center;
+}
+
 .no-highlight-btn:hover {
     text-decoration: none;
+}
+
+.d-inline-block button {
+    margin: 0 auto;
+    display: block;
 }
 
 .btn-cancel, btn-cancel:active:focus, .btn-cancel:hover {

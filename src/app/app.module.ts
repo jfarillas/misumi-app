@@ -102,7 +102,8 @@ const routes: Routes = [
     AuthenticationService,
     AuthguardService,
     HeaderComponent,
-    ListCustomersComponent
+    ListCustomersComponent,
+    TabsComponent
   ],
   bootstrap: [AppComponent],
   entryComponents: [

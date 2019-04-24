@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
 
   @Input() newTitle: string = '';
   @Input() updateEvents: any;
+  @Input() closeTabs: any;
   @Output() pushEvents: EventEmitter<any> = new EventEmitter();
   userName = localStorage.getItem('currentUser');
 

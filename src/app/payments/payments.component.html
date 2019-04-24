@@ -47,7 +47,7 @@
                   Invoice Amount
                 </div>
                 <div class="col-8">
-                  <input type="number" class="form-control form-control-sm" [(ngModel)]="amountPaid"/>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="amountPaid" step="any"/>
                   <div *ngIf="!amountPaid && !isValid" class="required-field">Invoice Amount is required.</div>
                 </div>
               </div>
@@ -124,7 +124,7 @@
             <td *ngIf="!item.editNow" class="d-inline-block col-2">{{item.paiddate}}</td>
             <td *ngIf="item.editNow" class="d-inline-block col-2"><input type="date" [(ngModel)]="item.paiddate" [(value)]="item.paiddate" class="form-control form-control-sm" required/></td>
             <td *ngIf="!item.editNow" class="d-inline-block col-2 col-adjust">${{item.amount | number:'.2-2'}}</td>
-            <td *ngIf="item.editNow" class="d-inline-block col-2"><input type="number" [(ngModel)]="item.amount" [(value)]="item.amount" class="form-control form-control-sm" required/><div *ngIf="!item.amount && !isValidEdit" class="required-field">Amount is required.</div></td>
+            <td *ngIf="item.editNow" class="d-inline-block col-2"><input type="number" [(ngModel)]="item.amount" [(value)]="item.amount" class="form-control form-control-sm" step="any" required/><div *ngIf="!item.amount && !isValidEdit" class="required-field">Amount is required.</div></td>
             <td *ngIf="!item.editNow" class="d-inline-block col-2 col-adjust">{{item.invoicekey}}</td>
             <td *ngIf="item.editNow" class="d-inline-block col-2">
               <div *ngIf="!invoicesUpdated">

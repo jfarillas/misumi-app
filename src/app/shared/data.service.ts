@@ -66,6 +66,7 @@ export class DataService {
 function getCustomerStatusList()
 {
   return [
-    {"code": "cleared", "description": "Cleared"}
+    {"code": "cleared", "description": "Cleared"},
+    {"code": "not cleared", "description": "Not Cleared"}
   ];
 }

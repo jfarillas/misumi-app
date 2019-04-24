@@ -2,6 +2,7 @@ import {
   Component, 
   OnInit,
   Input,
+  Output,
   OnChanges, 
   SimpleChanges,
   ContentChildren,
@@ -9,11 +10,14 @@ import {
   AfterContentInit,
   ViewChild,
   ComponentFactoryResolver,
+  EventEmitter,
   ViewContainerRef,
 } from '@angular/core';
 import { Router,  NavigationExtras,ActivatedRoute } from '@angular/router';
 import { TabComponent } from '../tab/tab.component';
 import { DynamicTabsDirective } from './dynamic-tabs.directive';
+
+import { TabsService } from './_services/tabs.service';
 
 @Component({
   selector: 'app-tabs',
@@ -28,10 +32,15 @@ export class TabsComponent implements AfterContentInit, OnChanges {
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
   @ViewChild(DynamicTabsDirective) dynamicTabPlaceholder: DynamicTabsDirective;
   @Input() listCustomers: any = [];
+  @Input() showUpdatedTab: string;
+  @Output() pushCloseTabs: EventEmitter<any> = new EventEmitter();
+  @Output() pushTabContainerRef: EventEmitter<any> = new EventEmitter();
+  @Output() pushSelectedTab: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
-    private router: Router
+    private router: Router,
+    private tabsService: TabsService
   ) { }
 
   // contentChildren are set
@@ -41,6 +50,8 @@ export class TabsComponent implements AfterContentInit, OnChanges {
 
     // if there is no active tab set, activate the first
     if (activeTabs.length === 0) {
+      // Emit selected tab to be closed when "Customer" link has been clicked in the sidebar
+      this.pushSelectedTab.emit(this.tabs.first);
       this.selectTab(this.tabs.first);
       // hide the first tab styles
       this.showTab = '';
@@ -54,11 +65,21 @@ export class TabsComponent implements AfterContentInit, OnChanges {
     if (changes.listCustomers) {
       if (Object.prototype.toString.call(changes.listCustomers.currentValue) === '[object Object]') {
         this.customerData = changes.listCustomers.currentValue;
+        // Show tab styles
+        this.tabsService.updateTabStyle('1');
       }
     }
+    // Update show tab style
+    this.tabsService.changeEmittedST$.subscribe(data => {
+      this.showTab = (data === '0') ? data : 'show-tab';
+    });
   }
 
-  openTab(title: string, template, data, isCloseable = false) {
+  openTab(title: string, template: any, data: any, isCloseable = false) {
+    // Emit closeTabs and tab container view ref properties to bind them in "Customer" link on the sidebar 
+    this.pushCloseTabs.emit(this.dynamicTabs);
+    this.pushTabContainerRef.emit(this.dynamicTabPlaceholder);
+    
     // get a component factory for our TabComponent
     const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
       TabComponent
@@ -125,6 +146,7 @@ export class TabsComponent implements AfterContentInit, OnChanges {
   }
 
   closeTab(tab: TabComponent) {
+    console.log(tab);
     for (let i = 0; i < this.dynamicTabs.length; i++) {
       if (this.dynamicTabs[i] === tab) {
         console.log(this.dynamicTabs);

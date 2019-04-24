@@ -53,8 +53,10 @@ export class NgbdModalConfirmAutofocus {
 export class SalesComponent implements OnChanges, OnInit {
   @Input() getCustomer: any;
   @Input() updateEvents: any;
+  @Input() updateTotalSales: any;
   @Output() pushEvents: EventEmitter<any> = new EventEmitter();
   @Output() pushInvoices: EventEmitter<any> = new EventEmitter();
+  @Output() pushTotalSales: EventEmitter<any> = new EventEmitter();
   customer: any;
   sales: Sales[];
   notifications: Notifications[];
@@ -181,6 +183,8 @@ export class SalesComponent implements OnChanges, OnInit {
           });
           // Update invoices list in the drop down on payments form
           this.pushInvoices.emit(this.sales[0].invoices);
+          // Update total sales chart on profile tab
+          this.pushTotalSales.emit(this.sales.length);
           // Inform the user
           this.success = 'Created successfully';
           this.hasData = true;
@@ -197,7 +201,7 @@ export class SalesComponent implements OnChanges, OnInit {
     
   }
 
-  editSales(event: any, item: any, isEditable: boolean) {
+  editSales(event: Event, item: any, isEditable: boolean) {
     event.stopPropagation();
     if (isEditable) {
       console.log(item);
@@ -207,7 +211,7 @@ export class SalesComponent implements OnChanges, OnInit {
     }
   }
 
-  cancelSales(event: any, item: any) {
+  cancelSales(event: Event, item: any) {
     event.stopPropagation();
     console.log(this.oldSalesAry);
     item.editNow = false;
@@ -226,7 +230,7 @@ export class SalesComponent implements OnChanges, OnInit {
     this.ref.detectChanges();
   }
 
-  updateSales(event: any, item: any) {
+  updateSales(event: Event, item: any) {
     event.stopPropagation();
     // Fields checker
     let regInvoices = RegExp('^[a-zA-Z0-9]+$', 'i');
@@ -261,6 +265,8 @@ export class SalesComponent implements OnChanges, OnInit {
           console.log(this.sales);
           // Update invoices list in the drop down on payments form
           this.salesService.updatedInvoices(this.sales);
+          // Update total sales chart on profile tab
+          this.pushTotalSales.emit(item.amount);
           this.ref.detectChanges();
         }, (err) => {
           this.error = err; 
@@ -299,6 +305,8 @@ export class SalesComponent implements OnChanges, OnInit {
             if (typeof this.sales[index] !== 'undefined') {
               console.log('Replacing index :: '+this.sales[index]['index']);
               this.sales[index]['index'] = index;
+              // Update total sales chart on profile tab
+              this.pushTotalSales.emit(this.sales[index]);
             }
           } else {
             console.log('Append index :: '+index);
@@ -306,10 +314,12 @@ export class SalesComponent implements OnChanges, OnInit {
           } 
         });
         
-        
-        console.log(this.sales);
         // Update invoices list in the drop down on payments form
         this.salesService.updatedInvoices(this.sales);
+
+        // Update total sales chart on profile tab
+        this.pushTotalSales.emit(this.sales.length);
+
         this.ref.detectChanges();
       }, (err) => {
         this.error = err; 

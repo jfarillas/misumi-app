@@ -23,6 +23,8 @@ export class ProfileComponent implements OnChanges, OnInit {
 
   @Input() getCustomer: any;
   @Input() updateProfile: any;
+  @Input() updateTotalSales: any;
+  @Input() updateTotalPayments: any;
   @Output() changeCountry: EventEmitter<any> = new EventEmitter();
   customer: any;
   countries: Country[] = [];
@@ -88,18 +90,7 @@ export class ProfileComponent implements OnChanges, OnInit {
     // Get total sales & payments per customer
     // Total sales
     this.profileService.getTotalSales(this.getCustomer.customerId).subscribe(totalsales => {
-      if (totalsales.length > 0) {
-        console.log('totalsales inside :: '+totalsales.length);
-        this.barChartDataUpdate.forEach((dataset, index) => {
-          if (index === 0) {
-            this.barChartDataUpdate[index] = Object.assign({}, this.barChartDataUpdate[index], {
-              data: [totalsales[0].totalSales]
-            });
-            // Total payments
-            this.totalPaymentsData(this.getCustomer.customerId);
-          }
-        });
-      }
+      this.updateChart(totalsales);
       // Total payments
       this.totalPaymentsData(this.getCustomer.customerId);
     });
@@ -122,12 +113,28 @@ export class ProfileComponent implements OnChanges, OnInit {
     });
   }
 
+  updateChart(totalsales: any) {
+    if (totalsales.length > 0) {
+      console.log('totalsales inside :: '+totalsales.length);
+      this.barChartDataUpdate.forEach((dataset, index) => {
+        if (index === 0) {
+          this.barChartDataUpdate[index] = Object.assign({}, this.barChartDataUpdate[index], {
+            data: [totalsales[0].totalSales]
+          });
+          // Total payments
+          this.totalPaymentsData(this.getCustomer.customerId);
+        }
+      });
+    }
+  }
+
   updateDataSet(flag: boolean) {
     this.updateData = flag;
     this.ref.detectChanges();
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
     // Update the customer profile once the data has been modified
     if(changes.updateProfile) {
       if (Object.prototype.toString.call(changes.updateProfile.currentValue) === '[object Object]') {
@@ -154,7 +161,18 @@ export class ProfileComponent implements OnChanges, OnInit {
         this.customer = changes.getCustomer.currentValue;
       } 
     }
-    
+
+    // Update total sales & payments per customer
+    // Total sales
+    if (changes.updateTotalSales) {
+      this.updateData = false;
+      this.profileService.getTotalSales(this.getCustomer.customerId).subscribe(totalsales => {
+        this.updateChart(totalsales);
+        // Total payments
+        this.totalPaymentsData(this.getCustomer.customerId);
+      });
+      console.log(this.barChartDataUpdate);
+    }
   }
 
   // Financial status events
