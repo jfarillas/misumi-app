@@ -85,6 +85,9 @@ export class SalesComponent implements OnChanges, OnInit {
   // Edit field in table header
   rearrangeHeader: boolean;
 
+  // Pre-loader
+  submitting: boolean = false;
+
   constructor(
     private parent: AppComponent,
     private salesService: SalesService,
@@ -120,6 +123,8 @@ export class SalesComponent implements OnChanges, OnInit {
         this.rearrangeHeader = false;
         this.salesAry[index]['editNow'] = false;
         this.salesAry[index]['isUpdated'] = false;
+        //Pre-loader
+        this.salesAry[index]['submitting'] = false;
         // Set update datetime as empty by default
         this.salesAry[index]['updateDateTime'] = '';
         // Save old data when cancel button has been clicked
@@ -154,6 +159,7 @@ export class SalesComponent implements OnChanges, OnInit {
       this.isValid = false;
     } else {
       this.isValid = true;
+      this.submitting = true;
       // Update the properties in customer model with the value from standalone specific form field/s.
       this.sale.customersId = this.customer.customerId;
       this.sale.accountsId = localStorage.getItem('userId');
@@ -192,8 +198,10 @@ export class SalesComponent implements OnChanges, OnInit {
           this.addEvents(this.notification, this.sales, 'New Sales', 'created');
           // Reset the form
           f.reset();
+          this.submitting = false;
         }, (err) => {
           this.error = err; 
+          this.submitting = false;
           // Check if the sales data has not been added
           this.ref.detectChanges();
         });
@@ -240,6 +248,7 @@ export class SalesComponent implements OnChanges, OnInit {
       this.isValidEdit = false;
     } else {
       this.isValidEdit = true;
+      item.submitting = true;
       // Get current sales ID
       item['salesId'] = item.id;
 
@@ -260,6 +269,7 @@ export class SalesComponent implements OnChanges, OnInit {
           this.success = 'The invoice number '+item.invoices+' has been updated successfully';
           this.rearrangeHeader = false;
           item.editNow = false;
+          item.submitting = false;
           // Remove old data from a specific selected sales
           this.sales.splice(this.sales.length-1, 1);
           console.log(this.sales);
@@ -270,6 +280,7 @@ export class SalesComponent implements OnChanges, OnInit {
           this.ref.detectChanges();
         }, (err) => {
           this.error = err; 
+          item.submitting = false;
           // Check if the sales data has not been added
           this.ref.detectChanges();
         });

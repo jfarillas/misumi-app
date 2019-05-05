@@ -635,8 +635,13 @@
             <div class="col-sm-6">
               <span>*required</span>
             </div>
-            <div class="col-sm-6 btn-save">
-              <button class="float-right btn btn-primary btn-sm">Confirm & Save</button>
+            <div *ngIf="!updateDetails" class="col-sm-6 btn-save">
+              <button *ngIf="!submitting" class="float-right btn btn-primary btn-sm">Confirm & Save</button>
+              <span *ngIf="submitting" class="pre-loader"><i class="fas fa-spinner fa-spin"></i> Adding Customer...</span>
+            </div>
+            <div *ngIf="updateDetails" class="col-sm-6 btn-save">
+              <button *ngIf="!submittingEdit" class="float-right btn btn-primary btn-sm">Confirm & Save</button>
+              <span *ngIf="submittingEdit" class="pre-loader"><i class="fas fa-spinner fa-spin"></i> Updating Customer...</span>
             </div>
           </div>
         </div>

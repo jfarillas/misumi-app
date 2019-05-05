@@ -69,7 +69,8 @@
           <div class="col-6">
             <div class="form-group text-right">
               <label class="control-label">&nbsp;</label>
-              <button class="mt-sm-auto btn btn-primary btn-sm">Add New</button>
+              <button *ngIf="!submitting" class="mt-sm-auto btn btn-primary btn-sm">Add New</button>
+              <span *ngIf="submitting"><i class="fas fa-spinner fa-spin"></i> Processing Sales</span>
             </div>
           </div>
         </div>
@@ -104,7 +105,7 @@
           <td *ngIf="!item.editNow" class="d-inline-block col-3">{{item.invoices}}</td>
           <td *ngIf="item.editNow" class="d-inline-block col-3"><input type="text" [(ngModel)]="item.invoices" #invoices="ngModel" [(value)]="item.invoices" class="form-control form-control-sm" required pattern="^[a-zA-Z0-9]+$"/><div *ngIf="!item.invoices && !isValidEdit" class="required-field">Invoice No. is required.</div><div *ngIf="invoices.errors?.pattern && (invoices.touched || invoices.dirty || !isValidEdit)" class="required-field">Invalid Invoice No.</div></td>
           <td *ngIf="!item.editNow" class="d-inline-block col-2" [class.highlight-btn]="item.isEditable" [class.no-highlight-btn]="!item.isEditable" (click)="editSales($event, item, item.isEditable);"><i class="fas fa-pencil-alt fa-lg" [class.fa-pencil-alt-enabled]="item.isEditable" [class.fa-pencil-alt-disabled]="!item.isEditable"></i> Edit</td>
-          <td *ngIf="item.editNow" class="d-inline-block col-2" (click)="updateSales($event, item);"><button class="mt-sm-auto btn btn-primary btn-sm">Update</button></td>
+          <td *ngIf="item.editNow" class="d-inline-block col-2" (click)="updateSales($event, item);"><button *ngIf="!item.submitting" class="mt-sm-auto btn btn-primary btn-sm">Update</button><span *ngIf="item.submitting" class="pre-loader"><i class="fas fa-spinner fa-spin"></i> Updating</span></td>
           <td *ngIf="!item.editNow" class="d-inline-block col-2" [class.highlight-btn]="item.isEditable" [class.no-highlight-btn]="!item.isEditable" (click)="confirmDeleteSales(content, item, item.isEditable)"><i class="fas fa-times fa-lg" [class.fa-times-enabled]="item.isEditable" [class.fa-times-disabled]="!item.isEditable"></i> Delete</td>
           <td *ngIf="item.editNow" class="d-inline-block col-2" (click)="cancelSales($event, item);"><button class="btn btn-primary btn-sm btn-danger">Cancel</button></td>
         </tr>

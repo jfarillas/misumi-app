@@ -94,6 +94,11 @@ tbody {
     border-color: #D80000!important;
 }
 
+.pre-loader {
+    margin: 5px auto;
+    display: table;
+}
+
 /* On screens 1500px or more */
 @media screen and (min-width: 1500px) {
     tbody {

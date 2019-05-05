@@ -2,7 +2,7 @@
   <form [formGroup]="rForm" (ngSubmit)="addPost(post)">
     <div class="form-container">
       <div class="columns">
-        <div class="logo-login"><img src="assets/img/placeholder-logo-login.png" /></div>
+        <div class="logo-login"><img src="http://misumi.oddity.sg/assets/img/MWing9.jpg" /></div>
         <div class="login-sub-text"><h2>Login Panel</h2></div>
         <div class="form-group username">
           <input type="text"
@@ -33,7 +33,7 @@
           </div>
         </div>
         <input type="submit" class="btn-expanded btn btn-primary btn-sm" value="Log in"> 
-        <!-- <div class="forgot-password"><a routerLink="/accounts" routerLinkActive="active">Create an account</a></div> -->
+        <div class="forgot-password"><a routerLink="/forgot-password/request" routerLinkActive="active">Forgot password?</a></div>
         <div class="callout-error" *ngIf="loginError"><span>Invalid username or password</span></div>
           
         <!-- <input type="submit" class="button expanded" value="Login" [disabled]="!rForm.valid"> -->

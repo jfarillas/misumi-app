@@ -133,3 +133,10 @@
     background-color: #2b8bd9;
     font-weight: bold;
 }
+
+.pre-loader {
+    margin: 0 auto;
+    margin-right: 25px;
+    display: table;
+    color: #6e6e6e !important;
+}

@@ -25,6 +25,7 @@ import { Notifications } from './../notifications/notifications';
 import { NgbDatepickerConfig, NgbDateParserFormatter, NgbModal, NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateWholeCustomParserFormatter } from '../shared/dateformatwhole';
 import { trigger, transition, animate, style, state } from '@angular/animations';
+import { Nl2BrPipeModule } from 'nl2br-pipe';
 
 export class NgbdModalConfirmAutofocus {
   constructor(public modal: NgbActiveModal) {}
@@ -236,6 +237,13 @@ export class PaymentsComponent implements OnInit, OnChanges {
           // Set update datetime as empty by default
           this.paymentSet[index]['updateDateTime'] = '';
           // Save old data when cancel button has been clicked
+          const reg = '[\r\n]+';
+          const pattern = /[\r\n]+/gi;
+          let regRemarks = RegExp(reg, 'i');
+          let replaceRemarks = (!regRemarks.test(this.paymentSet[index].remarks)) ? this.paymentSet[index].remarks : this.paymentSet[index].remarks.replace(pattern, '<br>');
+          
+          this.paymentSet[index].remarks.filter
+          console.log(replaceRemarks);
           this.oldPaymentSet.push({
             'duedate': this.paymentSet[index].duedate,
             'paiddate': this.paymentSet[index].paiddate,
@@ -348,6 +356,11 @@ export class PaymentsComponent implements OnInit, OnChanges {
       this.isValid = true;
       this.parentID = Number(localStorage.getItem('userParentId'));
       this.createdBy = localStorage.getItem('currentUser')+' ('+this.parent.convertCase(localStorage.getItem('designation'))+')';
+      const reg = '[\r\n]+';
+      const pattern = /[\r\n]+/gi;
+      let regRemarks = RegExp(reg, 'i');
+      let replaceRemarks = (!regRemarks.test(this.remarks)) ? this.remarks : this.remarks.replace(pattern, '<br>');
+      console.log(replaceRemarks);
       const payload = {
         customerId: this.getCustomerId(),
         parentId: this.parentID,
@@ -419,6 +432,11 @@ export class PaymentsComponent implements OnInit, OnChanges {
       this.isValidEdit = true;
       this.parentID = Number(localStorage.getItem('userParentId'));
       this.updatedBy = localStorage.getItem('currentUser')+' ('+this.parent.convertCase(localStorage.getItem('designation'))+')';
+      const reg = '[\r\n]+';
+      const pattern = /[\r\n]+/gi;
+      let regRemarks = RegExp(reg, 'i');
+      let replaceRemarks = (!regRemarks.test(item.remarks)) ? item.remarks : item.remarks.replace(pattern, '<br>');
+      console.log(replaceRemarks);
       const payload = {
         paymentId: item.id,
         customerId: this.getCustomerId(),

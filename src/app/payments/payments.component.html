@@ -134,7 +134,7 @@
                   <ng-select [items]="invoicesChanged" bindLabel="invoiceNo" bindValue="invoiceNo" [(ngModel)]="item.invoicekey" (ngModelChange)="selectedSalesDate(item.invoicekey)"></ng-select><div *ngIf="!item.invoicekey && !isValidEdit" class="required-field">Invoice No. is required.</div>
               </div>
             </td>
-            <td *ngIf="!item.editNow" class="d-inline-block col-2">{{item.remarks}}</td>
+            <td *ngIf="!item.editNow" class="d-inline-block col-2" [innerHTML]="item.remarks | nl2br"></td>
             <td *ngIf="item.editNow" class="d-inline-block col-2"><textarea class="form-control form-control-sm" [(ngModel)]="item.remarks"></textarea></td>
             <td *ngIf="!item.editNow" class="d-inline-block col-1" [class.highlight-btn]="item.isEditable" [class.no-highlight-btn]="!item.isEditable" (click)="editPayment($event, item, item.isEditable);"><i class="fas fa-pencil-alt fa-lg" [class.fa-pencil-alt-enabled]="item.isEditable" [class.fa-pencil-alt-disabled]="!item.isEditable"></i> Edit</td>
             <td *ngIf="item.editNow" class="d-inline-block col-1" (click)="updatePayment($event, item);"><button class="mt-sm-auto btn btn-primary btn-sm">Update</button></td>

@@ -75,6 +75,10 @@ export class CustomersComponent implements OnInit {
   selectedCountryCode: string = null;
   selectedStatusCode: string = null;
 
+  //Pre-loader
+  submitting: boolean = false;
+  submittingEdit: boolean = false;
+
   ngOnInit() {
     // Change the layout of this template when it is in tab
     if (!this.getCustomer) {
@@ -136,6 +140,7 @@ export class CustomersComponent implements OnInit {
   addCustomer(f: {
     reset: () => void;
   }, event: Event) {
+    event.preventDefault();
     this.resetErrors();
     // Update customer details when there's only an existing customer ID
     // otherwise add new customer
@@ -146,7 +151,6 @@ export class CustomersComponent implements OnInit {
     let regContactNo = RegExp('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-#*0-9]*$', 'i');
     let regFaxNo = RegExp('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-#*0-9]*$', 'i');
     if (!this.getCustomer) {
-      event.preventDefault();
       // Validation rules
       const invalidFields = !this.customer.customerKey || !this.customer.businessRegNo || !this.customer.name 
       || !this.customer.registrationDate || Object.prototype.toString.call(this.customer.registrationDate) !== '[object Object]' || !this.customer.streetName || !this.customer.buildingName 
@@ -157,6 +161,7 @@ export class CustomersComponent implements OnInit {
         this.isValid = false;
       } else {
         this.isValid = true;
+        this.submitting = true;
         this.updateProperties();
         this.customerService.store(this.customer)
         .subscribe((res: Customers[]) => {
@@ -164,6 +169,7 @@ export class CustomersComponent implements OnInit {
           this.customers = res;
           // Inform the user
           this.success = 'Created successfully';
+          this.submitting = false;
           // Reset the form
           f.reset();
         }, (err) => {
@@ -173,7 +179,6 @@ export class CustomersComponent implements OnInit {
         });
       }
     } else {
-      event.preventDefault();
       // Validation rules
       const invalidFields = !this.customer.customerKey || !this.customer.businessRegNo || !this.customer.name 
       || !this.customer.registrationDate || Object.prototype.toString.call(this.customer.registrationDate) !== '[object Object]' || !this.customer.streetName || !this.customer.buildingName 
@@ -184,6 +189,7 @@ export class CustomersComponent implements OnInit {
         this.isValidEdit = false;
       } else {
         this.isValidEdit = true;
+        this.submittingEdit = true;
         this.customer['customerId'] = this.getCustomer.customerId;
         this.updateProperties();
         this.customerService.update(this.customer)
@@ -197,6 +203,7 @@ export class CustomersComponent implements OnInit {
           this.pushGetCustomer.emit(this.listCustomers);
           // Inform the user
           this.success = 'Updated successfully';
+          this.submittingEdit = false;
           this.ref.detectChanges();
         }, (err) => {
           this.error = err;

@@ -1,5 +1,4 @@
 .header-container {
-    height: 40px;
     background-color: #fff;
     -webkit-box-shadow: 0px 2px 5px 0px #cfcfcf;
     -moz-box-shadow: 0px 2px 5px 0px #cfcfcf;
@@ -7,17 +6,18 @@
 }
 
 .header-container .section {
+    display: flex;
+    align-items: center;
     margin-right: 0;
 }
 
 .header-container .logo {
-    width: 192px;
-    margin-top: 10px;
+    min-width: 100%;
+    margin-left: 20px;
 }
 
 .header-container .customer-name, .header-container .username {
     font-weight: bold;
-    margin-top: 10px
 }
 
 .header-container .customer-name {
@@ -31,5 +31,6 @@
 
 .header-container .logo img {
     margin: auto;
-    display: block;
+    max-width: 30%;
+    height: auto;
 }

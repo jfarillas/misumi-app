@@ -24,6 +24,7 @@ import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSortModule, MatTableModule } from '@angular/material';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { Nl2BrPipeModule } from 'nl2br-pipe';
 import { ListCustomersPipe } from './customers/list-customers/list-customers.pipe';
 import { DetailsCustomersComponent } from './customers/details-customers/details-customers.component';
 import { TabsComponent } from './tabs/tabs.component';
@@ -37,11 +38,16 @@ import { ReceivablesTodayComponent } from './receivables/receivables-today/recei
 import { OverdueInvoicesComponent } from './overdue/overdue-invoices/overdue-invoices.component';
 import { DetailsReceivablesComponent } from './receivables/details-receivables/details-receivables.component';
 import { DetailsOverdueComponent } from './overdue/details-overdue/details-overdue.component';
+import { PasswordResetRequestComponent } from './forgot-password/password-reset-request.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './forgot-password/password-reset.component';
 
 const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'accounts', component: AccountsComponent },
+  { path: 'forgot-password/request', component: ForgotPasswordComponent },
+  { path: 'forgot-password/update/:name/:security-pin', component: ForgotPasswordComponent },
     { path: '', component: HomeComponent,canActivate: [AuthguardService],
     children: [
         // { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -81,6 +87,9 @@ const routes: Routes = [
     OverdueInvoicesComponent,
     DetailsReceivablesComponent,
     DetailsOverdueComponent,
+    PasswordResetRequestComponent,
+    ForgotPasswordComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +105,8 @@ const routes: Routes = [
     MatTableModule,
     MatSortModule,
     BrowserAnimationsModule,
-    ChartsModule
+    ChartsModule,
+    Nl2BrPipeModule
   ],
   providers: [
     AuthenticationService,
