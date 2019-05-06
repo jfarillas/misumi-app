@@ -147,7 +147,7 @@ export class CustomersComponent implements OnInit {
     // Fields checker
     let regUnitNo = RegExp('^[a-zA-Z0-9#-]+$', 'i');
     let regPostalCode = RegExp('^[a-zA-Z0-9]+$', 'i');
-    let regEmail = RegExp('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$', 'i');
+    let regEmail = /^([a-z0-9_\-\.]+)@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
     let regContactNo = RegExp('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-#*0-9]*$', 'i');
     let regFaxNo = RegExp('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-#*0-9]*$', 'i');
     if (!this.getCustomer) {

@@ -67,13 +67,14 @@ export class AccountsComponent implements OnInit {
     //this.account.designation = this.frmDesignationControl.value;
 
     // Email and Contact No. checker
-    let regEmail = RegExp('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$', 'i');
+    let regEmail = /^([a-z0-9_\-\.]+)@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
     let regContactNo = RegExp('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-#*0-9]*$', 'i');
     event.preventDefault();
     // Validation rules
     const invalidFields = !this.account.name || !this.account.password || !this.account.email 
     || !regEmail.test(this.account.email) || !this.account.contactNo || !regContactNo.test(this.account.contactNo);
     if (invalidFields) {
+      event.preventDefault();
       this.isValid = false;
     } else {
       console.log(this.account.designation);

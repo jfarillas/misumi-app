@@ -20,13 +20,13 @@
       </div>
     <div class="form-group">
       <label>Email address</label>
-      <input type="text"
+      <input type="email"
             class="form-control"
             name="email"
             [(ngModel)]="account.email"
             #email="ngModel"
             required
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+            pattern="^([a-z0-9_\-\.]+)@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$">
         <div *ngIf="!account.email && !isValid" class="required-field">E-mail is required.</div>
         <div *ngIf="email.errors?.pattern && (email.touched || email.dirty)" class="required-field">Invalid E-mail.</div>
     </div>

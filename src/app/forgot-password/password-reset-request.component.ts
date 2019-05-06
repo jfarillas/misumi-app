@@ -40,7 +40,7 @@ export class PasswordResetRequestComponent implements OnInit {
     event.preventDefault();
     this.resetErrors();
     //Fields checker
-    let regEmail = RegExp('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$', 'i');
+    let regEmail = /^([a-z0-9_\-\.]+)@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
     const invalidFields = !this.passwordResetRequest.email || !regEmail.test(this.passwordResetRequest.email);
     if (invalidFields) {
       this.isValid = false;
@@ -59,7 +59,6 @@ export class PasswordResetRequestComponent implements OnInit {
             f.reset();
             this.submitting = false;
           } else {
-
             this.SendFailErrors('custom');
           }
         }, (err) => {
